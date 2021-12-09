@@ -10,7 +10,7 @@ class _MoreScreenState extends State<MoreScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
+      body: Column(
         children: [
           SizedBox(
             height: 60,

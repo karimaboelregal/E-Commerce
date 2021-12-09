@@ -37,9 +37,9 @@ class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
+      body: Column(
         children: [
-          SizedBox(height: 30,),
+          SizedBox(height: 60,),
           Center(child: Column(children: [
             Icon(
               Icons.shopping_basket,

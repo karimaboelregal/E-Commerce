@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'HomeScreen.dart';
+import 'HomeScreen/HomeScreen.dart';
 import 'categories.dart';
 import 'more.dart';
 import 'more_screens/Register.dart';

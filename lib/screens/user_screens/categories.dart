@@ -39,7 +39,6 @@ class Categories extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(height: 60,),
           Center(child: Column(children: [
             Icon(
               Icons.shopping_basket,
@@ -52,7 +51,7 @@ class Categories extends StatelessWidget {
             ),
 
           ],)),
-          SizedBox(height: 50,),
+          SizedBox(height: 20,),
           Container(
             height: 400,
             child: GridView.builder(

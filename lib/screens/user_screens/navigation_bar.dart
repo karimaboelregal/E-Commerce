@@ -27,6 +27,11 @@ class aNavigationBar extends State<NavigationBar> {
       valueListenable: globals.currentTab,
       builder: (BuildContext context, value, Widget? child) {
         return Scaffold(
+          appBar: AppBar(backgroundColor: Colors.transparent,elevation: 0,automaticallyImplyLeading: false,actions: [
+            IconButton(icon: Icon(Icons.notifications), color: Color(0xff0088ff), onPressed: () {},),
+            IconButton(icon: Icon(Icons.shopping_cart), color: Color(0xff0088ff), onPressed: () {},),
+            SizedBox(width: 10,)
+          ],),
           bottomNavigationBar: BottomNavigationBar(
             selectedItemColor: Color(0xff0088ff),
             type: BottomNavigationBarType.fixed,
@@ -57,7 +62,7 @@ class aNavigationBar extends State<NavigationBar> {
               ),
             ],
           ),
-          body: IndexedStack(index: globals.currentTab.value, children: _pages),
+          body: _pages[globals.currentTab.value],
         );
       }
     );

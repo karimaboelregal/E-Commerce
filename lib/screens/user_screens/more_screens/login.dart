@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../globals.dart' as globals;
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  FocusNode myFocusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,5 +53,11 @@ class Login extends StatelessWidget {
         ),
       ),
     );
+  }
+  void dispose() {
+    // Clean up the focus node when the Form is disposed.
+    myFocusNode.dispose();
+
+    super.dispose();
   }
 }

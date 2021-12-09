@@ -2,30 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../globals.dart' as globals;
 
-class Login extends StatefulWidget {
-  @override
-  State<Login> createState() => _LoginState();
-}
-
-class _LoginState extends State<Login> {
-  FocusNode myFocusNode = FocusNode();
-
+class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Visibility(
-              visible: false,
-              child: WillPopScope(
-                  onWillPop: () {
-                    globals.currentTab.value = 3;
-                    return Future.value(false);
-                  },
-                  child: Text('')),
-            ),
-            const SizedBox(height: 60,),
             Center(
                 child: Column(
               children: const [
@@ -48,16 +31,17 @@ class _LoginState extends State<Login> {
             Container(width: MediaQuery.of(context).size.width - 50, child: TextField(),),
             SizedBox(height:20),
             Container(width: 100, child: ElevatedButton(onPressed: () {}, child: Text("Login"))),
-            Text("Dont have an account yet? Click here to signup")
+            Text("Dont have an account yet? Click here to signup"),
+            WillPopScope(
+                onWillPop: () {
+                  print("hi");
+                  globals.currentTab.value = 3;
+                  return Future.value(false);
+                },
+                child: Text('')),
           ],
         ),
       ),
     );
-  }
-  void dispose() {
-    // Clean up the focus node when the Form is disposed.
-    myFocusNode.dispose();
-
-    super.dispose();
   }
 }

@@ -1,5 +1,5 @@
-import 'package:e_commerce1/screens/HomeScreen.dart';
-import 'package:e_commerce1/screens/navigation_bar.dart';
+import 'package:e_commerce1/screens/user_screens/more_screens/login.dart';
+import 'package:e_commerce1/screens/user_screens/navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +11,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "Navigation": (context) => NavigationBar()
+        "Navigation": (context) => NavigationBar(),
+        "/login": (context) => Login(),
       },
       title: 'Flutter Demo',
       theme: ThemeData(

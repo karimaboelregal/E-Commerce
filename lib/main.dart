@@ -3,6 +3,8 @@ import 'package:e_commerce1/screens/user_screens/navigation_bar.dart';
 import 'package:e_commerce1/size_config.dart';
 import 'package:flutter/material.dart';
 
+import 'screens/user_screens/cart/cart_screen.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -15,6 +17,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "Navigation": (context) => NavigationBar(),
         "/login": (context) => Login(),
+        "/cart":(context)=>CartScreen(),
       },
       title: 'Flutter Demo',
       theme: ThemeData(

@@ -1,5 +1,7 @@
+import 'package:e_commerce1/screens/user_screens/orders.dart';
+import 'package:e_commerce1/screens/user_screens/products.dart';
 import 'package:flutter/material.dart';
-import 'HomeScreen.dart';
+import 'HomeScreen/HomeScreen.dart';
 import 'categories.dart';
 import 'more.dart';
 import 'more_screens/Register.dart';
@@ -7,6 +9,8 @@ import 'more_screens/contact_us.dart';
 import 'more_screens/login.dart';
 import 'more_screens/products.dart';
 import 'globals.dart' as globals;
+
+import 'cart/cart_screen.dart';
 
 class NavigationBar extends StatefulWidget {
   @override
@@ -21,7 +25,8 @@ class aNavigationBar extends State<NavigationBar> {
     Categories(),
     MoreScreen(),
     Login(),
-    Register()
+    Register(),
+    Orders()
   ];
   @override
   Widget build(BuildContext context) {
@@ -29,9 +34,10 @@ class aNavigationBar extends State<NavigationBar> {
       valueListenable: globals.currentTab,
       builder: (BuildContext context, value, Widget? child) {
         return Scaffold(
-          appBar: AppBar(backgroundColor: Colors.transparent,elevation: 0,automaticallyImplyLeading: false,actions: [
+          appBar: (globals.currentTab.value >= 3)? null:AppBar(backgroundColor: Colors.transparent,elevation: 0,automaticallyImplyLeading: false,actions: [
+            Container(width: 250,child: TextField()),
             IconButton(icon: Icon(Icons.notifications), color: Color(0xff0088ff), onPressed: () {},),
-            IconButton(icon: Icon(Icons.shopping_cart), color: Color(0xff0088ff), onPressed: () {},),
+            IconButton(icon: Icon(Icons.shopping_cart), color: Color(0xff0088ff), onPressed: () {Navigator.pushNamed(context, CartScreen.routeName);},),
             SizedBox(width: 10,)
           ],),
           bottomNavigationBar: BottomNavigationBar(

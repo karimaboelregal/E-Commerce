@@ -9,6 +9,7 @@ class Login extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(height: 80),
             Center(
                 child: Column(
               children: const [
@@ -23,15 +24,41 @@ class Login extends StatelessWidget {
                 ),
               ],
             )),
-            const SizedBox(height: 60,),
+            const SizedBox(
+              height: 60,
+            ),
             Center(child: Text("Username")),
-            Container(width: MediaQuery.of(context).size.width - 50, child: TextField(),),
-            SizedBox(height:20),
+            SizedBox(height: 10),
+            Container(
+              width: MediaQuery.of(context).size.width - 50,
+              child: TextFormField(
+
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.supervised_user_circle),
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter your username here',
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
             Center(child: Text("Password")),
-            Container(width: MediaQuery.of(context).size.width - 50, child: TextField(),),
-            SizedBox(height:20),
-            Container(width: 100, child: ElevatedButton(onPressed: () {}, child: Text("Login"))),
-            Text("Dont have an account yet? Click here to signup"),
+            SizedBox(height: 10),
+            Container(
+              width: MediaQuery.of(context).size.width - 50,
+              child: TextFormField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  hintText: "****",
+                  prefixIcon: Icon(Icons.security_rounded),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            Container(
+                width: 100,
+                child: ElevatedButton(onPressed: () {}, child: Text("Login"))),
+            InkWell(onTap: () {globals.currentTab.value = 5;}, child: Container(height: 30, width: 300, child: Center(child: Text("Dont have an account yet? Click here to signup")))),
             WillPopScope(
                 onWillPop: () {
                   print("hi");

@@ -2,7 +2,7 @@ import 'package:e_commerce1/screens/user_screens/more_screens/login.dart';
 import 'package:e_commerce1/screens/user_screens/navigation_bar.dart';
 import 'package:e_commerce1/size_config.dart';
 import 'package:flutter/material.dart';
-
+import 'screens/user_screens/notifications//notifications_screen.dart';
 import 'screens/user_screens/cart/cart_screen.dart';
 
 void main() {
@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
         "Navigation": (context) => Navigationbar(),
         "/login": (context) => Login(),
         "/cart":(context)=>CartScreen(),
+        "/notification":(context)=>NotificationScreen(),
       },
       title: 'Flutter Demo',
       theme: ThemeData(

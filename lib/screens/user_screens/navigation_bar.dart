@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'HomeScreen.dart';
+import 'HomeScreen/HomeScreen.dart';
 import 'categories.dart';
 import 'more.dart';
 import 'more_screens/Register.dart';
 import 'more_screens/login.dart';
 import 'globals.dart' as globals;
+
+import 'cart/cart_screen.dart';
 
 class NavigationBar extends StatefulWidget {
   @override
@@ -29,7 +31,7 @@ class aNavigationBar extends State<NavigationBar> {
         return Scaffold(
           appBar: (globals.currentTab.value >= 3)? null:AppBar(backgroundColor: Colors.transparent,elevation: 0,automaticallyImplyLeading: false,actions: [
             IconButton(icon: Icon(Icons.notifications), color: Color(0xff0088ff), onPressed: () {},),
-            IconButton(icon: Icon(Icons.shopping_cart), color: Color(0xff0088ff), onPressed: () {},),
+            IconButton(icon: Icon(Icons.shopping_cart), color: Color(0xff0088ff), onPressed: () {Navigator.pushNamed(context, CartScreen.routeName);},),
             SizedBox(width: 10,)
           ],),
           bottomNavigationBar: BottomNavigationBar(

@@ -8,19 +8,23 @@ class PopularProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-         Padding(
-          padding:
-          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child:  Row(
-            children:[Text('Popular Products',
-                style: TextStyle(
-                  fontSize: getProportionateScreenWidth(18),
-                  color: Colors.black,
-                )
-            ),]
-          ),
+
+        Row(
+          children: [
+            Padding(
+              padding:
+              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+              child:
+              Text('Best Products',
+                  style: TextStyle(
+                    fontSize: getProportionateScreenWidth(18),
+                    color: Colors.black,
+                  )
+              ),
+            ),
+          ],
         ),
-        SizedBox(height: getProportionateScreenWidth(20)),
+    SizedBox(height: getProportionateScreenWidth(20)),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
@@ -31,8 +35,7 @@ class PopularProducts extends StatelessWidget {
                   if (dummyProducts[index].isPopular)
                     return ProductCard(product: dummyProducts[index]);
 
-                  return SizedBox
-                      .shrink(); // here by default width and height is 0
+                  return SizedBox.shrink(); // here by default width and height is 0
                 },
               ),
               SizedBox(width: getProportionateScreenWidth(20)),
@@ -69,7 +72,7 @@ class ProductCard extends StatelessWidget {
               AspectRatio(
                 aspectRatio: 1.02,
                 child: Container(
-                  padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+                  padding: EdgeInsets.all(getProportionateScreenWidth(10)),
                   decoration: BoxDecoration(
                     //leave it at 0.0 for now la7ad matgeeb swar ndeefa mafhash background
                     color: kSecondaryColor.withOpacity(0.0),

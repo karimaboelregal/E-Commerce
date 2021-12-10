@@ -37,54 +37,55 @@ class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(height: 60,),
-          Center(child: Column(children: [
-            Icon(
-              Icons.shopping_basket,
-              size: 65.0,
-              color: Color(0xff0088ff),
-            ),
-            Text(
-              "Ecommerce",
-              style: TextStyle(color: Color(0xff0088ff), fontSize: 35.0),
-            ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Center(child: Column(children: [
+              Icon(
+                Icons.shopping_basket,
+                size: 65.0,
+                color: Color(0xff0088ff),
+              ),
+              Text(
+                "Ecommerce",
+                style: TextStyle(color: Color(0xff0088ff), fontSize: 35.0),
+              ),
 
-          ],)),
-          SizedBox(height: 50,),
-          Container(
-            height: 400,
-            child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisSpacing: 20,
-                  crossAxisCount: 2,
+            ],)),
+            SizedBox(height: 20,),
+            Container(
+              height: 400,
+              child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisSpacing: 20,
+                    crossAxisCount: 2,
 
-                ),
-                itemCount: categories.length,
-                itemBuilder: (BuildContext ctx, index) {
-                  return Card(
-                    child: InkWell(
-                      onTap: () {},
-                      child: Column(
-                        children: [
-                          Image.network(
-                            categories[index]["categoryImage"]!,
-                            height: 150,
-                            width: 250,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(categories[index]["categoryName"]!),
-                        ],
+                  ),
+                  itemCount: categories.length,
+                  itemBuilder: (BuildContext ctx, index) {
+                    return Card(
+                      child: InkWell(
+                        onTap: () {},
+                        child: Column(
+                          children: [
+                            Image.network(
+                              categories[index]["categoryImage"]!,
+                              height: 150,
+                              width: 250,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(categories[index]["categoryName"]!),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                }),
-          ),
+                    );
+                  }),
+            ),
 
-        ],
+          ],
+        ),
       ),
     );
   }

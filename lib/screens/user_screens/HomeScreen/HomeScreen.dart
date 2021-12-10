@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
         body: SingleChildScrollView(
           child: Column(
-              children: [SizedBox(height: getProportionateScreenWidth(20)),DiscountBanner(),Categories(),SpecialOffers(), SizedBox(height: getProportionateScreenWidth(20)),PopularProducts()],
+              children: [SizedBox(height: getProportionateScreenWidth(20)),DiscountBanner(),Categories(),SpecialOffers(), SizedBox(height: getProportionateScreenWidth(20)),PopularProducts(),SizedBox(height: getProportionateScreenWidth(20))],
           ),
         )
     );

@@ -1,25 +1,32 @@
+import 'package:e_commerce1/screens/user_screens/orders.dart';
+import 'package:e_commerce1/screens/user_screens/products.dart';
 import 'package:flutter/material.dart';
-import 'HomeScreen.dart';
+import 'HomeScreen/HomeScreen.dart';
 import 'categories.dart';
 import 'more.dart';
 import 'more_screens/Register.dart';
+import 'more_screens/contact_us.dart';
 import 'more_screens/login.dart';
+import 'more_screens/products.dart';
 import 'globals.dart' as globals;
 
-class NavigationBar extends StatefulWidget {
+import 'cart/cart_screen.dart';
+
+class Navigationbar extends StatefulWidget {
   @override
-  State<NavigationBar> createState() => aNavigationBar();
+  State<Navigationbar> createState() => aNavigationBar();
 }
 
-class aNavigationBar extends State<NavigationBar> {
+class aNavigationBar extends State<Navigationbar> {
 
   final List<Widget> _pages = [
     HomeScreen(),
-    HomeScreen(),
+    ProductsScreen(),
     Categories(),
     MoreScreen(),
     Login(),
-    Register()
+    Register(),
+    Orders()
   ];
   @override
   Widget build(BuildContext context) {
@@ -27,6 +34,13 @@ class aNavigationBar extends State<NavigationBar> {
       valueListenable: globals.currentTab,
       builder: (BuildContext context, value, Widget? child) {
         return Scaffold(
+          appBar: (globals.currentTab.value >= 3)? null:AppBar(backgroundColor: Colors.transparent,elevation: 0,actions: [
+            IconButton(icon: Icon(Icons.account_circle_rounded), color: Color(0xff0088ff), onPressed: () {},),
+            Container (padding: EdgeInsets.symmetric(vertical: 12.0),width: 230,child: TextField(autofocus: false,decoration: InputDecoration(prefixIcon: Icon(Icons.search),border: OutlineInputBorder( borderSide: BorderSide(color: Colors.blueAccent,),borderRadius: BorderRadius.circular(5.0),), isDense: true,contentPadding: EdgeInsets.all(8),   hintText: 'Type to search',hintStyle: TextStyle(color: Colors.black45,fontSize: 12,fontStyle: FontStyle.italic,)))),
+            IconButton(icon: Icon(Icons.notifications), color: Color(0xff0088ff), onPressed: () {},),
+            IconButton(icon: Icon(Icons.shopping_cart), color: Color(0xff0088ff), onPressed: () {Navigator.pushNamed(context, CartScreen.routeName);},),
+            SizedBox(width: 25,)
+          ],),
           bottomNavigationBar: BottomNavigationBar(
             selectedItemColor: Color(0xff0088ff),
             type: BottomNavigationBarType.fixed,
@@ -57,7 +71,7 @@ class aNavigationBar extends State<NavigationBar> {
               ),
             ],
           ),
-          body: IndexedStack(index: globals.currentTab.value, children: _pages),
+          body: _pages[globals.currentTab.value],
         );
       }
     );

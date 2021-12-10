@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Categories extends StatelessWidget {
+class Products extends StatelessWidget {
   final categories = [
     {
       "categoryName": "Mobile phones",
@@ -40,19 +40,23 @@ class Categories extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Center(child: Column(children: [
-              Icon(
-                Icons.shopping_basket,
-                size: 65.0,
-                color: Color(0xff0088ff),
-              ),
-              Text(
-                "Ecommerce",
-                style: TextStyle(color: Color(0xff0088ff), fontSize: 35.0),
-              ),
-
-            ],)),
-            SizedBox(height: 20,),
+            Center(
+                child: Column(
+              children: [
+                Icon(
+                  Icons.shopping_basket,
+                  size: 65.0,
+                  color: Color(0xff0088ff),
+                ),
+                Text(
+                  "Ecommerce",
+                  style: TextStyle(color: Color(0xff0088ff), fontSize: 35.0),
+                ),
+              ],
+            )),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               height: 400,
               child: GridView.builder(
@@ -63,6 +67,7 @@ class Categories extends StatelessWidget {
                   itemCount: categories.length,
                   itemBuilder: (BuildContext ctx, index) {
                     return Card(
+                      semanticContainer: true,
                       child: InkWell(
                         onTap: () {},
                         child: Column(
@@ -75,14 +80,26 @@ class Categories extends StatelessWidget {
                             SizedBox(
                               height: 10,
                             ),
-                            Text(categories[index]["categoryName"]!),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(categories[index]["categoryName"]!),
+                                  ElevatedButton(
+
+                                    onPressed: () {},
+                                    child: Icon(Icons.add),
+                                  )
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
                     );
                   }),
             ),
-
           ],
         ),
       ),

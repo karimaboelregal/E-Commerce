@@ -1,3 +1,4 @@
+import 'package:e_commerce1/screens/user_screens/products.dart';
 import 'package:flutter/material.dart';
 import 'HomeScreen/HomeScreen.dart';
 import 'categories.dart';
@@ -17,7 +18,7 @@ class aNavigationBar extends State<NavigationBar> {
 
   final List<Widget> _pages = [
     HomeScreen(),
-    HomeScreen(),
+    Products(),
     Categories(),
     MoreScreen(),
     Login(),
@@ -30,6 +31,7 @@ class aNavigationBar extends State<NavigationBar> {
       builder: (BuildContext context, value, Widget? child) {
         return Scaffold(
           appBar: (globals.currentTab.value >= 3)? null:AppBar(backgroundColor: Colors.transparent,elevation: 0,automaticallyImplyLeading: false,actions: [
+            Container(width: 250,child: TextField()),
             IconButton(icon: Icon(Icons.notifications), color: Color(0xff0088ff), onPressed: () {},),
             IconButton(icon: Icon(Icons.shopping_cart), color: Color(0xff0088ff), onPressed: () {Navigator.pushNamed(context, CartScreen.routeName);},),
             SizedBox(width: 10,)

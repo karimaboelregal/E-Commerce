@@ -28,6 +28,7 @@ class Login extends StatelessWidget {
               height: 60,
             ),
             Center(child: Text("Username")),
+            SizedBox(height: 10),
             Container(
               width: MediaQuery.of(context).size.width - 50,
               child: TextFormField(
@@ -41,10 +42,13 @@ class Login extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Center(child: Text("Password")),
+            SizedBox(height: 10),
             Container(
               width: MediaQuery.of(context).size.width - 50,
               child: TextFormField(
+                obscureText: true,
                 decoration: InputDecoration(
+                  hintText: "****",
                   prefixIcon: Icon(Icons.security_rounded),
                   border: OutlineInputBorder(),
                 ),
@@ -54,7 +58,7 @@ class Login extends StatelessWidget {
             Container(
                 width: 100,
                 child: ElevatedButton(onPressed: () {}, child: Text("Login"))),
-            Text("Dont have an account yet? Click here to signup"),
+            InkWell(onTap: () {globals.currentTab.value = 5;}, child: Container(height: 30, width: 300, child: Center(child: Text("Dont have an account yet? Click here to signup")))),
             WillPopScope(
                 onWillPop: () {
                   print("hi");

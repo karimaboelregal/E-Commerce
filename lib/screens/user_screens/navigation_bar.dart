@@ -1,3 +1,4 @@
+import 'package:e_commerce1/screens/user_screens/orders.dart';
 import 'package:e_commerce1/screens/user_screens/products.dart';
 import 'package:flutter/material.dart';
 import 'HomeScreen/HomeScreen.dart';
@@ -22,7 +23,8 @@ class aNavigationBar extends State<NavigationBar> {
     Categories(),
     MoreScreen(),
     Login(),
-    Register()
+    Register(),
+    Orders()
   ];
   @override
   Widget build(BuildContext context) {

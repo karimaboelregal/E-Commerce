@@ -5,7 +5,6 @@ import 'more.dart';
 import 'more_screens/Register.dart';
 import 'more_screens/login.dart';
 import 'more_screens/products.dart';
-import 'more_screens/products_detail.dart';
 import 'globals.dart' as globals;
 
 class NavigationBar extends StatefulWidget {
@@ -17,7 +16,7 @@ class aNavigationBar extends State<NavigationBar> {
 
   final List<Widget> _pages = [
     HomeScreen(),
-    ProductDetailPage(),
+    ProductsScreen(),
     Categories(),
     MoreScreen(),
     Login(),

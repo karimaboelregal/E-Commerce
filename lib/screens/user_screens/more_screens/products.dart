@@ -1,3 +1,4 @@
+import 'package:e_commerce1/screens/user_screens/more_screens/products_detail.dart';
 import 'package:flutter/material.dart';
 import '../../../widgets/appbarwidget.dart';
 
@@ -60,6 +61,11 @@ class GridTilesProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ProductDetailPage()),
+        );
       },
       child: Container(
         padding: EdgeInsets.only(top: 5),

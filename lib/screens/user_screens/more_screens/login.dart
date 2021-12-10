@@ -9,6 +9,7 @@ class Login extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(height: 80),
             Center(
                 child: Column(
               children: const [

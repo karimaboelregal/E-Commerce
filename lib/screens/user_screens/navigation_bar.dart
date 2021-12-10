@@ -27,7 +27,7 @@ class aNavigationBar extends State<NavigationBar> {
       valueListenable: globals.currentTab,
       builder: (BuildContext context, value, Widget? child) {
         return Scaffold(
-          appBar: AppBar(backgroundColor: Colors.transparent,elevation: 0,automaticallyImplyLeading: false,actions: [
+          appBar: (globals.currentTab.value >= 3)? null:AppBar(backgroundColor: Colors.transparent,elevation: 0,automaticallyImplyLeading: false,actions: [
             IconButton(icon: Icon(Icons.notifications), color: Color(0xff0088ff), onPressed: () {},),
             IconButton(icon: Icon(Icons.shopping_cart), color: Color(0xff0088ff), onPressed: () {},),
             SizedBox(width: 10,)

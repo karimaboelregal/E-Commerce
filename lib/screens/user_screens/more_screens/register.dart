@@ -8,13 +8,14 @@ class Register extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
+          SizedBox(height: 80),
+          Center(child: Text("register")),
           WillPopScope(
               onWillPop: () {
                 globals.currentTab.value = 3;
                 return Future.value(false);
               },
               child: Text('')),
-          Center(child: Text("register")),
         ],
       ),
     );

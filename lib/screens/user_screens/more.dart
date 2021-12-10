@@ -40,7 +40,9 @@ class _MoreScreenState extends State<MoreScreen> {
           ListTile(
             leading: const Icon(Icons.contact_mail, color: Color(0xff0088ff)),
             title: const Text("Contact us"),
-            onTap: () {},
+            onTap: () {
+              globals.currentTab.value = 3;
+            },
           ),
           ListTile(
             leading: const Icon(Icons.login, color: Color(0xff0088ff)),

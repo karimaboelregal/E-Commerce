@@ -52,10 +52,18 @@ class _MoreScreenState extends State<MoreScreen> {
           ),
           ListTile(
             leading:
-                const Icon(Icons.app_registration, color: Color(0xff0088ff)),
+            const Icon(Icons.app_registration, color: Color(0xff0088ff)),
             title: const Text("Register"),
             onTap: () {
               globals.currentTab.value = 5;
+            },
+          ),
+          ListTile(
+            leading:
+            const Icon(Icons.reorder, color: Color(0xff0088ff)),
+            title: const Text("Your orders"),
+            onTap: () {
+              globals.currentTab.value = 6;
             },
           ),
         ],

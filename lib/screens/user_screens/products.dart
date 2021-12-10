@@ -82,16 +82,15 @@ class Products extends StatelessWidget {
                             ),
                             Expanded(
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(categories[index]["categoryName"]!),
                                   ElevatedButton(
-                                      onPressed: () {}, child: Row(
-                                        children: [
-                                          Icon(Icons.add),
-                                          Text("add"),
-                                        ],
-                                      ))
+
+                                    onPressed: () {},
+                                    child: Icon(Icons.add),
+                                  )
                                 ],
                               ),
                             ),

@@ -24,14 +24,36 @@ class Login extends StatelessWidget {
                 ),
               ],
             )),
-            const SizedBox(height: 60,),
+            const SizedBox(
+              height: 60,
+            ),
             Center(child: Text("Username")),
-            Container(width: MediaQuery.of(context).size.width - 50, child: TextField(),),
-            SizedBox(height:20),
+            Container(
+              width: MediaQuery.of(context).size.width - 50,
+              child: TextFormField(
+
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.supervised_user_circle),
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter your username here',
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
             Center(child: Text("Password")),
-            Container(width: MediaQuery.of(context).size.width - 50, child: TextField(),),
-            SizedBox(height:20),
-            Container(width: 100, child: ElevatedButton(onPressed: () {}, child: Text("Login"))),
+            Container(
+              width: MediaQuery.of(context).size.width - 50,
+              child: TextFormField(
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.security_rounded),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            Container(
+                width: 100,
+                child: ElevatedButton(onPressed: () {}, child: Text("Login"))),
             Text("Dont have an account yet? Click here to signup"),
             WillPopScope(
                 onWillPop: () {

@@ -12,12 +12,12 @@ import 'globals.dart' as globals;
 
 import 'cart/cart_screen.dart';
 
-class NavigationBar extends StatefulWidget {
+class Navigationbar extends StatefulWidget {
   @override
-  State<NavigationBar> createState() => aNavigationBar();
+  State<Navigationbar> createState() => aNavigationBar();
 }
 
-class aNavigationBar extends State<NavigationBar> {
+class aNavigationBar extends State<Navigationbar> {
 
   final List<Widget> _pages = [
     HomeScreen(),
@@ -35,7 +35,8 @@ class aNavigationBar extends State<NavigationBar> {
       builder: (BuildContext context, value, Widget? child) {
         return Scaffold(
           appBar: (globals.currentTab.value >= 3)? null:AppBar(backgroundColor: Colors.transparent,elevation: 0,automaticallyImplyLeading: false,actions: [
-            Container(width: 250,child: TextField()),
+            IconButton(icon: Icon(Icons.account_circle_rounded), color: Color(0xff0088ff), onPressed: () {},),
+            Container (padding: EdgeInsets.symmetric(vertical: 12.0),width: 230,child: TextField(decoration: InputDecoration(prefixIcon: Icon(Icons.search),border: OutlineInputBorder( borderSide: BorderSide(color: Colors.blueAccent,),borderRadius: BorderRadius.circular(5.0),), isDense: true,contentPadding: EdgeInsets.all(8),   hintText: 'Type to search',hintStyle: TextStyle(color: Colors.black45,fontSize: 12,fontStyle: FontStyle.italic,)))),
             IconButton(icon: Icon(Icons.notifications), color: Color(0xff0088ff), onPressed: () {},),
             IconButton(icon: Icon(Icons.shopping_cart), color: Color(0xff0088ff), onPressed: () {Navigator.pushNamed(context, CartScreen.routeName);},),
             SizedBox(width: 10,)

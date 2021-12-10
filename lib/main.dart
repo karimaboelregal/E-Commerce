@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       routes: {
-        "Navigation": (context) => NavigationBar(),
+        "Navigation": (context) => Navigationbar(),
         "/login": (context) => Login(),
         "/cart":(context)=>CartScreen(),
       },

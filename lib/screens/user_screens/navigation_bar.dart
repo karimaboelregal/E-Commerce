@@ -3,6 +3,7 @@ import 'HomeScreen.dart';
 import 'categories.dart';
 import 'more.dart';
 import 'more_screens/Register.dart';
+import 'more_screens/contact_us.dart';
 import 'more_screens/login.dart';
 import 'more_screens/products.dart';
 import 'globals.dart' as globals;

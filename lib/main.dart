@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
           "Navigation": (context) => Navigationbar(),
           "/login": (context) => Login(),
           "/cart":(context)=>CartScreen(),
+          "/notification": (context)=>NotificationScreen()
         },
         title: 'Flutter Demo',
         theme: ThemeData(

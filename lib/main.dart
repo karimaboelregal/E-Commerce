@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       ],
       child : MaterialApp(
         routes: {
-          "Navigation": (context) => NavigationBar(),
+          "Navigation": (context) => Navigationbar(),
           "/login": (context) => Login(),
           "/cart":(context)=>CartScreen(),
         },

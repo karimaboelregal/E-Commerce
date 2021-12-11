@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
+
+
+
+
 class Product{
   final int id;
   final String title, description;
   final List<String> images;
   final List<Color> colors;
   final double rating, price;
-  final bool isFavourite, isPopular;
+  bool isFavourite, isPopular,isCart;
 
   Product({
     required this.id,
@@ -15,12 +19,16 @@ class Product{
     this.rating = 0.0,
     this.isFavourite = false,
     this.isPopular = false,
+    this.isCart = false,
     required this.title,
     required this.price,
     required this.description,
   });
 
 }
+
+
+
 
 //dummy Products
 List<Product> dummyProducts = [
@@ -40,6 +48,7 @@ List<Product> dummyProducts = [
     description: description,
     rating: 4.8,
     isFavourite: true,
+    isCart:false,
     isPopular: true,
   ),
   Product(
@@ -58,6 +67,7 @@ List<Product> dummyProducts = [
     description: description,
     rating: 4.1,
     isPopular: true,
+    isCart:false,
   ),
   Product(
     id: 3,
@@ -75,6 +85,7 @@ List<Product> dummyProducts = [
     description: description,
     rating: 4.1,
     isFavourite: true,
+    isCart:false,
     isPopular: true,
   ),
   Product(
@@ -93,6 +104,8 @@ List<Product> dummyProducts = [
     description: description,
     rating: 4.1,
     isFavourite: true,
+    isCart:false,
+    isPopular:true
   ),
 ];
 

@@ -9,7 +9,7 @@ import 'more_screens/contact_us.dart';
 import 'more_screens/login.dart';
 import 'more_screens/products.dart';
 import 'globals.dart' as globals;
-
+import 'package:e_commerce1/size_config.dart';
 import 'cart/cart_screen.dart';
 
 class Navigationbar extends StatefulWidget {
@@ -36,12 +36,12 @@ class aNavigationBar extends State<Navigationbar> {
         return Scaffold(
           appBar: (globals.currentTab.value >= 3)? null:AppBar(backgroundColor: Colors.transparent,elevation: 0,actions: [
             IconButton(icon: Icon(Icons.account_circle_rounded), color: Color(0xff0088ff), onPressed: () {},),
-            SizedBox(width: 10,),
+            SizedBox(width: 2,),
             Container (padding: EdgeInsets.symmetric(vertical: 12.0),width: 230,child: TextField(autofocus: false,decoration: InputDecoration(prefixIcon: Icon(Icons.search),border: OutlineInputBorder( borderSide: BorderSide(color: Colors.blueAccent,),borderRadius: BorderRadius.circular(5.0),), isDense: true,contentPadding: EdgeInsets.all(8),   hintText: 'Type to search',hintStyle: TextStyle(color: Colors.black45,fontSize: 12,fontStyle: FontStyle.italic,)))),
-            SizedBox(width: 10,),
+
             IconButton(icon: Icon(Icons.notifications), color: Color(0xff0088ff), onPressed: () {},),
             IconButton(icon: Icon(Icons.shopping_cart), color: Color(0xff0088ff), onPressed: () {Navigator.pushNamed(context, CartScreen.routeName);},),
-            SizedBox(width: 10,)
+            SizedBox(width: 2,)
           ],),
           bottomNavigationBar: BottomNavigationBar(
             selectedItemColor: Color(0xff0088ff),

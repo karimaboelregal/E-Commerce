@@ -1,16 +1,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:e_commerce1/size_config.dart';
-
+import 'package:e_commerce1/constants.dart';
 class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> categories = [
-      {"icon": "assets/icons/Flash Icon.svg", "text": "Flash Deal"},
-      {"icon": "assets/icons/Bill Icon.svg", "text": "Bill"},
-      {"icon": "assets/icons/Game Icon.svg", "text": "Game"},
-      {"icon": "assets/icons/Gift Icon.svg", "text": "Daily Gift"},
-      {"icon": "assets/icons/Discover.svg", "text": "More"},
+      {"icon": Icons.assignment_sharp, "text": "Flash Deal"},
+      {"icon": Icons.attach_money, "text": "Bill"},
+      {"icon": Icons.videogame_asset, "text": "Game"},
+      {"icon": Icons.card_giftcard, "text": "Daily Gift"},
+      {"icon": Icons.more, "text": "More"},
     ];
     return Padding(
       padding: EdgeInsets.all(getProportionateScreenWidth(20)),
@@ -43,7 +43,8 @@ class CategoryCard extends StatelessWidget {
     required this.press,
   }) : super(key: key);
 
-  final String? icon, text;
+  final IconData? icon;
+  final String? text;
   final GestureTapCallback press;
 
   @override
@@ -55,14 +56,18 @@ class CategoryCard extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.all(getProportionateScreenWidth(15)),
+              padding: EdgeInsets.all(getProportionateScreenWidth(10)),
               height: getProportionateScreenWidth(55),
               width: getProportionateScreenWidth(55),
               decoration: BoxDecoration(
                 color: Color(0xFFFFECDF),
                 borderRadius: BorderRadius.circular(10),
               ),
-
+              child: Icon(
+                icon,
+                color: kPrimaryColor,
+                size: getProportionateScreenHeight(40),
+              ),
             ),
             SizedBox(height: 5),
             Text(text!, textAlign: TextAlign.center)

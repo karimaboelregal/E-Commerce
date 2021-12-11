@@ -16,6 +16,29 @@ class AppData {
         image: 'assets/shoe_tilt_2.png',
         category: "Trending Now"),
   ];
+  static List<Notification> notificationList = [
+    Notification(
+        id: 1,
+        name: 'Nike Air Max 200',
+        status:'pending',
+        image: 'assets/shooe_tilt_1.png',
+        category: "Trending Now"),
+    Notification(
+        id: 2,
+        name: 'Nike Air Max 97',
+        status:'arrived',
+        image: 'assets/shoe_tilt_2.png',
+        category: "Trending Now"),
+    Notification(
+        id: 2,
+        name: 'gibsonguitar',
+        status:'arrived',
+        image: 'assets/images/gibsonGuitar.png',
+        category: "Trending Now"),
+  ];
+
+
+
   static List<Product> cartList = [
     Product(
         id: 1,
@@ -92,4 +115,12 @@ class Category{
   String image ;
   bool isSelected ;
   Category({required this.id,required this.name,this.isSelected = false,required this.image});
+}
+class Notification{
+  int id;
+  String name ;
+  String category ;
+  String image ;
+  String status ;
+  Notification({required this.id,required this.name, required this.category, required this.status,required this.image});
 }

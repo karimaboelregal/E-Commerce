@@ -7,7 +7,7 @@ import 'more.dart';
 import 'more_screens/Register.dart';
 import 'more_screens/contact_us.dart';
 import 'more_screens/login.dart';
-import 'more_screens/products.dart';
+import 'ProductsScreen/products.dart';
 import 'globals.dart' as globals;
 import 'notifications/notifications_screen.dart';
 import 'package:e_commerce1/size_config.dart';

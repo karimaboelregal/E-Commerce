@@ -25,11 +25,11 @@ class Contact extends StatelessWidget {
         )),
               ContactUs(
                 textColor: Colors.white,
-                cardColor: Color(0xFF223555),
+                cardColor: Color(0xff0088ff),
                 companyColor: Color(0xFF223555),
                 email: 'ahmed@gmail.com',
                 taglineColor: Color(0xFF223555),
-                dividerColor: Color(0xFF223555),
+                dividerColor: Color(0xff0088ff),
                 emailText: "Contact via email",
                 companyName: '',
                 phoneNumber: '01015660411',

@@ -27,7 +27,8 @@ class aNavigationBar extends State<Navigationbar> {
     MoreScreen(),
     Login(),
     Register(),
-    Orders()
+    Orders(),
+    Contact()
   ];
   @override
   Widget build(BuildContext context) {

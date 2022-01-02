@@ -1,7 +1,7 @@
-
-import 'package:flutter/material.dart';
-import 'package:e_commerce1/size_config.dart';
 import 'package:e_commerce1/constants.dart';
+import 'package:e_commerce1/size_config.dart';
+import 'package:flutter/material.dart';
+
 class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -14,22 +14,17 @@ class Categories extends StatelessWidget {
     ];
     return Padding(
       padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-      child: Column(
-        children: [
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: List.generate(
-              categories.length,
-                  (index) => CategoryCard(
-                icon: categories[index]["icon"],
-                text: categories[index]["text"],
-                press: () {},
-              ),
-            ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: List.generate(
+          categories.length,
+          (index) => CategoryCard(
+            icon: categories[index]["icon"],
+            text: categories[index]["text"],
+            press: () {},
           ),
-        ],
+        ),
       ),
     );
   }
@@ -60,7 +55,7 @@ class CategoryCard extends StatelessWidget {
               height: getProportionateScreenWidth(55),
               width: getProportionateScreenWidth(55),
               decoration: BoxDecoration(
-                color: Color(0xFFFFECDF),
+                color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(

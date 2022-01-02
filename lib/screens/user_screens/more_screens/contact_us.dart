@@ -1,5 +1,6 @@
 import 'package:contactus/contactus.dart';
 import 'package:flutter/material.dart';
+import '../globals.dart' as globals;
 
 class Contact extends StatelessWidget {
   @override
@@ -38,6 +39,13 @@ class Contact extends StatelessWidget {
                 websiteText: 'Visit website',
                 facebookHandle: "httsps",
               ),
+              WillPopScope(
+                  onWillPop: () {
+                    print("hi");
+                    globals.currentTab.value = 3;
+                    return Future.value(false);
+                  },
+                  child: Text('')),
             ],
           ),
         ),

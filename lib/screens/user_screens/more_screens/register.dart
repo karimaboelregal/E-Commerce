@@ -1,8 +1,12 @@
+import 'package:e_commerce1/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
 import '../globals.dart' as globals;
 
 class Register extends StatelessWidget {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +50,7 @@ class Register extends StatelessWidget {
             Container(
               width: MediaQuery.of(context).size.width - 50,
               child: TextFormField(
+                controller: emailController,
                 decoration: InputDecoration(
                   hintText: "Enter your e-mail address here",
                   prefixIcon: Icon(Icons.email_rounded),
@@ -59,6 +64,7 @@ class Register extends StatelessWidget {
             Container(
               width: MediaQuery.of(context).size.width - 50,
               child: TextFormField(
+                controller: passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   hintText: "****",
@@ -113,11 +119,19 @@ class Register extends StatelessWidget {
             SizedBox(height: 20),
             Container(
                 width: 100,
-                child: ElevatedButton(onPressed: () {}, child: Text("Register"))),
+                child: ElevatedButton(onPressed: () async {
+                  String? resp = await context.read<AuthenticationService>().signUp(
+                      email: emailController.text.trim(),
+                      password: passwordController.text.trim());
+                  if (resp != "Signed up") {
+                    Scaffold.of(context).showSnackBar(SnackBar(content: Text(resp!),));
+                  } else {
+                    globals.currentTab.value = 4;
+                  }
+                }, child: Text("Register"))),
             WillPopScope(
                 onWillPop: () {
-                  print("hi");
-                  globals.currentTab.value = 3;
+                  globals.currentTab.value = 4;
                   return Future.value(false);
                 },
                 child: Text('')),

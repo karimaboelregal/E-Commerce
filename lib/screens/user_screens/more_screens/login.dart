@@ -1,8 +1,12 @@
+import 'package:e_commerce1/services/auth_service.dart';
 import 'package:flutter/material.dart';
-
 import '../globals.dart' as globals;
+import 'package:provider/provider.dart';
 
 class Login extends StatelessWidget {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,32 +36,38 @@ class Login extends StatelessWidget {
             Container(
               width: MediaQuery.of(context).size.width - 50,
               child: TextFormField(
-
-                decoration: InputDecoration(
+                controller: emailController,
+                decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.supervised_user_circle),
                   border: OutlineInputBorder(),
-                  hintText: 'Enter your username here',
+                  hintText: 'Enter your email here',
                 ),
               ),
             ),
             SizedBox(height: 20),
-            Center(child: Text("Password")),
-            SizedBox(height: 10),
-            Container(
+            const Center(child: Text("Password")),
+            const SizedBox(height: 10),
+            SizedBox(
               width: MediaQuery.of(context).size.width - 50,
               child: TextFormField(
                 obscureText: true,
-                decoration: InputDecoration(
+                controller: passwordController,
+                decoration: const InputDecoration(
                   hintText: "****",
                   prefixIcon: Icon(Icons.security_rounded),
                   border: OutlineInputBorder(),
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            Container(
+            const SizedBox(height: 20),
+            SizedBox(
                 width: 100,
-                child: ElevatedButton(onPressed: () {}, child: Text("Login"))),
+                child: ElevatedButton(onPressed: () async {
+                  globals.currentTab.value = 0;
+                  await context.read<AuthenticationService>().signIn(
+                      email: emailController.text.trim(),
+                      password: passwordController.text.trim());
+                }, child: Text("Login"))),
             InkWell(onTap: () {globals.currentTab.value = 5;}, child: Container(height: 30, width: 300, child: Center(child: Text("Dont have an account yet? Click here to signup")))),
             WillPopScope(
                 onWillPop: () {

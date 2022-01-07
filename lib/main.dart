@@ -37,12 +37,6 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
-          routes: {
-            "Navigation": (context) => Navigationbar(),
-            "/login": (context) => Login(),
-            "/cart": (context) => CartScreen(),
-            "/notification": (context) => NotificationScreen()
-          },
           title: 'E-commerce',
           theme: ThemeData(
             primarySwatch: Colors.blue,
@@ -52,7 +46,8 @@ class MyApp extends StatelessWidget {
               builder: (context, _snapshot) {
                 if (_snapshot.hasData) {
                   Future.delayed(Duration(seconds: 3), () {
-                    Navigator.pushReplacementNamed(context, "Navigation");
+                    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                        Navigationbar()), (Route<dynamic> route) => false);
                   });
                   return actualScreen();
                 } else if (_snapshot.hasError) {

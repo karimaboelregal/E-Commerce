@@ -19,7 +19,6 @@ class Navigationbar extends StatefulWidget {
 
 class aNavigationBar extends State<Navigationbar> {
   final _navigatorKey = GlobalKey<NavigatorState>();
-  List currentPages = [];
   int currentTab = 0;
   final List<Widget> _pages = [
     HomeScreen(),
@@ -79,26 +78,31 @@ class aNavigationBar extends State<Navigationbar> {
       body: WillPopScope(
         onWillPop: () async {
           if (_navigatorKey.currentState!.canPop()) {
-            currentPages.removeLast();
-            _navigatorKey.currentState!.pop();
-            if (currentPages.last == "home") {
-              setState(() {
-                currentTab = 0;
-              });
-            } else if (currentPages.last == "prod") {
-              setState(() {
-                currentTab = 1;
-              });
-            } else if (currentPages.last == "cate") {
-              setState(() {
-                currentTab = 2;
-              });
-            } else if (currentPages.last == "more") {
-              setState(() {
-                currentTab = 3;
-              });
-            }
-
+            bool f = false;
+            _navigatorKey.currentState!.popUntil((route) {
+              if (f == false) {
+                f = true;
+                return false;
+              }
+              if (route.settings.name == "/") {
+                setState(() {
+                  currentTab = 0;
+                });
+              } else if (route.settings.name == "/Products") {
+                setState(() {
+                  currentTab = 1;
+                });
+              } else if (route.settings.name == "/Categories") {
+                setState(() {
+                  currentTab = 2;
+                });
+              } else {
+                setState(() {
+                  currentTab = 3;
+                });
+              }
+              return true;
+            });
             return false;
           }
           return true;
@@ -112,47 +116,42 @@ class aNavigationBar extends State<Navigationbar> {
             switch (settings.name) {
               case '/':
                 if (currentTab!=0) {
+                  print("hi");
                   setState(() {
                     currentTab = 0;
                   });
                 }
                 builder = (BuildContext context) => HomeScreen();
-                currentPages.add("home");
                 break;
               case '/login':
                 setState(() {
                   currentTab = 3;
                 });
                 builder = (BuildContext context) => Login();
-                currentPages.add("more");
                 break;
               case '/more':
                 setState(() {
                   currentTab = 3;
                 });
                 builder = (BuildContext context) => MoreScreen();
-                currentPages.add("more");
                 break;
               case '/Register':
                 setState(() {
                   currentTab = 3;
                 });
                 builder = (BuildContext context) => Register();
-                currentPages.add("more");
                 break;
               case '/Products':
                 setState(() {
                   currentTab = 1;
                 });
                 builder = (BuildContext context) => ProductsScreen();
-                currentPages.add("prod");
                 break;
               case '/Categories':
                 setState(() {
                   currentTab = 2;
                 });
                 builder = (BuildContext context) => Categories();
-                currentPages.add("cate");
                 break;
               case '/cart':
                 builder = (BuildContext context) => CartScreen();
@@ -165,7 +164,6 @@ class aNavigationBar extends State<Navigationbar> {
                   currentTab = 3;
                 });
                 builder = (BuildContext context) => Contact();
-                currentPages.add("more");
                 break;
               default:
                 throw Exception('Invalid route: ${settings.name}');

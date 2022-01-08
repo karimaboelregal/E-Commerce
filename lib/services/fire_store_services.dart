@@ -1,9 +1,15 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce1/models/product.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class FireStoreServices {
   String uid = FirebaseAuth.instance.currentUser!.uid;
   CollectionReference coins = FirebaseFirestore.instance.collection('user');
+
 
   Future<Object?> addCoin(String id, double amount) async {
     try {

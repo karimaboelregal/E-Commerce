@@ -24,7 +24,24 @@ class Product{
     required this.price,
     required this.description,
   });
-
+  factory Product.fromJson(Map<dynamic, dynamic> json) {
+    return Product(
+      id: json['id'],
+      title: json['Name'],
+      description: json['desc'],
+      images: ["assets/images/gibsonGuitar.png"],
+      colors: [      const Color(0xFFF6625E),
+        const Color(0xFF836DB8),
+        const Color(0xFFDECB9C),
+        Colors.white,
+      ],
+      price: json['price'].toDouble(),
+      rating: 4.8,
+      isFavourite: true,
+      isCart:false,
+      isPopular: true,
+    );
+  }
 }
 
 

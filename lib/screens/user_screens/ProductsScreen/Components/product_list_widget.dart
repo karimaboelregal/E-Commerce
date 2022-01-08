@@ -31,7 +31,7 @@ class ProductListWidget extends StatelessWidget {
             ],
           );
         }
-        return CircularProgressIndicator();
+        return const Center(child: CircularProgressIndicator());
       }
     );
   }
@@ -68,7 +68,7 @@ class GridTilesProducts extends StatelessWidget {
             child: Center(
               child: Column(
                 children: <Widget>[
-                  Image.asset(
+                  Image.network(
                     product.images[0],
                     width: 150,
                     height: 150,

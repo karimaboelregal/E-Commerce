@@ -29,7 +29,7 @@ class Product{
       id: json['id'],
       title: json['Name'],
       description: json['desc'],
-      images: ["assets/images/gibsonGuitar.png"],
+      images: [json['image']],
       colors: [      const Color(0xFFF6625E),
         const Color(0xFF836DB8),
         const Color(0xFFDECB9C),

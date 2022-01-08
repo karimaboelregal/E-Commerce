@@ -19,7 +19,8 @@ class _MoreScreenState extends State<MoreScreen> {
       body: FutureBuilder(
         future: isSignedIn(),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
+          print(snapshot.connectionState);
+          if (snapshot.hasData || snapshot.connectionState == ConnectionState.done) {
             return Column(
               children: [
                 SizedBox(height: 80),
@@ -93,7 +94,7 @@ class _MoreScreenState extends State<MoreScreen> {
               ],
             );
           } else {
-            return CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           }
         }
       ),

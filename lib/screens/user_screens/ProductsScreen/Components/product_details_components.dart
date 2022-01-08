@@ -8,7 +8,7 @@ Widget productImage(productImage) {
 
   return Container(
       alignment: Alignment.topCenter,
-      child: Image.asset(productImage,
+      child: Image.network(productImage,
         width: 1000,
         height: 220,)
   );

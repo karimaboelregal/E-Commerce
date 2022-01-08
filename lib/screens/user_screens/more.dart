@@ -20,7 +20,6 @@ class _MoreScreenState extends State<MoreScreen> {
         future: isSignedIn(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print(snapshot.data);
             return Column(
               children: [
                 SizedBox(height: 80),

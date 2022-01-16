@@ -52,7 +52,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>{
               Column(
                 children: <Widget>[
                   _appBar(),
-                  productImage(widget.product.images[0]),
+                  productImage(widget.product.images),
                 ],
               ),
               detailWidget(widget.product)

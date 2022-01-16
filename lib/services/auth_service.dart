@@ -18,7 +18,12 @@ class AuthenticationService {
     List<Product> Products = [];
     for (var element in data.snapshot.children) {
       Map valueMap = json.decode(jsonEncode(element.value));
-      valueMap['image'] = await storage.ref('products/'+valueMap['image']).getDownloadURL();
+      List<String> imgs = [];
+      for (String image in valueMap['images']) {
+        String img = await storage.ref('products/' + image).getDownloadURL();
+        imgs.add(img);
+      }
+      valueMap["images"] = imgs;
       Products.add(Product.fromJson(valueMap));
     }
     return Products;

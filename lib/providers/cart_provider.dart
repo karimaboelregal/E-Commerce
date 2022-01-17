@@ -19,6 +19,11 @@ class Cart extends ChangeNotifier{
     notifyListeners();
   }
 
+  int getAmount() {
+    return productsSelected.length;
+  }
+
+
   @override
   String toString() {
     return 'Cart{productsSelected: $productsSelected}';

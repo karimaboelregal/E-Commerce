@@ -12,6 +12,8 @@ class AuthenticationService {
 
   final database = FirebaseDatabase.instance; //database reference object
   final storage = firebase_storage.FirebaseStorage.instance;
+
+
   Future<List<Product>> getAllProducts() async {
     var data = await database.ref("Products").once();
 
@@ -28,6 +30,9 @@ class AuthenticationService {
     }
     return Products;
   }
+
+
+
 
   Future<String?> signUp(
       {required String email, required String password}) async {

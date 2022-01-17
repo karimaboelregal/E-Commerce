@@ -1,15 +1,23 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:e_commerce1/size_config.dart';
 import 'package:e_commerce1/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:e_commerce1/providers/cart_provider.dart';
+import 'package:firebase_database/firebase_database.dart';
 
-
+final DatabaseReference database = FirebaseDatabase.instance.ref("Orders"); //database reference object
 class CheckoutCard extends StatelessWidget {
   const CheckoutCard({
     Key? key,
   }) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<Cart>(context, listen: true);
+
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: getProportionateScreenWidth(15),
@@ -74,7 +82,18 @@ class CheckoutCard extends StatelessWidget {
                 ),
                 SizedBox(
                   width: getProportionateScreenWidth(190),
-                  child: ElevatedButton(onPressed: () {}, child: Text("Check Out"))
+                  child: ElevatedButton(onPressed: () {
+                    Map<dynamic, dynamic> json = cart.toMap();
+                    print(json);
+                    //Map<String, dynamic> jsontest = {'id':1,'price':20};
+
+                    database
+                        .push()
+                        .set(json)
+                        .then((_) => print('order placed'))
+                        .catchError((error)=> print('you got an error $error'));
+                  },
+                      child: Text("Check Out"))
                 ),
               ],
             ),

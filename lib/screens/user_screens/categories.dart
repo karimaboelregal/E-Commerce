@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-
+import 'package:e_commerce1/models/category.dart';
 import 'cart/cart_screen.dart';
 import 'notifications/notifications_screen.dart';
 
 class Categories extends StatelessWidget {
   final categories = [
     {
-      "categoryName": "Mobile phones",
+      "categoryName": "Mobile",
       "categoryImage":
           "https://www.zdnet.com/a/img/resize/d8d1dd7e6aed73b3a74b956e049faf7be983ee69/2021/01/07/455aade3-9b8b-435c-927d-9d5a2891c08f/samsung-galaxy-s20-fe-best-phones-review.png?width=1200&height=900&fit=crop&auto=webp"
     },
@@ -16,7 +16,7 @@ class Categories extends StatelessWidget {
           "https://image.shutterstock.com/image-photo/french-fries-laid-out-on-260nw-1934045147.jpg"
     },
     {
-      "categoryName": "Mobile phones",
+      "categoryName": " phones",
       "categoryImage":
           "https://www.zdnet.com/a/img/resize/d8d1dd7e6aed73b3a74b956e049faf7be983ee69/2021/01/07/455aade3-9b8b-435c-927d-9d5a2891c08f/samsung-galaxy-s20-fe-best-phones-review.png?width=1200&height=900&fit=crop&auto=webp"
     },

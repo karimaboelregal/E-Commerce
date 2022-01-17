@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:e_commerce1/models/product.dart';
+import 'package:e_commerce1/models/category.dart';
+import 'package:e_commerce1/screens/user_screens/categories.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -29,7 +31,22 @@ class AuthenticationService {
     }
     return Products;
   }
+  Future<List<Categories>> getAllCategories() async {
+    var data = await database.ref("Categories").once();
 
+    List<Categories> Category = [];
+    for (var element in data.snapshot.children) {
+      Map valueMap = json.decode(jsonEncode(element.value));
+      List<String> imgs = [];
+      for (String image in valueMap['images']) {
+        String img = await storage.ref('categories/' + image).getDownloadURL();
+        imgs.add(img);
+      }
+      valueMap["images"] = imgs;
+
+    }
+    return Category;
+  }
   Future<String?> signUp(
       {required String email, required String password}) async {
     try {

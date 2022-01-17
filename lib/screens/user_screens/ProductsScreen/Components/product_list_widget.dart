@@ -47,12 +47,12 @@ class GridTilesProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //ProductDetailPage(product: product,)
     return InkWell(
       onTap: () {
-        Navigator.push(
+        Navigator.pushNamed(
           context,
-          MaterialPageRoute(
-              builder: (context) => ProductDetailPage(product: product,)),
+          "/singeProduct", arguments: product
         );
       },
       child: Container(

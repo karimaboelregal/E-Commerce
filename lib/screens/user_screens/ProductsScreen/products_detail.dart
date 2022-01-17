@@ -1,13 +1,16 @@
 
 import 'package:e_commerce1/models/product.dart';
 import 'package:flutter/material.dart';
+import '../../../constants.dart';
 import 'Components/details_widget.dart';
 import 'Components/extensions.dart';
 import './Components/product_details_components.dart';
 import 'Components/floatingbutton.dart';
 import 'package:provider/provider.dart';
 import 'package:e_commerce1/providers/cart_provider.dart';
+import 'package:badges/badges.dart';
 
+import 'package:e_commerce1/screens/user_screens/cart/cart_screen.dart';
 
 class ProductDetailPage extends StatefulWidget {
 
@@ -68,6 +71,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>{
 
 
   Widget _appBar() {
+    final cart = Provider.of<Cart>(context, listen: true);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Row(
@@ -82,6 +86,19 @@ class _ProductDetailPageState extends State<ProductDetailPage>{
             onPressed: () {
               Navigator.of(context).pop();
             },
+          ),
+
+          Badge(
+            toAnimate: false,
+            child: IconButton(
+              icon: Icon(Icons.shopping_cart),
+              color: Color(0xff0088ff),
+              onPressed: () {
+                Navigator.pushNamed(context, CartScreen.routeName);
+              },
+            ),
+            badgeColor: kPrimaryColor,
+            badgeContent: Text('${cart.getAmount()}', style: TextStyle(color: Colors.white)),
           ),
           _icon(isLiked ? Icons.favorite : Icons.favorite_border,
               color: isLiked ? Color(0xffF72804) : Color(0xffE1E2E4),

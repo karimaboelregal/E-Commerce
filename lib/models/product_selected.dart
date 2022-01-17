@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'product.dart';
 
@@ -8,6 +10,14 @@ class ProductSelected{
   final Product product;
   final int numOfItem;
   ProductSelected({required this.product, required this.numOfItem});
+
+  Map<String, dynamic> toMap(){
+    return {
+      'product${product.id}':product.toMap()
+       ,'qty':numOfItem
+    };
+  }
+
 }
 // Demo data for our cart
 List<ProductSelected> dummyCarts = [

@@ -23,6 +23,20 @@ class Product {
     required this.description,
   });
 
+  Map<String, dynamic> toMap(){
+    return {
+      'id':id,
+      'title':title,
+      'desc':description,
+      //'size':size,
+      'price':price,
+      'images':images,
+      //'colors':colors,
+
+
+    };
+  }
+
   factory Product.fromJson(Map<dynamic, dynamic> json) {
     List<Color> cols = [];
     List<String> s = [];

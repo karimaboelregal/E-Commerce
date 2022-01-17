@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:e_commerce1/models/product_selected.dart';
+import 'package:provider/provider.dart';
+import 'package:e_commerce1/providers/cart_provider.dart';
 
 
 import 'components/body.dart';
@@ -17,6 +19,7 @@ class CartScreen extends StatelessWidget {
   }
 
   AppBar buildAppBar(BuildContext context) {
+    final cart = Provider.of<Cart>(context, listen: true);
     return AppBar(
       title: Column(
         children: [
@@ -25,7 +28,7 @@ class CartScreen extends StatelessWidget {
             style: TextStyle(color: Colors.black),
           ),
           Text(
-            "${dummyCarts.length} items",
+            "${cart.getAmount()} items",
             style: Theme.of(context).textTheme.caption,
           ),
         ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:e_commerce1/models/cart.dart';
+import 'package:e_commerce1/models/product_selected.dart';
 import 'package:e_commerce1/size_config.dart';
 import 'package:e_commerce1/constants.dart';
 

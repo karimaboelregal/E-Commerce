@@ -107,9 +107,6 @@ class _LoginState extends State<Login> {
                           } else {
                             Navigator.of(context).pushNamedAndRemoveUntil(
                                 '/', (Route<dynamic> route) => false);
-                            SharedPreferences prefs = await SharedPreferences.getInstance();
-                            prefs.setBool("isLoggedIn", true);
-                            prefs.setString("Email", emailController.text.trim());
                           }
                         }
                       },

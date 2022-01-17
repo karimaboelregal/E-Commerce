@@ -4,6 +4,7 @@ import 'package:e_commerce1/models/product.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
@@ -50,6 +51,11 @@ class AuthenticationService {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString("uid", _firebaseAuth.currentUser!.uid);
+      prefs.setBool("isLoggedIn", true);
+      prefs.setString("Email", email);
+
       return "Signed in";
     } on FirebaseAuthException catch (e) {
       print(e.message);

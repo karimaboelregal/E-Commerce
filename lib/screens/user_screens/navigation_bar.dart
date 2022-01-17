@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 import 'HomeScreen/HomeScreen.dart';
 import 'ProductsScreen/products.dart';
+import '../../models/product.dart';
+import 'ProductsScreen/products_detail.dart';
 import 'cart/cart_screen.dart';
 import 'categories.dart';
-import 'globals.dart' as globals;
 import 'more.dart';
 import 'more_screens/Register.dart';
 import 'more_screens/contact_us.dart';
@@ -96,6 +97,12 @@ class aNavigationBar extends State<Navigationbar> {
                 setState(() {
                   currentTab = 2;
                 });
+              } else if (route.settings.name == "/cart" || route.settings.name == "/notifications") {
+
+              } else if (route.settings.name =='/singeProduct') {
+                setState(() {
+                  currentTab = 1;
+                });
               } else {
                 setState(() {
                   currentTab = 3;
@@ -115,7 +122,7 @@ class aNavigationBar extends State<Navigationbar> {
             // Manage your route names here
             switch (settings.name) {
               case '/':
-                if (currentTab!=0) {
+                if (currentTab != 0) {
                   print("hi");
                   setState(() {
                     currentTab = 0;
@@ -164,6 +171,12 @@ class aNavigationBar extends State<Navigationbar> {
                   currentTab = 3;
                 });
                 builder = (BuildContext context) => Contact();
+                break;
+              case '/singeProduct':
+                setState(() {
+                  currentTab = 1;
+                });
+                builder = (BuildContext context) => ProductDetailPage(product: settings.arguments as Product,);
                 break;
               default:
                 throw Exception('Invalid route: ${settings.name}');

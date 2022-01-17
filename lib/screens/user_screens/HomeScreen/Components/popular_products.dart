@@ -151,10 +151,10 @@ class _CartButtonState extends State<CartButton> {
       else
       {
         //adds product object and the quantity which is one
-        print(widget.cart.productsSelected.containsKey(widget.product.id));
+        //print(widget.cart.productsSelected.containsKey(widget.product.id));
         widget.cart.add(widget.product, 1);
         widget.product.isCart = true;
-        print(widget.cart.productsSelected.containsKey(widget.product.id));
+        //print(widget.cart.productsSelected.containsKey(widget.product.id));
       }
     });
 

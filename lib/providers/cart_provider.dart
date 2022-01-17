@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'product.dart';
+import 'package:e_commerce1/models/product.dart';
+import 'package:e_commerce1/models/product_selected.dart';
+
 
 class Cart extends ChangeNotifier{
   Map<int,ProductSelected> productsSelected = {};
@@ -22,20 +24,3 @@ class Cart extends ChangeNotifier{
     return 'Cart{productsSelected: $productsSelected}';
   }
 }
-
-
-class ProductSelected{
-  final Product product;
-  final int numOfItem;
-  ProductSelected({required this.product, required this.numOfItem});
-}
-// Demo data for our cart
-List<ProductSelected> dummyCarts = [
-  ProductSelected(product: dummyProducts[0], numOfItem: 2),
-  ProductSelected(product: dummyProducts[1], numOfItem: 1),
-  ProductSelected(product: dummyProducts[3], numOfItem: 1),
-];
-
-
-
-

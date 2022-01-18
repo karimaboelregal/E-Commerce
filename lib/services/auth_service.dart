@@ -24,6 +24,19 @@ class AuthenticationService {
     return Products;
   }
 
+  void AddProduct() async{
+    database.ref().child("Products").push().set({
+      "Name": "" + "Test product",
+      "Type": "" + "testing",
+      "desc": "" + "decription",
+      "id": "" + "123",
+      "rating": "" + "1",
+      "price": "" + "123",
+    }).then((_) {
+      print('product added.');
+    });
+  }
+
   Future<String?> signUp(
       {required String email, required String password}) async {
     try {

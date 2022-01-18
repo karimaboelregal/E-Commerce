@@ -24,16 +24,15 @@ class AuthenticationService {
     return Products;
   }
 
-  void AddProduct() async{
+  Future AddProduct({required String name,required String type,required String desc,required String price,required String path}) async{
     database.ref().child("Products").push().set({
-      "Name": "" + "Test product",
-      "Type": "" + "testing",
-      "desc": "" + "decription",
-      "id": "" + "123",
-      "rating": "" + "1",
-      "price": "" + "123",
+      "Name": "" + name,
+      "Type": "" + type,
+      "desc": "" + desc,
+      "price": "" + price,
+      "image_path": "" + path,
     }).then((_) {
-      print('product added.');
+      print("added");
     });
   }
 

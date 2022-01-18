@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'globals.dart' as globals;
+import 'package:e_commerce1/services/auth_service.dart';
 
 class MoreScreen extends StatefulWidget {
   @override
@@ -79,6 +80,14 @@ class _MoreScreenState extends State<MoreScreen> {
                   title: const Text("Your orders"),
                   onTap: () {
                     globals.currentTab.value = 6;
+                  },
+                ),
+                if(snapshot.data!=true)ListTile(
+                  leading:
+                  const Icon(Icons.reorder, color: Color(0xff0088ff)),
+                  title: const Text("Add product"),
+                  onTap: () {
+                    Navigator.pushNamed(context, "/addproduct_screen");
                   },
                 ),
                 if(snapshot.data==true)ListTile(

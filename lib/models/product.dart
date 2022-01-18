@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Product {
+class Product{
   final int id;
   final String title, description;
   final List<String> images;

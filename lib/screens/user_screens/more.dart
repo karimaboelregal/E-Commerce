@@ -82,7 +82,7 @@ class _MoreScreenState extends State<MoreScreen> {
                     globals.currentTab.value = 6;
                   },
                 ),
-                if(snapshot.data!=true)ListTile(
+                if(snapshot.data==true)ListTile(
                   leading:
                   const Icon(Icons.reorder, color: Color(0xff0088ff)),
                   title: const Text("Add product"),

@@ -84,8 +84,7 @@ class Products extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(categories[index]["categoryName"]!),
+                                children: [                                  Text(categories[index]["categoryName"]!),
                                   ElevatedButton(
 
                                     onPressed: () {},

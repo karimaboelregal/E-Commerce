@@ -31,21 +31,18 @@ class AuthenticationService {
     }
     return Products;
   }
-  Future<List<Categories>> getAllCategories() async {
+  Future<List<Category>> getAllCategories() async {
     var data = await database.ref("Categories").once();
 
-    List<Categories> Category = [];
+    List<Category> Cat = [];
     for (var element in data.snapshot.children) {
       Map valueMap = json.decode(jsonEncode(element.value));
-      List<String> imgs = [];
-      for (String image in valueMap['images']) {
-        String img = await storage.ref('categories/' + image).getDownloadURL();
-        imgs.add(img);
-      }
-      valueMap["images"] = imgs;
-
+      String img = await storage.ref('categories/' + valueMap["image"]).getDownloadURL();
+      valueMap["image"] = img;
+      Cat.add(Category.fromJson(valueMap));
     }
-    return Category;
+
+    return Cat;
   }
   Future<String?> signUp(
       {required String email, required String password}) async {

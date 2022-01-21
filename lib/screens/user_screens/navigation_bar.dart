@@ -5,6 +5,7 @@ import 'HomeScreen/HomeScreen.dart';
 import 'ProductsScreen/products.dart';
 import '../../models/product.dart';
 import 'ProductsScreen/products_detail.dart';
+import 'ProfileScreen/profile_page.dart';
 import 'cart/cart_screen.dart';
 import 'categories.dart';
 import 'more.dart';
@@ -136,6 +137,9 @@ class aNavigationBar extends State<Navigationbar> {
                   currentTab = 3;
                 });
                 builder = (BuildContext context) => Login();
+                break;
+              case "/profile":
+                builder = (BuildContext context) => ProfilePage();
                 break;
               case '/more':
                 setState(() {

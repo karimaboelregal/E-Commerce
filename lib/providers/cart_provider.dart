@@ -13,7 +13,6 @@ class Cart extends ChangeNotifier{
   Map<String, dynamic> toMap(){
     var results = productsSelected.values.map((element)=>element.toMap()).toList();
     //print(results);
-
     //print(Map<dynamic,dynamic>.fromIterable(results));
 
     return {
@@ -29,9 +28,32 @@ class Cart extends ChangeNotifier{
   }
 
   del(int id) {
+    productsSelected[id]!.product.isCart = false;
     productsSelected.remove(id);
+    getTotalPrice();
     notifyListeners();
   }
+  
+  deleteAll(){
+    var toRemove = [];
+    productsSelected.forEach((key, value) {
+      productsSelected[key]!.product.isCart = false;
+      toRemove.add(key);
+    });
+    productsSelected.removeWhere((key, value) => toRemove.contains(key));
+    getTotalPrice();
+    notifyListeners();
+
+  }
+  double getTotalPrice(){
+    var sum = 0.0;
+    productsSelected.forEach((key, value) {
+      sum += value.numOfItem * value.product.price;
+    });
+    totalPrice = sum;
+    return sum;
+  }
+
 
   //returns the number of items in the cart
   int getAmount() {

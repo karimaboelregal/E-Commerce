@@ -7,18 +7,18 @@ import 'package:e_commerce1/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:e_commerce1/providers/cart_provider.dart';
 
-//final navigatorKey = GlobalKey<NavigatorState>();
 
 class CheckoutCard extends StatelessWidget {
 
   const CheckoutCard({
     Key? key,
+    required this.cartScreenContext,
   }) : super(key: key);
-
-
+  final BuildContext cartScreenContext;
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context, listen: true);
+
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -71,13 +71,13 @@ class CheckoutCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text.rich(
+                 Text.rich(
                   TextSpan(
                     text: "Total:\n",
                     children: [
                       TextSpan(
-                        text: "\$337.15",
-                        style: TextStyle(fontSize: 16, color: Colors.black),
+                        text: "\$${cart.getTotalPrice()}",
+                        style: const TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],
                   ),
@@ -87,9 +87,10 @@ class CheckoutCard extends StatelessWidget {
                   child: ElevatedButton(onPressed: () {
 
                     //Map<String, dynamic> jsontest = {'id':1,'price':20};
-                    Order order = Order(cart.toMap());
-                    order.save();
-                    //showMyDialogSuccess();
+
+
+
+                    showMyDialogSuccess(context,cartScreenContext,cart);
 
                   },
                       child: Text("Check Out"))
@@ -103,53 +104,46 @@ class CheckoutCard extends StatelessWidget {
 
 
   }
-/*
-  Future<void> showMyDialogError() async {
-    return showDialog<void>(
-      context: navigatorKey.currentContext!,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Alert'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: const <Widget>[
-                Text('you need to login or signup to place an order'),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Close'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
+
+  Future<void> showToast(BuildContext context) async{
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: const Text('OrderPlaced: check your orders :)'),
+        action: SnackBarAction(label: 'Hide', onPressed: scaffold.hideCurrentSnackBar),
+      ),
     );
   }
 
-  Future<void> showMyDialogSuccess() async {
+  Future<void> showMyDialogSuccess(BuildContext context,BuildContext cartScreenContext,final cart) async {
+    //final cart = Provider.of<Cart>(context, listen: true);
+
     return showDialog<void>(
-      context: navigatorKey.currentContext!,
+      context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Alert'),
+          title: const Text('Place Order ?'),
           content: SingleChildScrollView(
             child: ListBody(
               children: const <Widget>[
-                Text('Place Order ?'),
+                Text('Are you sure you would like to place orders'),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('close'),
+              child: const Text('Yes'),
               onPressed: () {
+                Order order = Order(cart.toMap());
+                order.save();
+
+                showToast(context);
+                cart.deleteAll();
+                print(cart.productsSelected);
                 Navigator.of(context).pop();
+                Navigator.of(cartScreenContext).pop();
+
                 //clearText();
               },
             ),
@@ -159,7 +153,7 @@ class CheckoutCard extends StatelessWidget {
     );
   }
 
- */
+
 
 }
 

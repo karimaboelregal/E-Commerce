@@ -135,7 +135,7 @@ class CheckoutCard extends StatelessWidget {
             TextButton(
               child: const Text('Yes'),
               onPressed: () {
-                Order order = Order(cart.toMap());
+                Order order = Order.fromMap(cart.toMap());
                 order.save();
 
                 showToast(context);

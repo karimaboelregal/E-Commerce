@@ -9,30 +9,30 @@ class ProductListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: context.read<AuthenticationService>().getAllProducts(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            List<Product>? products = snapshot.data as List<Product>?;
-            return GridView.count(
-              crossAxisCount: 2,
-              padding: EdgeInsets.all(1.0),
-              childAspectRatio: 8.0 / 12.0,
-              children: [
-                ...List.generate(
-                  products!.length, (index) {
-                  if (products[index].isPopular)
-                    return GridTile(
-                        child: GridTilesProducts(product: products[index],));
+      future: context.read<AuthenticationService>().getAllProducts(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          List<Product>? products = snapshot.data as List<Product>?;
+          return GridView.count(
+            crossAxisCount: 2,
+            padding: EdgeInsets.all(1.0),
+            childAspectRatio: 8.0 / 12.0,
+            children: [
+              ...List.generate(
+                products!.length, (index) {
+                if (products[index].isPopular)
+                  return GridTile(
+                      child: GridTilesProducts(product: products[index],));
 
-                  return SizedBox
-                      .shrink(); // here by default width and height is 0
-                },
-                ),
-              ],
-            );
-          }
-          return const Center(child: CircularProgressIndicator());
+                return SizedBox
+                    .shrink(); // here by default width and height is 0
+              },
+              ),
+            ],
+          );
         }
+        return const Center(child: CircularProgressIndicator());
+      }
     );
   }
 }

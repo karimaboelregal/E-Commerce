@@ -30,7 +30,7 @@ class AuthenticationService {
         imgs.add(img);
       }
       valueMap["images"] = imgs;
-      Products.add(Product.fromJson(valueMap));
+      Products.add(Product.fromJson(valueMap,1));
     }
     return Products;
   }
@@ -48,7 +48,7 @@ class AuthenticationService {
           imgs.add(img);
         }
         valueMap["images"] = imgs;
-        Products.add(Product.fromJson(valueMap));
+        Products.add(Product.fromJson(valueMap,1));
       }
     }
     return Products;

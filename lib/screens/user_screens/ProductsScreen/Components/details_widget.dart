@@ -51,17 +51,15 @@ Widget detailWidget(Product ProductDetails) {
                           ],
                         ),
                         Row(
-                          children: <Widget>[
-                            Icon(Icons.star,
-                                color: Color(0xfffbba01), size: 17),
-                            Icon(Icons.star,
-                                color: Color(0xfffbba01), size: 17),
-                            Icon(Icons.star,
-                                color: Color(0xfffbba01), size: 17),
-                            Icon(Icons.star,
-                                color: Color(0xfffbba01), size: 17),
-                            Icon(Icons.star_border, size: 17),
-                          ],
+                          children:List.generate(5,(index){
+                            if (index+1 <= ProductDetails.rating) {
+                              return Icon(Icons.star,
+                                  color: Color(0xfffbba01), size: 17);
+                            } else {
+                              return Icon(Icons.star, size: 17);
+                            }
+                          })
+
                         ),
                       ],
                     ),
@@ -71,15 +69,15 @@ Widget detailWidget(Product ProductDetails) {
               SizedBox(
                 height: 20,
               ),
-              availableSize(),
+              if(ProductDetails.size.length>0)availableSize(ProductDetails.size),
               SizedBox(
                 height: 20,
               ),
-              availableColor(),
+              if(ProductDetails.colors.length>0)availableColor(ProductDetails.colors),
               SizedBox(
                 height: 20,
               ),
-              descriptionWidget(),
+              descriptionWidget(ProductDetails.description),
             ],
           ),
         ),

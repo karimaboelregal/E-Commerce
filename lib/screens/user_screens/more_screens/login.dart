@@ -20,6 +20,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Form(
@@ -92,8 +93,11 @@ class _LoginState extends State<Login> {
                         if (_formKey.currentState!.validate()) {
                           LoaderDialog.showLoadingDialog(
                               context, _LoaderDialog);
+                          var x = await context.read<AuthenticationService>().getAllCategories();
+                          print (x);
                           String? value = await context
                               .read<AuthenticationService>()
+
                               .signIn(
                                   email: emailController.text.trim(),
                                   password: passwordController.text.trim());
@@ -107,9 +111,6 @@ class _LoginState extends State<Login> {
                           } else {
                             Navigator.of(context).pushNamedAndRemoveUntil(
                                 '/', (Route<dynamic> route) => false);
-                            SharedPreferences prefs = await SharedPreferences.getInstance();
-                            prefs.setBool("isLoggedIn", true);
-                            prefs.setString("Email", emailController.text.trim());
                           }
                         }
                       },

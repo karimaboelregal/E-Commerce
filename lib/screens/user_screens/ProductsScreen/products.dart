@@ -21,7 +21,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
           IconButton(
             icon: Icon(Icons.account_circle_rounded),
             color: Color(0xff0088ff),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, "/profile");
+            },
           ),
           Container(
               padding: EdgeInsets.symmetric(vertical: 12.0),

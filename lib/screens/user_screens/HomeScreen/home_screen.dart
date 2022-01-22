@@ -1,6 +1,8 @@
 import 'package:e_commerce1/screens/user_screens/cart/cart_screen.dart';
 import 'package:e_commerce1/screens/user_screens/notifications/notifications_screen.dart';
+import 'package:e_commerce1/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
 import 'Components/popular_products.dart';
 import 'Components/discount_banner.dart';
@@ -11,7 +13,6 @@ import 'Components/offers.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +24,9 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.account_circle_rounded),
             color: Color(0xff0088ff),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, "/profile");
+            },
           ),
           Container(
               padding: EdgeInsets.symmetric(vertical: 12.0),

@@ -1,7 +1,7 @@
 import 'package:e_commerce1/screens/user_screens/orders.dart';
 import 'package:flutter/material.dart';
 
-import 'HomeScreen/HomeScreen.dart';
+import 'HomeScreen/home_screen.dart';
 import 'ProductsScreen/products.dart';
 import '../../models/product.dart';
 import 'ProductsScreen/products_detail.dart';

@@ -1,7 +1,7 @@
 
 class userD {
 
-  String uid, name, Address, Type, about, phone, email, key;
+  String uid, name, Address, Type, about, phone, email, key, photo;
 
 
 
@@ -14,6 +14,7 @@ class userD {
     required this.email,
     required this.name,
     required this.key,
+    required this.photo,
 
   });
 
@@ -30,6 +31,7 @@ class userD {
       email: json['email'],
       name: json['name'],
       key: key,
+      photo: json['photo'],
     );
   }
 

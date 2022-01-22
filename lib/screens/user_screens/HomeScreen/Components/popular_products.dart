@@ -29,7 +29,7 @@ class PopularProducts extends StatelessWidget {
             ),
           ],
         ),
-    SizedBox(height: getProportionateScreenWidth(20)),
+        SizedBox(height: getProportionateScreenWidth(20)),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(

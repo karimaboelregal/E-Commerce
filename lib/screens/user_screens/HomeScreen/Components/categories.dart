@@ -1,30 +1,37 @@
 import 'package:e_commerce1/constants.dart';
+import 'package:e_commerce1/models/category.dart';
+import 'package:e_commerce1/services/auth_service.dart';
 import 'package:e_commerce1/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
+
 
 class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> categories = [
-      {"icon": Icons.assignment_sharp, "text": "Flash Deal"},
-      {"icon": Icons.attach_money, "text": "Bill"},
-      {"icon": Icons.videogame_asset, "text": "Game"},
-      {"icon": Icons.card_giftcard, "text": "Daily Gift"},
-      {"icon": Icons.more, "text": "More"},
-    ];
+    List<IconData> categories_icons = [Icons.assignment_sharp,Icons.attach_money,Icons.videogame_asset,Icons.card_giftcard];
     return Padding(
       padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: List.generate(
-          categories.length,
-          (index) => CategoryCard(
-            icon: categories[index]["icon"],
-            text: categories[index]["text"],
-            press: () {},
-          ),
-        ),
+      child: FutureBuilder(
+          future: context.read<AuthenticationService>().getAllCategories(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<Category>? categories = snapshot.data as List<Category>?;
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: List.generate(
+                  categories!.length,
+                      (index) => CategoryCard(
+                    icon: categories_icons[index],
+                    text: categories[index].title,
+                    press: () {},
+                  ),
+                ),
+              );
+            }
+            return const Center(child: CircularProgressIndicator());
+          }
       ),
     );
   }

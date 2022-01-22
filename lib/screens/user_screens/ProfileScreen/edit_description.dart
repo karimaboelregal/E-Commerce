@@ -1,4 +1,6 @@
+import 'package:e_commerce1/services/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 import 'appbar_widget.dart';
 
 // This class handles the Page to edit the About Me Section of the User Profile.
@@ -19,6 +21,7 @@ class _EditDescriptionFormPageState extends State<EditDescriptionFormPage> {
   }
 
   void updateUserValue(String description) {
+    context.read<ProfileProvider>().updateAbout(description);
     //user.aboutMeDescription = description;
   }
 
@@ -36,7 +39,7 @@ class _EditDescriptionFormPageState extends State<EditDescriptionFormPage> {
                   SizedBox(
                       width: 350,
                       child: const Text(
-                        "What type of passenger\nare you?",
+                        "What type of Person\nare you?",
                         style:
                             TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                       )),

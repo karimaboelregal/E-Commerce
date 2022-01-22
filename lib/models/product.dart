@@ -56,7 +56,6 @@ class Product{
     }
     //perform abo el regal logic
     if(option == 1){
-      print(json);
       return Product(
         id: json['id'],
         title: json['Name'],

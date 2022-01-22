@@ -14,7 +14,7 @@ class orderProvider extends ChangeNotifier{
   final database = FirebaseDatabase.instance.ref("Orders");
   late StreamSubscription<DatabaseEvent> orderStream;
 
-  List<Order> get orders => _orders!;
+  List<Order> get orders => _orders;
 
   orderProvider(){
     listenToOrders();

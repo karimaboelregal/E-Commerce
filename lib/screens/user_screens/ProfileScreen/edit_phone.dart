@@ -1,4 +1,6 @@
+import 'package:e_commerce1/services/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 import 'package:string_validator/string_validator.dart';
 import 'appbar_widget.dart';
 
@@ -28,7 +30,7 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
         phone.substring(3, 6) +
         "-" +
         phone.substring(6, phone.length);
-    //user.phone = formattedPhoneNumber;
+    context.read<ProfileProvider>().updatePhone(phone);
   }
 
   @override
@@ -81,8 +83,7 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                             child: ElevatedButton(
                               onPressed: () {
                                 // Validate returns true if the form is valid, or false otherwise.
-                                if (_formKey.currentState!.validate() &&
-                                    isNumeric(phoneController.text)) {
+                                if (_formKey.currentState!.validate()) {
                                   updateUserValue(phoneController.text);
                                   Navigator.pop(context);
                                 }

@@ -108,7 +108,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Expanded(
                             child: TextButton(
                                 onPressed: () {
-                                  navigateSecondPage(editPage);
+                                  if (title != "Email") {navigateSecondPage(editPage);}
                                 },
                                 child: Text(
                                   getValue,
@@ -117,7 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       height: 1.4,
                                       color: Colors.black),
                                 ))),
-                        Icon(
+                        if(title!="Email")Icon(
                           Icons.keyboard_arrow_right,
                           color: Colors.grey,
                           size: 40.0,

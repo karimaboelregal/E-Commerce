@@ -1,7 +1,7 @@
 
 class userD {
 
-  String uid, name, Address, Type, about, phone, email;
+  String uid, name, Address, Type, about, phone, email, key;
 
 
 
@@ -13,11 +13,12 @@ class userD {
     required this.phone,
     required this.email,
     required this.name,
+    required this.key,
 
   });
 
 
-  factory userD.fromJson(Map<dynamic, dynamic> json) {
+  factory userD.fromJson(Map<dynamic, dynamic> json, String key) {
 
     return userD(
 
@@ -27,7 +28,8 @@ class userD {
       about: json['about'],
       phone: json['phone'],
       email: json['email'],
-      name: json['name']
+      name: json['name'],
+      key: key,
     );
   }
 

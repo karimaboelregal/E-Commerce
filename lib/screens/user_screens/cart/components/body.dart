@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:e_commerce1/models/cart.dart';
+
+import 'package:e_commerce1/providers/cart_provider.dart';
 import 'package:e_commerce1/size_config.dart';
 import 'cart_card.dart';
 import 'package:provider/provider.dart';

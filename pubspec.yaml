@@ -45,6 +45,10 @@ dependencies:
   firebase_database: ^9.0.5
   firebase_storage: ^10.2.5
   file_picker: ^4.3.2
+  carousel_slider: ^4.0.0
+  badges: ^2.0.2
+  string_validator: ^0.3.0
+  image_picker: ^0.8.4+4
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'package:e_commerce1/services/auth_service.dart';
+import 'package:e_commerce1/services/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,7 +16,7 @@ class _MoreScreenState extends State<MoreScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool isSignedin = context.read<AuthenticationService>().isLoggedin();
+    bool isSignedin = context.read<ProfileProvider>().isLoggedin();
     return Scaffold(
         body: Column(
       children: [

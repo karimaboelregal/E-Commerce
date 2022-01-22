@@ -1,4 +1,7 @@
+import 'package:e_commerce1/services/auth_service.dart';
+import 'package:e_commerce1/services/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 import 'package:string_validator/string_validator.dart';
 import 'appbar_widget.dart';
 
@@ -19,16 +22,6 @@ class EditNameFormPageState extends State<EditNameFormPage> {
   void dispose() {
     phoneController.dispose();
     super.dispose();
-  }
-
-  void updateUserValue(String phone) {
-    String formattedPhoneNumber = "(" +
-        phone.substring(0, 3) +
-        ") " +
-        phone.substring(3, 6) +
-        "-" +
-        phone.substring(6, phone.length);
-    //user.phone = formattedPhoneNumber;
   }
 
   @override
@@ -64,7 +57,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                             },
                             controller: phoneController,
                             decoration: const InputDecoration(
-                              labelText: 'Your Phone Number',
+                              labelText: 'Your name',
                             ),
                           ))),
                   Padding(
@@ -75,11 +68,10 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                             width: 320,
                             height: 50,
                             child: ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 // Validate returns true if the form is valid, or false otherwise.
-                                if (_formKey.currentState!.validate() &&
-                                    isNumeric(phoneController.text)) {
-                                  updateUserValue(phoneController.text);
+                                if (_formKey.currentState!.validate()) {
+                                  await context.read<ProfileProvider>().updateName(phoneController.text);
                                   Navigator.pop(context);
                                 }
                               },

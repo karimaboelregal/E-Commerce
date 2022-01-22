@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:e_commerce1/models/user.dart';
 import 'package:e_commerce1/services/auth_service.dart';
+import 'package:e_commerce1/services/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 
@@ -23,10 +25,11 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-          future: context.read<AuthenticationService>().userInfo(),
+          future: context.read<ProfileProvider>().userInfo(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              Map data = jsonDecode(jsonEncode(snapshot.data));
+              userD data = snapshot.data! as userD;
+              //print(data.name);
               return ListView(
                 children: [
                   AppBar(
@@ -55,18 +58,18 @@ class _ProfilePageState extends State<ProfilePage> {
                       )),
                   Center(
                       child: buildUserInfoDisplay(
-                          data['name'], 'Name', EditNameFormPage())),
+                          data.name, 'Name', EditNameFormPage())),
                   Center(
                       child: buildUserInfoDisplay(
-                          data['phone'], 'Phone', EditPhoneFormPage())),
+                          data.phone, 'Phone', EditPhoneFormPage())),
                   Center(
                       child: buildUserInfoDisplay(
-                          data['email'], 'Email', EditEmailFormPage())),
-                  Center(child: buildAbout(data['about'])),
+                          data.email, 'Email', EditEmailFormPage())),
+                  Center(child: buildAbout(data.about)),
                 ],
               );
             } else {
-              return const CircularProgressIndicator();
+              return Center(child: const CircularProgressIndicator());
             }
           }),
     );

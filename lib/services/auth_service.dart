@@ -107,45 +107,6 @@ class AuthenticationService {
     }
   }
 
-  bool isLoggedin() {
-    if(_firebaseAuth.currentUser == null) {
-      return false;
-    }
-    return true;
-  }
-
-  Future<Map> userInfo() async {
-    if(_firebaseAuth.currentUser != null) {
-      var about = await database.ref().child("users").orderByChild("uid").equalTo(_firebaseAuth.currentUser!.uid).once();
-      Map valueMap = json.decode(jsonEncode(about.snapshot.value));
-      String? name = getName();
-      String? email = getEmail();
-      valueMap[valueMap.keys.first]['name'] = name==null?"":name;
-      valueMap[valueMap.keys.first]['email'] = email==null?"":email;
-      return valueMap[valueMap.keys.first];
-    }
-    return {};
-  }
-
-  String? getName() {
-    if(_firebaseAuth.currentUser != null) {
-      return _firebaseAuth.currentUser!.displayName;
-    }
-    return "";
-  }
-
-  String? getUID() {
-    if(_firebaseAuth.currentUser != null) {
-      return _firebaseAuth.currentUser!.uid;
-    }
-    return "";
-  }
-  String? getEmail() {
-    if(_firebaseAuth.currentUser != null) {
-      return _firebaseAuth.currentUser!.email;
-    }
-    return "";
-  }
 
   Future<String?> signIn(
       {required String email, required String password}) async {

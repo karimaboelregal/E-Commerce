@@ -1,3 +1,4 @@
+import 'package:e_commerce1/services/auth_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce1/models/product.dart';
@@ -32,19 +33,26 @@ class PopularProducts extends StatelessWidget {
         SizedBox(height: getProportionateScreenWidth(20)),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              ...List.generate(
-                dummyProducts.length,
-                    (index) {
-                  if (dummyProducts[index].isPopular)
-                    return ProductCard(product: dummyProducts[index],cart:cart);
-
-                  return SizedBox.shrink(); // here by default width and height is 0
-                },
-              ),
-              SizedBox(width: getProportionateScreenWidth(20)),
-            ],
+          child: FutureBuilder(
+              future: context.read<AuthenticationService>().PopularProducts(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List<Product>? products = snapshot.data as List<Product>?;
+                  return Row(
+                    children: [
+                      ...List.generate(
+                        products!.length,
+                            (index) {
+                            return ProductCard(product: products[index],cart:cart);
+                            // here by default width and height is 0
+                        },
+                      ),
+                      SizedBox(width: getProportionateScreenWidth(20)),
+                    ],
+                  );
+                }
+                return const Center(child: CircularProgressIndicator());
+              }
           ),
         )
       ],
@@ -86,7 +94,7 @@ class ProductCard extends StatelessWidget {
                   ),
                   child: Hero(
                     tag: product.id.toString(),
-                    child: Image.asset(product.images[0]),
+                    child: Image.network(product.images[0]),
                   ),
                 ),
               ),

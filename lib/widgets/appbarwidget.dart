@@ -1,4 +1,4 @@
-import 'package:e_commerce1/screens/user_screens/HomeScreen/HomeScreen.dart';
+import 'package:e_commerce1/screens/user_screens/HomeScreen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

@@ -1,16 +1,74 @@
 {
   "project_info": {
     "project_number": "661932389647",
-    "firebase_url": "https://e-commerce-c8031-default-rtdb.europe-west1.firebasedatabase.app/",
+    "firebase_url": "https://e-commerce-c8031-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "e-commerce-c8031",
     "storage_bucket": "e-commerce-c8031.appspot.com"
   },
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:661932389647:android:3b668cc5f43ef00fc13a7a",
+        "android_client_info": {
+          "package_name": "com.android.eCommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "661932389647-mr9bv4014e8g847d67dsdrf9slcl18bk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyIgR9IPWnirPvxf3kgUwLPcuHpeU7GIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "661932389647-mr9bv4014e8g847d67dsdrf9slcl18bk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:661932389647:android:8c7ffb4010877e6dc13a7a",
         "android_client_info": {
           "package_name": "com.example.e_commerce1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "661932389647-mr9bv4014e8g847d67dsdrf9slcl18bk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyIgR9IPWnirPvxf3kgUwLPcuHpeU7GIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "661932389647-mr9bv4014e8g847d67dsdrf9slcl18bk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661932389647:android:496d13defbfb448cc13a7a",
+        "android_client_info": {
+          "package_name": "com.team16.eCommerce"
         }
       },
       "oauth_client": [

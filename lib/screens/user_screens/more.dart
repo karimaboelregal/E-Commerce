@@ -79,6 +79,7 @@ class _MoreScreenState extends State<MoreScreen> {
                   const Icon(Icons.reorder, color: Color(0xff0088ff)),
                   title: const Text("Your orders"),
                   onTap: () {
+                    Navigator.pushNamed(context, "/orders");
                     globals.currentTab.value = 6;
                   },
                 ),

@@ -85,7 +85,7 @@ class _AddProductState extends State<AddProduct> {
                       }
                       return null;
                     },
-                    controller: priceController,
+                    controller: typeController,
                     decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.supervised_user_circle),
                       border: OutlineInputBorder(),
@@ -104,7 +104,7 @@ class _AddProductState extends State<AddProduct> {
                       }
                       return null;
                     },
-                    controller: typeController,
+                    controller: priceController,
                     decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.supervised_user_circle),
                       border: OutlineInputBorder(),
@@ -161,12 +161,13 @@ class _AddProductState extends State<AddProduct> {
                             child: Text("Add images")),
                         ElevatedButton(onPressed: () async {
                           if (_formKey.currentState!.validate()) {
+                            storage.uploadFile(path, filename).then((value) => print("done"));
                             String? value = await context.read<AuthenticationService>().AddProduct(
                                 name: nameController.text.trim(),
                                 desc: descriptionController.text.trim(),
                                 type: typeController.text.trim(),
                                 path: filename,
-                                price: nameController.text.trim());
+                                price: priceController.text.trim());
                             if (value != null) {
                               showMyDialogError();
                             } else {

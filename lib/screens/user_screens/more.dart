@@ -39,14 +39,6 @@ class _MoreScreenState extends State<MoreScreen> {
           height: 50,
         ),
         ListTile(
-          leading: const Icon(
-            Icons.info,
-            color: Color(0xff0088ff),
-          ),
-          title: Text("News"),
-          onTap: () {},
-        ),
-        ListTile(
           leading: const Icon(Icons.contact_mail, color: Color(0xff0088ff)),
           title: const Text("Contact us"),
           onTap: () {

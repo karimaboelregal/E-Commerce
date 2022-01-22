@@ -15,6 +15,8 @@ class AuthenticationService {
 
   final database = FirebaseDatabase.instance; //database reference object
   final storage = firebase_storage.FirebaseStorage.instance;
+
+
   Future<List<Product>> getAllProducts() async {
     var data = await database.ref("Products").once();
 
@@ -34,6 +36,7 @@ class AuthenticationService {
   Future<List<Category>> getAllCategories() async {
     var data = await database.ref("Categories").once();
 
+
     List<Category> Cat = [];
     for (var element in data.snapshot.children) {
       Map valueMap = json.decode(jsonEncode(element.value));
@@ -44,6 +47,22 @@ class AuthenticationService {
 
     return Cat;
   }
+
+  Future AddProduct({required String name,required String type,required String desc,required String price,required String path}) async{
+    database.ref().child("Products").push().set({
+      "Name": "" + name,
+      "Type": "" + type,
+      "desc": "" + desc,
+      "price": "" + price,
+      "image_path": "" + path,
+    }).then((_) {
+      print("added");
+    });
+  }
+
+
+
+
   Future<String?> signUp(
       {required String email, required String password}) async {
     try {

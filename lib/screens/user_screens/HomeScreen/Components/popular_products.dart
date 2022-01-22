@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce1/models/product.dart';
-import 'package:e_commerce1/models/cart.dart';
-
+//import 'package:e_commerce1/models/product_selected.dart';
+import 'package:e_commerce1/providers/cart_provider.dart';
 import 'package:e_commerce1/size_config.dart';
 import 'package:e_commerce1/constants.dart';
 import 'package:provider/provider.dart';
@@ -151,10 +151,10 @@ class _CartButtonState extends State<CartButton> {
       else
       {
         //adds product object and the quantity which is one
-        print(widget.cart.productsSelected.containsKey(widget.product.id));
+        //print(widget.cart.productsSelected.containsKey(widget.product.id));
         widget.cart.add(widget.product, 1);
         widget.product.isCart = true;
-        print(widget.cart.productsSelected.containsKey(widget.product.id));
+        //print(widget.cart.productsSelected.containsKey(widget.product.id));
       }
     });
 

@@ -149,24 +149,24 @@ List<Product> dummyProducts = [
     isPopular: true,
   ),
   Product(
-      id: 4,
-      images: [
-        "assets/images/gibsonGuitar.png",
-      ],
-      size: ["M"],
-      colors: [
-        const Color(0xFFF6625E),
-        const Color(0xFF836DB8),
-        const Color(0xFFDECB9C),
-        Colors.white,
-      ],
-      title: "another guitar",
-      price: 20.20,
-      description: description,
-      rating: 4.1,
-      isFavourite: true,
-      isCart: false,
-      isPopular: true),
+    id: 4,
+    images: [
+      "assets/images/gibsonGuitar.png",
+    ],
+    size: ["M"],
+    colors: [
+      const Color(0xFFF6625E),
+      const Color(0xFF836DB8),
+      const Color(0xFFDECB9C),
+      Colors.white,
+    ],
+    title: "another guitar",
+    price: 20.20,
+    description: description,
+    rating: 4.1,
+    isFavourite: true,
+    isCart: false,
+    isPopular: true),
 ];
 
 const String description =

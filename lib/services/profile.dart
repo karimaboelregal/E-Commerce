@@ -1,13 +1,16 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:e_commerce1/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
 
 class ProfileProvider with ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final _database = FirebaseDatabase.instance;
+  final storage = firebase_storage.FirebaseStorage.instance;
   userD? US;
 
 
@@ -27,12 +30,28 @@ class ProfileProvider with ChangeNotifier {
       Map valueMap = json.decode(jsonEncode(about.snapshot.value));
       String? name = getName();
       String? email = getEmail();
+      String img = await storage.ref('users/' + _firebaseAuth.currentUser!.photoURL!).getDownloadURL();
       valueMap[valueMap.keys.first]['name'] = name == null ? "" : name;
       valueMap[valueMap.keys.first]['email'] = email == null ? "" : email;
+      valueMap[valueMap.keys.first]['photo'] = img == null ? "" : img;
       US = userD.fromJson(valueMap[valueMap.keys.first], valueMap.keys.first);
       return US!;
     }
     return US!;
+  }
+
+  Future<String> uploadImage(String filePath,String fileName) async{
+    File file = File(filePath);
+    try{
+      await storage.ref('users/$fileName').putFile(file);
+      _firebaseAuth.currentUser!.updatePhotoURL(fileName);
+      String img = await storage.ref('users/$fileName').getDownloadURL();
+      US!.photo = img;
+      notifyListeners();
+      return img;
+    } on firebase_core.FirebaseException catch(e){
+      return "";
+    }
   }
 
   String? getName() {

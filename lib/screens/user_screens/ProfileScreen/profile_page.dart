@@ -53,7 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         navigateSecondPage(EditImagePage());
                       },
                       child: DisplayImage(
-                        imagePath: "sdf",
+                        imagePath: data.photo,
                         onPressed: () {},
                       )),
                   Center(
@@ -163,6 +163,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 child: Text(
                                   about,
                                   style: TextStyle(
+                                    color: Colors.black,
                                     fontSize: 16,
                                     height: 1.4,
                                   ),

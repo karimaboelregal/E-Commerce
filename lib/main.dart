@@ -1,6 +1,7 @@
 import 'package:e_commerce1/screens/user_screens/more_screens/login.dart';
 import 'package:e_commerce1/screens/user_screens/navigation_bar.dart';
 import 'package:e_commerce1/services/auth_service.dart';
+import 'package:e_commerce1/services/profile.dart';
 import 'package:e_commerce1/size_config.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
               initialData: null),
           ChangeNotifierProvider(
             create: (context) => Cart(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => ProfileProvider(),
           ),
         ],
         child: MaterialApp(

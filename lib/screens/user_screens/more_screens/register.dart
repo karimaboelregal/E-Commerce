@@ -9,6 +9,7 @@ import '../globals.dart' as globals;
 class Register extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController nameCont = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<State> _LoaderDialog = new GlobalKey<State>();
 
@@ -43,6 +44,7 @@ class Register extends StatelessWidget {
               Container(
                 width: MediaQuery.of(context).size.width - 50,
                 child: TextFormField(
+                  controller: nameCont,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please enter name";
@@ -130,7 +132,7 @@ class Register extends StatelessWidget {
                           .read<AuthenticationService>()
                           .signUp(
                           email: emailController.text.trim(),
-                          password: passwordController.text.trim());
+                          password: passwordController.text.trim(), name: nameCont.text.trim());
                       Navigator.of(_LoaderDialog.currentContext!,
                           rootNavigator: true)
                           .pop();

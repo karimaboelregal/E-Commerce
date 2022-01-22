@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:e_commerce1/models/product.dart';
 import 'package:e_commerce1/models/category.dart';
+import 'package:e_commerce1/screens/user_screens/HomeScreen/Components/popular_products.dart';
 import 'package:e_commerce1/screens/user_screens/categories.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -29,12 +30,50 @@ class AuthenticationService {
         imgs.add(img);
       }
       valueMap["images"] = imgs;
-      Products.add(Product.fromJson(valueMap));
+      Products.add(Product.fromJson(valueMap,1));
     }
     return Products;
   }
+
+  Future<List<Product>> PopularProducts() async {
+    var data = await database.ref("Products").once();
+
+    List<Product> Products = [];
+    for (var element in data.snapshot.children) {
+      Map valueMap = json.decode(jsonEncode(element.value));
+      if (valueMap['rating']> 3){
+        List<String> imgs = [];
+        for (String image in valueMap['images']) {
+          String img = await storage.ref('products/' + image).getDownloadURL();
+          imgs.add(img);
+        }
+        valueMap["images"] = imgs;
+        Products.add(Product.fromJson(valueMap,1));
+      }
+    }
+    return Products;
+  }
+
+  Future AddProduct({required String name,required String type,required String desc,required String price,required String path}) async{
+    List<String> imgs = [path];
+    int price_int =int.parse(price);
+    database.ref().child("Products").push().set({
+      "Name": "" + name,
+      "Type": "" + type,
+      "desc": "" + desc,
+      "price": price_int,
+      "images": [path],
+      "id": 1,
+      "rating": 5,
+    }).then((_) {
+    });
+  }
+
+
+
   Future<List<Category>> getAllCategories() async {
     var data = await database.ref("Categories").once();
+
 
 
     List<Category> Cat = [];
@@ -47,43 +86,38 @@ class AuthenticationService {
 
     return Cat;
   }
-
-  Future AddProduct({required String name,required String type,required String desc,required String price,required String path}) async{
-    database.ref().child("Products").push().set({
-      "Name": "" + name,
-      "Type": "" + type,
-      "desc": "" + desc,
-      "price": "" + price,
-      "image_path": "" + path,
-    }).then((_) {
-      print("added");
-    });
-  }
-
-
-
-
   Future<String?> signUp(
-      {required String email, required String password}) async {
+      {required String email, required String password, required String name}) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
+      var result = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
+      result.user!.updateDisplayName(name);
+      database.ref().child("users").push().set({
+        "uid": ""+result.user!.uid,
+        "Address": "",
+        "Type": "user",
+        "about": "",
+        "phone": "",
+      }).then((_) {
+      });
+
       return "Signed up";
     } on FirebaseAuthException catch (e) {
       return e.message;
     }
   }
 
+
   Future<String?> signIn(
       {required String email, required String password}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
+      _firebaseAuth.setPersistence(Persistence.SESSION);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString("uid", _firebaseAuth.currentUser!.uid);
       prefs.setBool("isLoggedIn", true);
       prefs.setString("Email", email);
-
       return "Signed in";
     } on FirebaseAuthException catch (e) {
       print(e.message);

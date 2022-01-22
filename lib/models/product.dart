@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 class Product{
@@ -37,30 +39,50 @@ class Product{
     };
   }
 
-  factory Product.fromJson(Map<dynamic, dynamic> json) {
+  factory Product.fromJson(Map<dynamic, dynamic> json,int option) {
+
     List<Color> cols = [];
     List<String> s = [];
-    for (String color in json['colors']) {
-      cols.add(Color(hexToInt(color)));
+
+    if (json["colors"] != null) {
+      for (String color in json['colors']) {
+        cols.add(Color(hexToInt(color)));
+      }
     }
     if (json["size"] != null) {
       for (String size in json["size"]) {
         s.add(size);
       }
     }
-    return Product(
-      id: json['id'],
-      title: json['Name'],
-      description: json['desc'],
-      images: json['images'],
-      size: s,
-      colors: cols,
-      price: json['price'].toDouble(),
-      rating: json['rating'].toDouble(),
-      isFavourite: true,
-      isCart: false,
-      isPopular: true,
-    );
+    //perform abo el regal logic
+    if(option == 1){
+      print(json);
+      return Product(
+        id: json['id'],
+        title: json['Name'],
+        description: json['desc'],
+        images: json['images'],
+        size: s,
+        colors: cols,
+        price: json['price'].toDouble(),
+        rating: json['rating'].toDouble(),
+        isFavourite: true,
+        isCart: false,
+        isPopular: true,
+      );
+    }
+    //performs adel logic
+    else{
+      List<dynamic> images = jsonDecode(jsonEncode(json['images']));
+      var stringImages = List<String>.from(images);
+      return Product(id: json['id'],
+          images: stringImages,
+          colors: cols,
+          title: json['title'],
+          size: s,
+          price: json['price'].toDouble(),
+          description: json['desc']);
+    }
   }
 }
 

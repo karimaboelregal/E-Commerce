@@ -4,12 +4,13 @@ import 'dart:convert';
 import 'package:e_commerce1/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
+
+import 'display_image_widget.dart';
 import 'edit_description.dart';
 import 'edit_email.dart';
 import 'edit_image.dart';
 import 'edit_name.dart';
 import 'edit_phone.dart';
-import 'display_image_widget.dart';
 
 // This class handles the Page to dispaly the user's info on the "Edit Profile" Screen
 class ProfilePage extends StatefulWidget {
@@ -20,53 +21,54 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: FutureBuilder(
-        future: context.read<AuthenticationService>().userInfo(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            Map data = jsonDecode(jsonEncode(snapshot.data));
-            return Column(
-              children: [
-                AppBar(
-                  backgroundColor: Colors.transparent,
-                  elevation: 0,
-                  toolbarHeight: 10,
-                ),
-                Center(
-                    child: Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: Text(
-                          'Profile',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w700,
-                            color: Color.fromRGBO(64, 105, 225, 1),
-                          ),
-                        ))),
-                InkWell(
-                    onTap: () {
-                      navigateSecondPage(EditImagePage());
-                    },
-                    child: DisplayImage(
-                      imagePath: "sdf",
-                      onPressed: () {},
-                    )),
-                buildUserInfoDisplay(data['name'],'Name', EditNameFormPage()),
-                buildUserInfoDisplay(data['phone'], 'Phone', EditPhoneFormPage()),
-                buildUserInfoDisplay(data['email'], 'Email', EditEmailFormPage()),
-                Expanded(
-                  child: buildAbout(data['about']),
-                  flex: 4,
-                )
-              ],
-            );
-          } else {
-            return const CircularProgressIndicator();
-          }
-        }
-      ),
+          future: context.read<AuthenticationService>().userInfo(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              Map data = jsonDecode(jsonEncode(snapshot.data));
+              return ListView(
+                children: [
+                  AppBar(
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    toolbarHeight: 10,
+                  ),
+                  Center(
+                      child: Padding(
+                          padding: EdgeInsets.only(bottom: 20),
+                          child: Text(
+                            'Profile',
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w700,
+                              color: Color.fromRGBO(64, 105, 225, 1),
+                            ),
+                          ))),
+                  InkWell(
+                      onTap: () {
+                        navigateSecondPage(EditImagePage());
+                      },
+                      child: DisplayImage(
+                        imagePath: "sdf",
+                        onPressed: () {},
+                      )),
+                  Center(
+                      child: buildUserInfoDisplay(
+                          data['name'], 'Name', EditNameFormPage())),
+                  Center(
+                      child: buildUserInfoDisplay(
+                          data['phone'], 'Phone', EditPhoneFormPage())),
+                  Center(
+                      child: buildUserInfoDisplay(
+                          data['email'], 'Email', EditEmailFormPage())),
+                  Center(child: buildAbout(data['about'])),
+                ],
+              );
+            } else {
+              return const CircularProgressIndicator();
+            }
+          }),
     );
   }
 
@@ -98,23 +100,26 @@ class _ProfilePageState extends State<ProfilePage> {
                     width: 1,
                   ))),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                    Expanded(
-                        child: TextButton(
-                            onPressed: () {
-                              navigateSecondPage(editPage);
-                            },
-                            child: Text(
-                              getValue,
-                              style: TextStyle(fontSize: 16, height: 1.4, color: Colors.black),
-                            ))),
-                    Icon(
-                      Icons.keyboard_arrow_right,
-                      color: Colors.grey,
-                      size: 40.0,
-                    )
-                  ]))
+                        Expanded(
+                            child: TextButton(
+                                onPressed: () {
+                                  navigateSecondPage(editPage);
+                                },
+                                child: Text(
+                                  getValue,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      height: 1.4,
+                                      color: Colors.black),
+                                ))),
+                        Icon(
+                          Icons.keyboard_arrow_right,
+                          color: Colors.grey,
+                          size: 40.0,
+                        )
+                      ]))
             ],
           ));
 

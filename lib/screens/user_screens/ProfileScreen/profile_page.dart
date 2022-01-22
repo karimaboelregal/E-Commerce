@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:e_commerce1/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 import 'edit_description.dart';
 import 'edit_email.dart';
 import 'edit_image.dart';
@@ -19,40 +22,50 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: Column(
-        children: [
-          AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            toolbarHeight: 10,
-          ),
-          Center(
-              child: Padding(
-                  padding: EdgeInsets.only(bottom: 20),
-                  child: Text(
-                    'Profile',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w700,
-                      color: Color.fromRGBO(64, 105, 225, 1),
-                    ),
-                  ))),
-          InkWell(
-              onTap: () {
-                navigateSecondPage(EditImagePage());
-              },
-              child: DisplayImage(
-                imagePath: "sdf",
-                onPressed: () {},
-              )),
-          buildUserInfoDisplay("sdfad", 'Name', EditNameFormPage()),
-          buildUserInfoDisplay("sdfadf", 'Phone', EditPhoneFormPage()),
-          buildUserInfoDisplay("sdfadf", 'Email', EditEmailFormPage()),
-          Expanded(
-            child: buildAbout(),
-            flex: 4,
-          )
-        ],
+      body: FutureBuilder(
+        future: context.read<AuthenticationService>().userInfo(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            Map data = jsonDecode(jsonEncode(snapshot.data));
+            return Column(
+              children: [
+                AppBar(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  toolbarHeight: 10,
+                ),
+                Center(
+                    child: Padding(
+                        padding: EdgeInsets.only(bottom: 20),
+                        child: Text(
+                          'Profile',
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w700,
+                            color: Color.fromRGBO(64, 105, 225, 1),
+                          ),
+                        ))),
+                InkWell(
+                    onTap: () {
+                      navigateSecondPage(EditImagePage());
+                    },
+                    child: DisplayImage(
+                      imagePath: "sdf",
+                      onPressed: () {},
+                    )),
+                buildUserInfoDisplay(data['name'],'Name', EditNameFormPage()),
+                buildUserInfoDisplay(data['phone'], 'Phone', EditPhoneFormPage()),
+                buildUserInfoDisplay(data['email'], 'Email', EditEmailFormPage()),
+                Expanded(
+                  child: buildAbout(data['about']),
+                  flex: 4,
+                )
+              ],
+            );
+          } else {
+            return const CircularProgressIndicator();
+          }
+        }
       ),
     );
   }
@@ -93,7 +106,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               navigateSecondPage(editPage);
                             },
                             child: Text(
-                              "sdfasdf",
+                              getValue,
                               style: TextStyle(fontSize: 16, height: 1.4, color: Colors.black),
                             ))),
                     Icon(
@@ -106,7 +119,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ));
 
   // Widget builds the About Me Section
-  Widget buildAbout() => Padding(
+  Widget buildAbout(String about) => Padding(
       padding: EdgeInsets.only(bottom: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,7 +153,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                  "sdfasdfsdf",
+                                  about,
                                   style: TextStyle(
                                     fontSize: 16,
                                     height: 1.4,

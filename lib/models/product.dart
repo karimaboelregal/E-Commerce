@@ -40,7 +40,6 @@ class Product{
   factory Product.fromJson(Map<dynamic, dynamic> json) {
     List<Color> cols = [];
     List<String> s = [];
-    print(json);
     if (json["colors"] != null) {
       for (String color in json['colors']) {
         cols.add(Color(hexToInt(color)));

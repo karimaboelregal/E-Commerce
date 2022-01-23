@@ -6,20 +6,32 @@ import 'package:e_commerce1/screens/user_screens/ProductsScreen/products_detail.
 import 'package:provider/src/provider.dart';
 
 class ProductListWidget extends StatelessWidget {
+  String? search;
+  ProductListWidget({this.search});
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: context.read<AuthenticationService>().getAllProducts(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List<Product>? products = snapshot.data as List<Product>?;
+          List<Product>? sproducts = snapshot.data as List<Product>?;
+          List<Product> products = [];
+          if (search != null) {
+            sproducts!.forEach((element) {
+              if (element.title.contains(search!)) {
+                products.add(element);
+              }
+            });
+          } else {
+            products = sproducts!;
+          }
           return GridView.count(
             crossAxisCount: 2,
             padding: EdgeInsets.all(1.0),
             childAspectRatio: 8.0 / 12.0,
             children: [
               ...List.generate(
-                products!.length, (index) {
+                products.length, (index) {
                 if (products[index].isPopular)
                   return GridTile(
                       child: GridTilesProducts(product: products[index],));

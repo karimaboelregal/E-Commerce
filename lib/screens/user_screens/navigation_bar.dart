@@ -13,6 +13,7 @@ import 'categories.dart';
 import 'more.dart';
 import 'more_screens/Register.dart';
 import 'more_screens/addproduct_screen.dart';
+import 'more_screens/addcategory_screen.dart';
 import 'more_screens/contact_us.dart';
 import 'more_screens/login.dart';
 import 'notifications/notifications_screen.dart';
@@ -176,6 +177,9 @@ class aNavigationBar extends State<Navigationbar> {
                 break;
               case '/addproduct_screen':
                 builder = (BuildContext context) => AddProduct();
+                break;
+              case '/addcategory_screen':
+                builder = (BuildContext context) => AddCategory();
                 break;
               case '/contact':
                 setState(() {

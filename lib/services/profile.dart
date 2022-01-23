@@ -27,10 +27,18 @@ class ProfileProvider with ChangeNotifier {
           .orderByChild("uid")
           .equalTo(_firebaseAuth.currentUser!.uid)
           .once();
+      print("here");
       Map valueMap = json.decode(jsonEncode(about.snapshot.value));
       String? name = getName();
       String? email = getEmail();
-      String img = await storage.ref('users/' + _firebaseAuth.currentUser!.photoURL!).getDownloadURL();
+      String img;
+
+      if (_firebaseAuth.currentUser!.photoURL == null) {
+        img = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+      } else {
+        img = await storage.ref('users/' + _firebaseAuth.currentUser!.photoURL!).getDownloadURL();
+
+      }
       valueMap[valueMap.keys.first]['name'] = name == null ? "" : name;
       valueMap[valueMap.keys.first]['email'] = email == null ? "" : email;
       valueMap[valueMap.keys.first]['photo'] = img == null ? "" : img;

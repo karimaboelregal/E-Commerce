@@ -81,6 +81,14 @@ class _MoreScreenState extends State<MoreScreen> {
           ),
         if (isSignedin == true)
           ListTile(
+            leading: const Icon(Icons.add_box_outlined, color: Color(0xff0088ff)),
+            title: const Text("Add Category"),
+            onTap: () {
+              Navigator.pushNamed(context, "/addcategory_screen");
+            },
+          ),
+        if (isSignedin == true)
+          ListTile(
             leading: const Icon(Icons.logout, color: Color(0xff0088ff)),
             title: const Text("Logout"),
             onTap: () {

@@ -17,7 +17,7 @@ class Categories extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<Category>? categories = snapshot.data as List<Category>?;
-          if(categories!.length<4){
+
             return Row(
 
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -26,32 +26,13 @@ class Categories extends StatelessWidget {
                 categories!.length,
 
                     (index) => CategoryCard(
-                  icon: categories_icons[index],
+                  icon: (categories_icons..shuffle()).first,
                   text: categories[index].title,
                   press: () {},
                 ),
               ),
             );
           }
-          else {
-
-            return Row(
-
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: List.generate(
-                categories!.length,
-
-                    (index) =>
-                    CategoryCard(
-                      icon: categories_icons[1],
-                      text: categories[index].title,
-                      press: () {},
-                    ),
-              ),
-            );
-          }
-            }
 
 
 

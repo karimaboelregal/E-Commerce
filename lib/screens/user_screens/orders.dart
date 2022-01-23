@@ -50,6 +50,7 @@ class Orders extends StatelessWidget {
                 onWillPop: () {
                   print("hi");
                   globals.currentTab.value = 3;
+
                   return Future.value(false);
                 },
                 child: Text("")),
@@ -62,8 +63,7 @@ class Orders extends StatelessWidget {
                   //value.listenToOrders();
                     //return Text("${value.orders.length}");
                     value.listenToOrders();
-                    if(value.orders.isNotEmpty){
-
+                    try{
                       List<Order> orders = value.orders!;
                       //print(orders[0].orderId);
                       //print(orders.first.orderId);
@@ -76,22 +76,28 @@ class Orders extends StatelessWidget {
 
 
 
-                         return SizedBox(
-                          height:getProportionateScreenHeight(600),
-                          child:ListView(
-                            children: [
-                              ...orders.map((e) => Card(
-                                child: ListTile(
-                                  title: Text(e.orderId!),
-                                ),
-                              ))
-                            ],
-                          ),
-                        );
+                      return SizedBox(
+                        height:getProportionateScreenHeight(600),
+                        child:ListView(
+                          children: [
+                            ...orders.map((e) => Card(
+                              child: ListTile(
+                                title: Text(e.orderId!),
+                              ),
+                            ))
+                          ],
+                        ),
+                      );
+                    }catch(e){
+                      return CircularProgressIndicator();
+
+                    }
+                    if(value.orders.first.orderId != null){
+
+
 
                     }
                     else{
-                      return CircularProgressIndicator();
                     }
 
                   }

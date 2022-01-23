@@ -68,6 +68,20 @@ class AuthenticationService {
     }).then((_) {
     });
   }
+  Future AddCategory({required String name,required String desc,required String path}) async{
+    String imgs = path;
+    print(path);
+    if(path==null||path==''){
+      imgs="noimg.jfif";
+    }
+    database.ref().child("Categories").push().set({
+      "name": "" + name,
+      "Desc": "" + desc,
+      "image": imgs,
+
+    }).then((_) {
+    });
+  }
 
 
 
@@ -81,6 +95,7 @@ class AuthenticationService {
       Map valueMap = json.decode(jsonEncode(element.value));
       String img = await storage.ref('categories/' + valueMap["image"]).getDownloadURL();
       valueMap["image"] = img;
+
       Cat.add(Category.fromJson(valueMap));
     }
 

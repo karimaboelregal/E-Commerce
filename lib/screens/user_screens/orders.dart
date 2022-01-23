@@ -64,7 +64,7 @@ class Orders extends StatelessWidget {
                     //return Text("${value.orders.length}");
                     value.listenToOrders();
                     try{
-                      List<Order> orders = value.orders!;
+                      List<Order> orders = value.orders;
                       //print(orders[0].orderId);
                       //print(orders.first.orderId);
                       //print(orders.first.totalPrice);

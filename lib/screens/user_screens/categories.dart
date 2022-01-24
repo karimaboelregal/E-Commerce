@@ -60,6 +60,9 @@ class Categories extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 12.0),
               width: 200,
               child: TextField(
+                  onSubmitted: (v) {
+                    Navigator.pushNamed(context, "/Products", arguments: v);
+                  },
                   decoration: InputDecoration(
                       prefixIcon: Icon(Icons.search),
                       border: OutlineInputBorder(

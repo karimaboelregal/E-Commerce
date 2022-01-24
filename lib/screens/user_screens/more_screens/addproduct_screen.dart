@@ -1,3 +1,4 @@
+import 'package:e_commerce1/models/category.dart';
 import 'package:e_commerce1/screens/user_screens/more_screens/login.dart';
 import 'package:e_commerce1/services/auth_service.dart';
 import 'package:e_commerce1/services/storage_services.dart';
@@ -8,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../loader.dart';
 import '../globals.dart' as globals;
 import '../../../services/auth_service.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:file_picker/file_picker.dart';
 
 class AddProduct extends StatefulWidget {
@@ -24,6 +26,7 @@ class _AddProductState extends State<AddProduct> {
   final GlobalKey<State> _LoaderDialog = new GlobalKey<State>();
   late var filename = '';
   late var path = '';
+  String? dropdownValue;
 
 
   @override
@@ -77,20 +80,41 @@ class _AddProductState extends State<AddProduct> {
                 SizedBox(height: 20),
                 SizedBox(height: 20),
                 Container(
-                  width: MediaQuery.of(context).size.width - 50,
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please enter type";
-                      }
-                      return null;
-                    },
-                    controller: typeController,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.supervised_user_circle),
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter your type here ',
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: 1.5,
                     ),
+                  ),
+                  width: MediaQuery.of(context).size.width - 50,
+                  child: FutureBuilder(
+                    future: context.read<AuthenticationService>().getAllCategories(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        List<Category>? categories = snapshot.data as List<Category>?;
+                        return Expanded(
+                          child: DropdownButton<String>(
+                            value: dropdownValue,
+                            style: const TextStyle(color: Color(0xFF223555)),
+                            onChanged: (String? value) {
+                              setState(() {
+                                dropdownValue = value;
+                              });
+                            },
+                            hint:const Text("choose category"),
+                            items:categories!.map<DropdownMenuItem<String>>((cat) {
+                              return DropdownMenuItem<String>(
+                                value: cat.title,
+                                child: Text(cat.title),
+                              );
+                            }).toList(),
+                          ),
+                        );
+                      }
+                      else {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                    },
                   ),
                 ),
                 SizedBox(height: 20),
@@ -165,7 +189,7 @@ class _AddProductState extends State<AddProduct> {
                             String? value = await context.read<AuthenticationService>().AddProduct(
                                 name: nameController.text.trim(),
                                 desc: descriptionController.text.trim(),
-                                type: typeController.text.trim(),
+                                type: dropdownValue,
                                 path: filename,
                                 price: priceController.text.trim());
                             if (value != null) {

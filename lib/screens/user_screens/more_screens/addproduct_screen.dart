@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:e_commerce1/models/category.dart';
 import 'package:e_commerce1/screens/user_screens/more_screens/login.dart';
@@ -12,12 +14,15 @@ import '../globals.dart' as globals;
 import '../../../services/auth_service.dart';
 import 'package:file_picker/file_picker.dart';
 
+import 'package:google_ml_kit/google_ml_kit.dart';
+
 class AddProduct extends StatefulWidget {
   @override
   State<AddProduct> createState() => _AddProductState();
 }
 
 class _AddProductState extends State<AddProduct> {
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController typeController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
@@ -27,6 +32,11 @@ class _AddProductState extends State<AddProduct> {
   late var filename = '';
   late var path = '';
   String dropdownValue = "One";
+  final onDeviceTranslator = GoogleMlKit.nlp.onDeviceTranslator(sourceLanguage: "en",targetLanguage: "ar");
+  final translateLanguageModelManager = GoogleMlKit.nlp.translateLanguageModelManager();
+
+  String? translatedName;
+  String? translatedDesc;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +99,7 @@ class _AddProductState extends State<AddProduct> {
                             hintText: 'Enter your name here',
                           ),
                         ),
-                      ),
+                      ),translatedName == null  ?  Text('place holder'):Text(translatedName!,style: TextStyle(fontSize: 20),) ,
                       SizedBox(height: 20),
                       SizedBox(height: 20),
                       Container(
@@ -151,7 +161,9 @@ class _AddProductState extends State<AddProduct> {
                             border: OutlineInputBorder(),
                           ),
                         ),
+
                       ),
+                      translatedDesc == null  ?  Text('place holder'):Text(translatedDesc!,) ,
                       SizedBox(height: 20),
                       ButtonBar(
                         children: [
@@ -183,6 +195,12 @@ class _AddProductState extends State<AddProduct> {
                               },
                               child: Text("Add images")),
                           ElevatedButton(onPressed: () async {
+
+
+                            //final bool response = await translateLanguageModelManager.downloadModel(modelTag);
+                            //final String response = await translateLanguageModelManager.isModelDownloaded(modelTag);
+                            //final String response = await translateLanguageModelManager.deleteModel(modelTag);
+                            //final List<String> availableModels = await translateLanguageModelManager.getAvailableModels();
                             if (_formKey.currentState!.validate()) {
                               storage.uploadFile(path, filename).then((value) =>
                                   print("done"));
@@ -199,7 +217,31 @@ class _AddProductState extends State<AddProduct> {
                                 showMyDialogSuccess();
                               }
                             }
-                          }, child: Text("Save Product"))
+                          }, child: Text("Save Product")),
+                          ElevatedButton(onPressed: () async {
+
+                            final String downloadResponseEN = await translateLanguageModelManager.downloadModel("en");
+                            final String downloadResponseAR = await translateLanguageModelManager.downloadModel("ar");
+                            print(downloadResponseAR);
+                            //final String response = await onDeviceTranslator.translateText("test");
+
+                            //print(response);
+                            if (_formKey.currentState!.validate()) {
+
+
+                                String name =  nameController.text.trim();
+                                String description =  descriptionController.text.trim();
+                                translatedName = await onDeviceTranslator.translateText(name);
+                                translatedDesc = await onDeviceTranslator.translateText(description);
+                                setState(()  {
+
+                                });
+                                print(name);
+                                //print(response);
+                            }
+
+                            onDeviceTranslator.close();
+                          }, child: Text("translate text"))
                         ],
                       ),
                     ],

@@ -49,6 +49,7 @@ class Product{
     if (json["colors"] != null) {
       for (String color in json['colors']) {
         cols.add(Color(hexToInt(color)));
+
       }
     }
     if (json["sizes"] != null) {

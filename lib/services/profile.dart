@@ -22,6 +22,7 @@ class ProfileProvider with ChangeNotifier {
   }
 
   Future<userD> userInfo() async {
+
     if (_firebaseAuth.currentUser != null) {
       var about = await _database
           .ref()
@@ -69,12 +70,24 @@ class ProfileProvider with ChangeNotifier {
   }
 
   bool isAdmin() {
+
     if (_firebaseAuth.currentUser != null) {
       if (US!.Type == "admin") {
         return true;
       }
     }
     return false;
+  }
+
+  Future<List<userD>> getAllUsers() async {
+    List<userD> allUsers = [];
+    var all = await _database.ref().child("users").once();
+    Map asd = all.snapshot.value as Map;
+    asd.forEach((key, value) {
+      asd[key]["photo"] = "none";
+      allUsers.add(userD.fromJson(asd[key], key));
+    });
+    return allUsers;
   }
 
   Future<bool> addNotif(title, body) async {
@@ -123,6 +136,18 @@ class ProfileProvider with ChangeNotifier {
     return true;
   }
 
+  Future<void> makeAdmin(String Key) async {
+    if (_firebaseAuth.currentUser != null) {
+      await _database.ref("users/" + Key + "/Type").set("admin");
+    }
+  }
+
+  Future<void> removeAdmin(String Key) async {
+    if (_firebaseAuth.currentUser != null) {
+      await _database.ref("users/" + Key + "/Type").set("user");
+    }
+  }
+
   Future<bool> updatePhone(String phone) async {
     if (_firebaseAuth.currentUser != null) {
       await _database.ref("users/" + US!.key + "/phone").set(phone);
@@ -149,6 +174,8 @@ class ProfileProvider with ChangeNotifier {
     }
     return "";
   }
+
+
 
   String? getEmail() {
     if (_firebaseAuth.currentUser != null) {

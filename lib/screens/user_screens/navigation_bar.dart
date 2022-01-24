@@ -23,6 +23,7 @@ import 'more_screens/addproduct_screen.dart';
 import 'more_screens/addcategory_screen.dart';
 import 'more_screens/contact_us.dart';
 import 'more_screens/login.dart';
+import 'more_screens/makeadmins_screen.dart';
 import 'notifications/notifications_screen.dart';
 
 class Navigationbar extends StatefulWidget {
@@ -258,6 +259,9 @@ class aNavigationBar extends State<Navigationbar> {
                     break;
                   case '/addproduct_screen':
                     builder = (BuildContext context) => AddProduct();
+                    break;
+                  case '/addadmins_screen':
+                    builder = (BuildContext context) => MakeAdmins();
                     break;
                   case '/addcategory_screen':
                     builder = (BuildContext context) => AddCategory();

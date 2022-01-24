@@ -18,7 +18,7 @@ class NotificationCard extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: 88,
+          width: getProportionateScreenWidth(60),
           child: AspectRatio(
             aspectRatio: 0.88,
             child: Container(

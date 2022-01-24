@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class orderProvider extends ChangeNotifier{
   final OrdersService _ordersService = OrdersService();
   late List<Order> _orders;
-  final database = FirebaseDatabase.instance.ref("Orders");
+  final database = FirebaseDatabase.instance.ref();
   late StreamSubscription<DatabaseEvent> orderStream;
 
   List<Order> get orders => _orders;
@@ -23,14 +23,18 @@ class orderProvider extends ChangeNotifier{
 
   void listenToOrders() async {
     //print('listenting');
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //validate if not logged in
     String userId = prefs.getString("uid")!;
+    //var db = database.child(userId);
     //String userId = "6S6pWxmUDxMMc05NzppE27OToqT2";
     Map<dynamic,dynamic> data =  _ordersService.listenToOrders(userId);
     //print(data);
-    orderStream = database.child(userId).onValue.listen((event) {
+    orderStream = database.child("Orders").child(userId).orderByChild("timeStamp").onValue.listen((event) {
+
       data = event.snapshot.value as Map<dynamic,dynamic>;
+      //print(data);
       _orders = data.entries.map((e) => Order.fromRTDB(e.key, e.value, userId)).toList();
       //print(_orders.first.userId);
       notifyListeners();
@@ -48,10 +52,5 @@ class orderProvider extends ChangeNotifier{
     orderStream.cancel();
     super.dispose();
   }
-
-
-
-
-
 
 }

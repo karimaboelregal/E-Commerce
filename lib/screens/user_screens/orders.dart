@@ -62,7 +62,7 @@ class Orders extends StatelessWidget {
                   Consumer<orderProvider>(builder: (context,value,child){
                   //value.listenToOrders();
                     //return Text("${value.orders.length}");
-                    value.listenToOrders();
+                    //value.listenToOrders();
                     try{
                       List<Order> orders = value.orders;
                       //print(orders[0].orderId);
@@ -80,7 +80,8 @@ class Orders extends StatelessWidget {
                           children: [
                             ...orders.map((e) => Card(
                               child: ListTile(
-                                title: Text(e.orderId!),
+                                title: Text(e.timeStamp!),
+                                subtitle: Text("order Id:${e.orderId!.substring(0,6)}"),
                                 onTap: (){
                                   showMyDialogSuccess(context,e);
                                 },
@@ -127,10 +128,14 @@ class Orders extends StatelessWidget {
                       Card(
                           child:ListTile(
 
-                              title:Text("${e.product.title} \$${e.product.price} quantity: ${e.numOfItem} ")
+                              title:Text("${e.product.title} \$${e.product.price} quantity: ${e.numOfItem} "),
+
                           )
                       )
                   ),
+                  Text("${order.address!}"),
+                  Text("date: ${order.timeStamp!}"),
+
                   const Text("--------------------------"),
                   Text("total: ${order.totalPrice!}"),
 

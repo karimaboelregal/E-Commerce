@@ -1,12 +1,8 @@
-import 'package:e_commerce1/screens/user_screens/more_screens/login.dart';
 import 'package:e_commerce1/services/auth_service.dart';
 import 'package:e_commerce1/services/storage_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../loader.dart';
-import '../globals.dart' as globals;
 import '../../../services/auth_service.dart';
 import 'package:file_picker/file_picker.dart';
 

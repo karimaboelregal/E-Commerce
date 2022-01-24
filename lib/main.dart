@@ -23,46 +23,57 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final FBAPP = Firebase.initializeApp();
 
-  // AndroidNotificationChannel channel = AndroidNotificationChannel(
-  //   'high_importance_channel', // id
-  //   'High Importance Notifications', // title
-  //   description: 'This channel is used for important notifications.', // description
-  //   importance: Importance.max,
-  // );
-  // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  // FlutterLocalNotificationsPlugin();
-  //
-  // Future asyncFunction() async {
-  //   await flutterLocalNotificationsPlugin
-  //       .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-  //       ?.createNotificationChannel(channel);
-  //   print("here2");
-  //   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-  //     RemoteNotification? notification = message.notification;
-  //     AndroidNotification? android = message.notification?.android;
-  //
-  //     // If `onMessage` is triggered with a notification, construct our own
-  //     // local notification to show to users using the created channel.
-  //     if (notification != null && android != null) {
-  //       flutterLocalNotificationsPlugin.show(
-  //           notification.hashCode,
-  //           notification.title,
-  //           notification.body,
-  //           NotificationDetails(
-  //             android: AndroidNotificationDetails(
-  //               channel.id,
-  //               channel.name,
-  //               channelDescription: channel.description,
-  //               icon: android.smallIcon,
-  //               // other properties...
-  //             ),
-  //           ));
-  //     }
-  //   });
-  //   return FBAPP;
-  // }
+  AndroidNotificationChannel channel = AndroidNotificationChannel(
+    'my_channel', // id
+    'My Channel', // title
+    description: 'Important notifications from my server.', // description
+    importance: Importance.high,
+  );
+  Future asyncFunction() async {
+    final FBAPP = await Firebase.initializeApp();
+    FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+    var initializeAndroidSettings =AndroidInitializationSettings('mipmap/ic_launcher');
+    var settings = InitializationSettings(android: initializeAndroidSettings);
+
+    flutterLocalNotificationsPlugin.initialize(settings);
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print("here notif ");
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+                channelDescription: channel.description,
+                icon: android.smallIcon,
+              ),
+            ));
+      }
+    });
+
+    return FBAPP;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +104,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
           home: FutureBuilder(
-              future: FBAPP,
+              future: asyncFunction(),
               builder: (context, _snapshot) {
                 if (_snapshot.hasData) {
                   Future.delayed(Duration(seconds: 3), () {

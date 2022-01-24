@@ -1,3 +1,5 @@
+import 'package:dropdown_search/dropdown_search.dart';
+import 'package:e_commerce1/models/category.dart';
 import 'package:e_commerce1/screens/user_screens/more_screens/login.dart';
 import 'package:e_commerce1/services/auth_service.dart';
 import 'package:e_commerce1/services/storage_services.dart';
@@ -24,7 +26,7 @@ class _AddProductState extends State<AddProduct> {
   final GlobalKey<State> _LoaderDialog = new GlobalKey<State>();
   late var filename = '';
   late var path = '';
-
+  String dropdownValue = "One";
 
   @override
   Widget build(BuildContext context) {
@@ -34,151 +36,179 @@ class _AddProductState extends State<AddProduct> {
         title: Text("Add new product"),
       ),
         body: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                SizedBox(height: 80),
-                Center(
-                    child: Column(
-                      children: const [
-                        Icon(
-                          Icons.shopping_basket,
-                          size: 65.0,
-                          color: Color(0xff0088ff),
-                        ),
-                        Text(
-                          "Ecommerce",
-                          style: TextStyle(color: Color(0xff0088ff), fontSize: 35.0),
-                        ),
-                      ],
-                    )),
-                const SizedBox(
-                  height: 60,
-                ),
-                SizedBox(height: 20),
-                Container(
-                  width: MediaQuery.of(context).size.width - 50,
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please enter name";
-                      }
-                      return null;
-                    },
-                    controller: nameController,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.supervised_user_circle),
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter your name here',
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                SizedBox(height: 20),
-                Container(
-                  width: MediaQuery.of(context).size.width - 50,
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please enter type";
-                      }
-                      return null;
-                    },
-                    controller: typeController,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.supervised_user_circle),
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter your type here ',
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                SizedBox(height: 20),
-                Container(
-                  width: MediaQuery.of(context).size.width - 50,
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please enter price";
-                      }
-                      return null;
-                    },
-                    controller: priceController,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.supervised_user_circle),
-                      border: OutlineInputBorder(),
-                      hintText: 'Enter your price here',
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                SizedBox(height: 20),
-                Container(
-                  width: MediaQuery.of(context).size.width - 50,
-                  child: TextFormField(
-                    maxLines: 8,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please enter description";
-                      }
-                      return null;
-                    },
-                    controller: descriptionController,
-                    decoration: const InputDecoration(
-                      hintText: "Enter description",
-                      prefixIcon: Icon(Icons.email_rounded),
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                ButtonBar(
-                      children: [
-                        ElevatedButton(
-                            onPressed: () async {
-                              final results = await FilePicker.platform.pickFiles(
-                                allowMultiple: false,
-                                type: FileType.custom,
-                                allowedExtensions: ['png','jpg','jpeg'],
-                              );
-                              if(results == null){
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text("no image selected"),
-                                  ),
-                                );
-                                return null;
-                              }
-                              else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(content: Text("image is selected"),
-                                  ),
-                                );
-                              }
-                              path = results.files.single.path!;
-                              filename = results.files.single.name;
-                            },
-                            child: Text("Add images")),
-                        ElevatedButton(onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            storage.uploadFile(path, filename).then((value) => print("done"));
-                            String? value = await context.read<AuthenticationService>().AddProduct(
-                                name: nameController.text.trim(),
-                                desc: descriptionController.text.trim(),
-                                type: typeController.text.trim(),
-                                path: filename,
-                                price: priceController.text.trim());
-                            if (value != null) {
-                              showMyDialogError();
-                            } else {
-                              showMyDialogSuccess();
+          child: FutureBuilder(
+            future: context.read<AuthenticationService>().getAllCategories(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<Category>? categories = snapshot.data as List<Category>?;
+                List<String> titles = [];
+                categories!.forEach((element) {
+                  titles.add(element.title);
+                });
+                String selected = titles[0];
+                return Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 80),
+                      Center(
+                          child: Column(
+                            children: const [
+                              Icon(
+                                Icons.shopping_basket,
+                                size: 65.0,
+                                color: Color(0xff0088ff),
+                              ),
+                              Text(
+                                "Ecommerce",
+                                style: TextStyle(
+                                    color: Color(0xff0088ff), fontSize: 35.0),
+                              ),
+                            ],
+                          )),
+                      const SizedBox(
+                        height: 60,
+                      ),
+                      SizedBox(height: 20),
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width - 50,
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter name";
                             }
-                          }
-                        }, child: Text("Save Product"))
-                      ],
-                    ),
-              ],
-            ),
+                            return null;
+                          },
+                          controller: nameController,
+                          decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.supervised_user_circle),
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter your name here',
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      SizedBox(height: 20),
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width - 50,
+                        child: DropdownSearch<String>(
+                            mode: Mode.BOTTOM_SHEET,
+                            items: titles,
+                            label: "Category",
+                            popupItemDisabled: (String s) => s.startsWith('I'),
+                            onChanged: (v) {
+                              selected = v!;
+                            },
+                            selectedItem: titles[0]),
+                      ),
+                      SizedBox(height: 20),
+                      SizedBox(height: 20),
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width - 50,
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter price";
+                            }
+                            return null;
+                          },
+                          controller: priceController,
+                          decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.supervised_user_circle),
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter your price here',
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      SizedBox(height: 20),
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width - 50,
+                        child: TextFormField(
+                          maxLines: 8,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter description";
+                            }
+                            return null;
+                          },
+                          controller: descriptionController,
+                          decoration: const InputDecoration(
+                            hintText: "Enter description",
+                            prefixIcon: Icon(Icons.email_rounded),
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      ButtonBar(
+                        children: [
+                          ElevatedButton(
+                              onPressed: () async {
+                                final results = await FilePicker.platform
+                                    .pickFiles(
+                                  allowMultiple: false,
+                                  type: FileType.custom,
+                                  allowedExtensions: ['png', 'jpg', 'jpeg'],
+                                );
+                                if (results == null) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("no image selected"),
+                                    ),
+                                  );
+                                  return null;
+                                }
+                                else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("image is selected"),
+                                    ),
+                                  );
+                                }
+                                path = results.files.single.path!;
+                                filename = results.files.single.name;
+                              },
+                              child: Text("Add images")),
+                          ElevatedButton(onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              storage.uploadFile(path, filename).then((value) =>
+                                  print("done"));
+                              String? value = await context.read<
+                                  AuthenticationService>().AddProduct(
+                                  name: nameController.text.trim(),
+                                  desc: descriptionController.text.trim(),
+                                  type: selected,
+                                  path: filename,
+                                  price: priceController.text.trim());
+                              if (value != null) {
+                                showMyDialogError();
+                              } else {
+                                showMyDialogSuccess();
+                              }
+                            }
+                          }, child: Text("Save Product"))
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                return Center(child: CircularProgressIndicator(),);
+              }
+            }
           ),
         )
     );

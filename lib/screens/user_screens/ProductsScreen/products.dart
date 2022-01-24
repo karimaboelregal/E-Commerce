@@ -1,4 +1,3 @@
-import 'package:e_commerce1/models/category.dart';
 import 'package:e_commerce1/models/args.dart';
 import 'package:e_commerce1/screens/user_screens/cart/cart_screen.dart';
 import 'package:e_commerce1/screens/user_screens/notifications/notifications_screen.dart';
@@ -10,12 +9,8 @@ import 'Components/product_list_widget.dart';
 
 class ProductsScreen extends StatefulWidget {
   String? search;
-  ProductsScreen({this.search});
-
-  ProductsScreen.cat({this.cateogry});
-
-  Category? cateogry;
-
+  String? cat;
+  ProductsScreen({this.search, this.cat});
   @override
   _ProductsScreenState createState() => _ProductsScreenState();
 }
@@ -51,10 +46,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   padding: EdgeInsets.symmetric(vertical: 12.0),
                   width: 200,
                   child: TextField(
-                    controller: searchText,
-                    onSubmitted: (v) {
-                      Navigator.pushNamed(context, "/Products", arguments: ScreenArguments(0,v));
-                    },
+                      controller: searchText,
+                      onSubmitted: (v) {
+                        Navigator.pushNamed(context, "/Products", arguments: ScreenArguments(0,v));
+                      },
                       decoration: InputDecoration(
                           prefixIcon: Icon(Icons.search),
                           border: OutlineInputBorder(
@@ -101,7 +96,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
       body: Container(
           alignment: Alignment.topLeft,
           padding: EdgeInsets.only(left: 10, right: 10),
-          child: ProductListWidget(search: widget.search,cateogry: widget.cateogry,)),
+          child: ProductListWidget(search: widget.search,cat:widget.cat)),
     );
   }
 }

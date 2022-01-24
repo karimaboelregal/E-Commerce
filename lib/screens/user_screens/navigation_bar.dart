@@ -231,8 +231,7 @@ class aNavigationBar extends State<Navigationbar> {
                                 search: args.text);
                       } else {
                         builder = (BuildContext context) =>
-                            ProductsScreen(
-                                cat: args.text);
+                            ProductsScreen(cat: args.text);
                       }
                     } else {
                       builder = (BuildContext context) =>

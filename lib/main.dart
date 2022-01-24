@@ -1,3 +1,4 @@
+
 import 'package:e_commerce1/providers/address_provider.dart';
 import 'package:e_commerce1/screens/user_screens/more_screens/login.dart';
 import 'package:e_commerce1/screens/user_screens/navigation_bar.dart';
@@ -11,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:e_commerce1/providers/cart_provider.dart';
-
 import 'screens/user_screens/cart/cart_screen.dart';
 import 'screens/user_screens/notifications//notifications_screen.dart';
 
@@ -53,10 +53,10 @@ class MyApp extends StatelessWidget {
     );
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print("here notif ");
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       if (notification != null && android != null) {
+        //context.read<ProfileProvider>().addNotif(notification.title, notification.body);
         flutterLocalNotificationsPlugin.show(
             notification.hashCode,
             notification.title,

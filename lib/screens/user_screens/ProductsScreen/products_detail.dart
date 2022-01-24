@@ -1,5 +1,6 @@
 
 import 'package:e_commerce1/models/product.dart';
+import 'package:e_commerce1/services/profile.dart';
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import 'Components/details_widget.dart';
@@ -38,8 +39,9 @@ class _ProductDetailPageState extends State<ProductDetailPage>{
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context, listen: true);
+    bool isSignedin = context.read<ProfileProvider>().isLoggedin();
     return Scaffold(
-      floatingActionButton: floatingButton(widget.product,cart),
+      floatingActionButton: floatingButton(widget.product,cart,isSignedin, context),
       body: SafeArea(
         child: Container(
           decoration: const BoxDecoration(
@@ -70,6 +72,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>{
 
   Widget _appBar() {
     final cart = Provider.of<Cart>(context, listen: true);
+    bool isSignedin = context.read<ProfileProvider>().isLoggedin();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Row(
@@ -92,7 +95,11 @@ class _ProductDetailPageState extends State<ProductDetailPage>{
               icon: Icon(Icons.shopping_cart),
               color: Color(0xff0088ff),
               onPressed: () {
-                Navigator.pushNamed(context, CartScreen.routeName);
+                if (isSignedin) {
+                  Navigator.pushNamed(context, CartScreen.routeName);
+                } else {
+                  Navigator.pushNamed(context, "/login");
+                }
               },
             ),
             badgeColor: kPrimaryColor,

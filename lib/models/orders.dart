@@ -9,10 +9,14 @@ class Order{
   String? userId;
   String? totalPrice;
   String? orderId;
+  String? address;
+  double? latitude;
+  double? longitude;
+  String? timeStamp;
   List<ProductSelected>? productsOrdered;
 
 
-  Order({required this.userId,required this.totalPrice,required this.orderId,required this.productsOrdered});
+  Order({required this.userId,required this.totalPrice,required this.orderId,required this.productsOrdered,required this.address,required this.timeStamp,required this.longitude,required this.latitude});
 
   Order.fromMap(this.cartItems);
 
@@ -23,6 +27,11 @@ class Order{
     //print(key);
     Map<dynamic,dynamic> orderJson = value;
     String totalPrice = orderJson['totalPrice'].toString();
+    String address = orderJson['address'];
+    String timeStamp = orderJson['timeStamp'];
+    double latitude = orderJson['latitude'];
+    double longitude = orderJson['longitude'];
+
     //print(orderJson['ProductsOrdered']);
     var productsOrderedJson = orderJson['ProductsOrdered'] as List<dynamic>;
     //List<ProductSelected> productsOrdered = [];
@@ -35,7 +44,8 @@ class Order{
     Order o = Order(
         userId: userId,
         totalPrice: totalPrice,
-        productsOrdered: productsOrdered,orderId: key);
+        productsOrdered: productsOrdered,orderId: key,
+    address: address,timeStamp: timeStamp,latitude: latitude,longitude: longitude);
 
     return o;
 

@@ -17,7 +17,6 @@ class AuthenticationService {
   final database = FirebaseDatabase.instance; //database reference object
   final storage = firebase_storage.FirebaseStorage.instance;
 
-
   Future AddCategory({required String name,required String desc,required String path}) async{
     String imgs = path;
     print(path);
@@ -51,7 +50,6 @@ class AuthenticationService {
 
     return Cat;
   }
-
   Future<String?> signUp(
       {required String email, required String password, required String name}) async {
     try {

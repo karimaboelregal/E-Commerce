@@ -209,6 +209,7 @@ class _AddProductState extends State<AddProduct> {
                 } else {
                   return Center(child: CircularProgressIndicator(),);
                 }
+
               }
           ),
         )

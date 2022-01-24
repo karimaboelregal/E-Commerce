@@ -16,6 +16,7 @@ import 'package:e_commerce1/screens/user_screens/cart/cart_screen.dart';
 class ProductDetailPage extends StatefulWidget {
 
   final Product product;
+
   ProductDetailPage({required this.product});
 
   @override
@@ -35,6 +36,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>{
   void dispose() {
     super.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {

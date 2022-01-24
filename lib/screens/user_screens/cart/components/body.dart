@@ -80,7 +80,7 @@ class _BodyState extends State<Body> {
                     ],
                   ),
                 ),
-                child: CartCard(cart: cart.productsSelected.values.elementAt(index)),
+                child: CartCard(cart: cart.productsSelected.values.elementAt(index),index:index),
               ),
             ),
 

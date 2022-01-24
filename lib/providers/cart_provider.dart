@@ -26,7 +26,12 @@ class Cart extends ChangeNotifier{
     productsSelected.putIfAbsent(product.id,()=>ProductSelected(product : product,numOfItem : numOfItem));
     notifyListeners();
   }
-
+  increase_quantity(int id){
+    notifyListeners();
+  }
+  decrease_quantity(int id){
+    notifyListeners();
+  }
   del(int id) {
     productsSelected[id]!.product.isCart = false;
     productsSelected.remove(id);

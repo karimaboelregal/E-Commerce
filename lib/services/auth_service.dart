@@ -54,6 +54,37 @@ class AuthenticationService {
     return Products;
   }
 
+  Future<List<Product>> getAllProductsByid(catid) async {
+    print("ahmedddddd");
+    print(catid);
+
+    var data = await database.ref("Products").once();
+
+    List<Product> Products = [];
+    for (var element in data.snapshot.children) {
+      Map valueMap = json.decode(jsonEncode(element.value));
+      if (valueMap['Type'] == catid){
+        List<String> imgs = [];
+        for (String image in valueMap['images']) {
+          String img = await storage.ref('products/' + image).getDownloadURL();
+          imgs.add(img);
+        }
+        valueMap["images"] = imgs;
+        Products.add(Product.fromJson(valueMap,1));
+      }
+      else if (catid == null){
+        List<String> imgs = [];
+        for (String image in valueMap['images']) {
+          String img = await storage.ref('products/' + image).getDownloadURL();
+          imgs.add(img);
+        }
+        valueMap["images"] = imgs;
+        Products.add(Product.fromJson(valueMap,1));
+      }
+    }
+    return Products;
+  }
+
   Future AddProduct({required String name,required String? type,required String desc,required String price,required String path}) async{
     List<String> imgs = [path];
     int price_int =int.parse(price);
@@ -101,6 +132,7 @@ class AuthenticationService {
 
     return Cat;
   }
+
   Future<String?> signUp(
       {required String email, required String password, required String name}) async {
     try {

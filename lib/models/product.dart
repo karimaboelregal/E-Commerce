@@ -32,6 +32,7 @@ class Product{
       'title':title,
       'desc':description,
       //'size':size,
+      'Type':type,
       'price':price,
       'images':images,
       //'colors':colors,

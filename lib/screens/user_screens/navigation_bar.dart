@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:e_commerce1/models/args.dart';
 import 'package:e_commerce1/providers/order_provider.dart';
 import 'package:e_commerce1/screens/user_screens/orders.dart';
 import 'package:flutter/material.dart';
@@ -162,8 +165,18 @@ class aNavigationBar extends State<Navigationbar> {
                   currentTab = 1;
                 });
                 if (settings.arguments != null) {
-                  builder = (BuildContext context) =>
-                      ProductsScreen(search: settings.arguments as String);
+
+                  ScreenArguments args = settings.arguments as ScreenArguments;
+
+                  if (args.type == 0) {
+                    builder = (BuildContext context) =>
+                        ProductsScreen(
+                            search: args.text);
+                  } else {
+                    builder = (BuildContext context) =>
+                        ProductsScreen(
+                            cat: args.text);
+                  }
                 } else {
                   builder = (BuildContext context) =>
                       ProductsScreen();

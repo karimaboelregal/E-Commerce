@@ -6,10 +6,12 @@ import 'package:e_commerce1/constants.dart';
 class NotificationCard extends StatelessWidget {
   const NotificationCard({
     Key? key,
-    required this.notifactionz,
+    required this.title,
+    required this.body,
   }) : super(key: key);
 
-  final Notifications notifactionz;
+  final String title;
+  final String body;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class NotificationCard extends StatelessWidget {
                 color: Color(0xFFF5F6F9),
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Image.asset(notifactionz.product.images[0]),
+              child: Icon(Icons.notifications),
             ),
           ),
         ),
@@ -34,9 +36,17 @@ class NotificationCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              notifactionz.product.title,
+              title,
               style: TextStyle(color: Colors.black, fontSize: 16),
               maxLines: 2,
+            ),
+            Container(
+              width: 200,
+              child: Text(
+                body,
+                style: TextStyle(color: Colors.black, fontSize: 16),
+                maxLines: 2,
+              ),
             ),
 
 

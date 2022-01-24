@@ -1,11 +1,15 @@
 import 'dart:convert';
 
 import 'package:e_commerce1/models/orders.dart';
+import 'package:e_commerce1/providers/address_provider.dart';
+import 'package:e_commerce1/providers/address_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce1/size_config.dart';
 import 'package:e_commerce1/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:e_commerce1/providers/cart_provider.dart';
+
+import '../../maps_screen.dart';
 
 
 class CheckoutCard extends StatelessWidget {
@@ -18,7 +22,7 @@ class CheckoutCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context, listen: true);
-
+    final addressNotify = Provider.of<addressNotifier>(context,listen:true);
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -47,19 +51,14 @@ class CheckoutCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Container(
-                  padding: EdgeInsets.all(10),
-                  height: getProportionateScreenWidth(40),
-                  width: getProportionateScreenWidth(40),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF5F6F9),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: null//svg pic here,
-                ),
+
                 Spacer(),
-                Text("Add voucher code"),
+
+                ElevatedButton(onPressed: (){
+                  Navigator.pushNamed(context, Maps.routeName);
+                }, child: Text('pick an address')),
                 const SizedBox(width: 10),
+                Text(addressNotify.address == null ?   "...":addressNotify.address!.street),
                 Icon(
                   Icons.arrow_forward_ios,
                   size: 12,
@@ -82,6 +81,7 @@ class CheckoutCard extends StatelessWidget {
                     ],
                   ),
                 ),
+
                 SizedBox(
                   width: getProportionateScreenWidth(190),
                   child: ElevatedButton(onPressed: () {
@@ -89,12 +89,19 @@ class CheckoutCard extends StatelessWidget {
                     //Map<String, dynamic> jsontest = {'id':1,'price':20};
 
 
+                    if(addressNotify.address != null)
+                    {
+                      showMyDialogSuccess(context,cartScreenContext,cart);
+                    }
+                    else{
+                      showToast(context, "please pick an address first :)");
+                    }
 
-                    showMyDialogSuccess(context,cartScreenContext,cart);
 
                   },
                       child: Text("Check Out"))
                 ),
+
               ],
             ),
           ],
@@ -105,11 +112,11 @@ class CheckoutCard extends StatelessWidget {
 
   }
 
-  Future<void> showToast(BuildContext context) async{
+  Future<void> showToast(BuildContext context,String text) async{
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(
       SnackBar(
-        content: const Text('OrderPlaced: check your orders :)'),
+        content: Text(text),
         action: SnackBarAction(label: 'Hide', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
@@ -138,7 +145,7 @@ class CheckoutCard extends StatelessWidget {
                 Order order = Order.fromMap(cart.toMap());
                 order.save();
 
-                showToast(context);
+                showToast(context,'OrderPlaced: check your orders :)');
                 cart.deleteAll();
                 print(cart.productsSelected);
                 Navigator.of(context).pop();

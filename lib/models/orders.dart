@@ -9,6 +9,10 @@ class Order{
   String? userId;
   String? totalPrice;
   String? orderId;
+  String? address;
+  double? latitude;
+  double? longitude;
+  String? timeStamp;
   List<ProductSelected>? productsOrdered;
 
 

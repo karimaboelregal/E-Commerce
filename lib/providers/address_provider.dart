@@ -8,7 +8,7 @@ class addressNotifier extends ChangeNotifier{
 
   updateAddress(String street,String country,String administrativeArea,
       double lat,double long){
-    address = Address(street,country,"test",lat,long);
+    address = Address(street,country,administrativeArea,lat,long);
     notifyListeners();
 
   }

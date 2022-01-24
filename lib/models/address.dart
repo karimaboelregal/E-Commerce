@@ -11,4 +11,9 @@ class Address {
 
   Address(this.street, this.country, this.administrativeArea,
       this.lat, this.long);
+
+  @override
+  String toString() {
+    return 'Address: $street, $administrativeArea,$country';
+  }
 }

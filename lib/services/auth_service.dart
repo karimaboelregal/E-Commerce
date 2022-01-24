@@ -54,12 +54,12 @@ class AuthenticationService {
     return Products;
   }
 
-  Future AddProduct({required String name,required String type,required String desc,required String price,required String path}) async{
+  Future AddProduct({required String name,required String? type,required String desc,required String price,required String path}) async{
     List<String> imgs = [path];
     int price_int =int.parse(price);
     database.ref().child("Products").push().set({
       "Name": "" + name,
-      "Type": "" + type,
+      "Type": "" + type!,
       "desc": "" + desc,
       "price": price_int,
       "images": [path],

@@ -56,7 +56,7 @@ class aNavigationBar extends State<Navigationbar> {
 
     final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
-    var initializeAndroidSettings =AndroidInitializationSettings('mipmap/ic_launcher');
+    var initializeAndroidSettings = AndroidInitializationSettings('mipmap/ic_launcher');
     var settings = InitializationSettings(android: initializeAndroidSettings);
 
     flutterLocalNotificationsPlugin.initialize(settings);
@@ -72,6 +72,7 @@ class aNavigationBar extends State<Navigationbar> {
       sound: true,
     );
 
+    await context.read<ProfileProvider>().userInfo();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;

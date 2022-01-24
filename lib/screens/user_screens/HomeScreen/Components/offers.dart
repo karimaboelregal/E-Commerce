@@ -1,3 +1,4 @@
+import 'package:e_commerce1/models/args.dart';
 import 'package:e_commerce1/models/category.dart';
 import 'package:e_commerce1/services/auth_service.dart';
 import 'package:flutter/material.dart';
@@ -75,8 +76,10 @@ class SpecialOfferCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
-      child: GestureDetector(
-        onTap: press,
+      child: InkWell(
+        onTap: () {
+          Navigator.pushNamed(context, "/Products", arguments: ScreenArguments(1,category));
+        },
         child: SizedBox(
           width: getProportionateScreenWidth(242),
           height: getProportionateScreenWidth(100),

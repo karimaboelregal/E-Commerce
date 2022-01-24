@@ -10,6 +10,7 @@ import 'ProductsScreen/products_detail.dart';
 import 'ProfileScreen/profile_page.dart';
 import 'cart/cart_screen.dart';
 import 'categories.dart';
+import 'maps_screen.dart';
 import 'more.dart';
 import 'more_screens/Register.dart';
 import 'more_screens/addproduct_screen.dart';
@@ -103,7 +104,7 @@ class aNavigationBar extends State<Navigationbar> {
                 setState(() {
                   currentTab = 2;
                 });
-              } else if (route.settings.name == "/cart" || route.settings.name == "/notifications") {
+              } else if (route.settings.name == "/cart" || route.settings.name == "/notifications" || route.settings.name == "/maps") {
 
               } else if (route.settings.name =='/singeProduct') {
                 setState(() {
@@ -174,6 +175,9 @@ class aNavigationBar extends State<Navigationbar> {
                 break;
               case '/notification':
                 builder = (BuildContext context) => NotificationScreen();
+                break;
+              case '/maps':
+                builder = (BuildContext context) => Maps();
                 break;
               case '/addproduct_screen':
                 builder = (BuildContext context) => AddProduct();

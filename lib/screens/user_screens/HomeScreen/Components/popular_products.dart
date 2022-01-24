@@ -87,22 +87,21 @@ class ProductCard extends StatelessWidget {
         child: SizedBox(
           width: getProportionateScreenWidth(width),
 
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AspectRatio(
-                  aspectRatio: 1.02,
-                  child: Container(
-                    padding: EdgeInsets.all(getProportionateScreenWidth(10)),
-                    decoration: BoxDecoration(
-                      //leave it at 0.0 for now la7ad matgeeb swar ndeefa mafhash background
-                      color: kSecondaryColor.withOpacity(0.0),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Hero(
-                      tag: product.id.toString(),
-                      child: Image.network(product.images[0]),
-                    ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AspectRatio(
+                aspectRatio: 1.02,
+                child: Container(
+                  padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+                  decoration: BoxDecoration(
+                    //leave it at 0.0 for now la7ad matgeeb swar ndeefa mafhash background
+                    color: kSecondaryColor.withOpacity(0.0),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Hero(
+                    tag: product.id.toString(),
+                    child: Image.network(product.images[0]),
                   ),
                 ),
                 const SizedBox(height: 10),

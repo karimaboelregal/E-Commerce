@@ -9,7 +9,7 @@ class Order{
   String? userId;
   String? totalPrice;
   String? orderId;
-  ProductSelected? productsOrdered;
+  List<ProductSelected>? productsOrdered;
 
 
   Order({required this.userId,required this.totalPrice,required this.orderId,required this.productsOrdered});
@@ -17,7 +17,7 @@ class Order{
   Order.fromMap(this.cartItems);
 
   factory Order.fromRTDB(String key,Map<dynamic,dynamic> value,String userId){
-    late ProductSelected productOrdered;
+    List<ProductSelected> productsOrdered = [];
     //print(value);
     String orderId = key;
     //print(key);
@@ -30,12 +30,12 @@ class Order{
       var productOrderedJson = List.from(element.values);
       int quantity = productOrderedJson[0];
       Map<dynamic,dynamic> productJson = Map.from(productOrderedJson[1]);
-      productOrdered = ProductSelected(product: Product.fromJson(productJson,2),numOfItem: quantity);
+      productsOrdered.add(ProductSelected(product: Product.fromJson(productJson,2),numOfItem: quantity));
     });
     Order o = Order(
         userId: userId,
         totalPrice: totalPrice,
-        productsOrdered: productOrdered,orderId: key);
+        productsOrdered: productsOrdered,orderId: key);
 
     return o;
 

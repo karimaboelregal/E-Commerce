@@ -24,56 +24,56 @@ void main() {
 
 class MyApp extends StatelessWidget {
 
-  // AndroidNotificationChannel channel = AndroidNotificationChannel(
-  //   'my_channel', // id
-  //   'My Channel', // title
-  //   description: 'Important notifications from my server.', // description
-  //   importance: Importance.high,
-  // );
-  // Future asyncFunction() async {
-  //   final FBAPP = await Firebase.initializeApp();
-  //   FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-  //
-  //   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  //   FlutterLocalNotificationsPlugin();
-  //   var initializeAndroidSettings =AndroidInitializationSettings('mipmap/ic_launcher');
-  //   var settings = InitializationSettings(android: initializeAndroidSettings);
-  //
-  //   flutterLocalNotificationsPlugin.initialize(settings);
-  //   await flutterLocalNotificationsPlugin
-  //       .resolvePlatformSpecificImplementation<
-  //       AndroidFlutterLocalNotificationsPlugin>()
-  //       ?.createNotificationChannel(channel);
-  //
-  //   await FirebaseMessaging.instance
-  //       .setForegroundNotificationPresentationOptions(
-  //     alert: true,
-  //     badge: true,
-  //     sound: true,
-  //   );
-  //
-  //   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-  //     print("here notif ");
-  //     RemoteNotification? notification = message.notification;
-  //     AndroidNotification? android = message.notification?.android;
-  //     if (notification != null && android != null) {
-  //       flutterLocalNotificationsPlugin.show(
-  //           notification.hashCode,
-  //           notification.title,
-  //           notification.body,
-  //           NotificationDetails(
-  //             android: AndroidNotificationDetails(
-  //               channel.id,
-  //               channel.name,
-  //               channelDescription: channel.description,
-  //               icon: android.smallIcon,
-  //             ),
-  //           ));
-  //     }
-  //   });
-  //
-  //   return FBAPP;
-  // }
+  AndroidNotificationChannel channel = AndroidNotificationChannel(
+    'my_channel', // id
+    'My Channel', // title
+    description: 'Important notifications from my server.', // description
+    importance: Importance.high,
+  );
+  Future asyncFunction() async {
+    final FBAPP = await Firebase.initializeApp();
+    FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+    var initializeAndroidSettings =AndroidInitializationSettings('mipmap/ic_launcher');
+    var settings = InitializationSettings(android: initializeAndroidSettings);
+
+    flutterLocalNotificationsPlugin.initialize(settings);
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print("here notif ");
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+                channelDescription: channel.description,
+                icon: android.smallIcon,
+              ),
+            ));
+      }
+    });
+
+    return FBAPP;
+  }
 
   @override
   Widget build(BuildContext context) {

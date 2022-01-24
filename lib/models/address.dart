@@ -9,6 +9,7 @@ class Address {
   double lat;
   double long;
 
+
   Address(this.street, this.country, this.administrativeArea,
       this.lat, this.long);
 

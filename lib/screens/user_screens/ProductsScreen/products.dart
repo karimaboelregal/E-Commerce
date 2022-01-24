@@ -1,3 +1,4 @@
+import 'package:e_commerce1/models/category.dart';
 import 'package:e_commerce1/screens/user_screens/cart/cart_screen.dart';
 import 'package:e_commerce1/screens/user_screens/notifications/notifications_screen.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,11 @@ import 'Components/product_list_widget.dart';
 class ProductsScreen extends StatefulWidget {
   String? search;
   ProductsScreen({this.search});
+
+  ProductsScreen.cat({this.cateogry});
+
+  Category? cateogry;
+
   @override
   _ProductsScreenState createState() => _ProductsScreenState();
 }
@@ -79,7 +85,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
       body: Container(
           alignment: Alignment.topLeft,
           padding: EdgeInsets.only(left: 10, right: 10),
-          child: ProductListWidget(search: widget.search,)),
+          child: ProductListWidget(search: widget.search,cateogry: widget.cateogry,)),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:e_commerce1/screens/user_screens/ProductsScreen/products.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce1/models/category.dart';
 import 'package:provider/src/provider.dart';
@@ -95,9 +96,8 @@ class Categories extends StatelessWidget {
           ),
         ],
       ),
-      body: FutureBuilder
-        (
-       future: context.read<AuthenticationService>().getAllCategories() ,
+      body: FutureBuilder (
+       future: context.read<AuthenticationService>().getAllCategories(),
         builder: (context,snapshot)  {
     if (snapshot.hasData) {
 
@@ -132,7 +132,10 @@ class Categories extends StatelessWidget {
                       itemBuilder: (BuildContext ctx, index) {
                         return Card(
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushAndRemoveUntil(context,
+                                  MaterialPageRoute(builder: (context) => ProductsScreen.cat(cateogry: categories![index],)), (r) => false);
+                            },
                             child: Column(
                               children: [
                                 Image.network(

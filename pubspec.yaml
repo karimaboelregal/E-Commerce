@@ -55,6 +55,8 @@ dependencies:
   location: ^4.3.0
   firebase_messaging: ^11.2.5
   flutter_local_notifications: ^9.2.0
+  geocoding: ^2.0.2
+  dropdown_search: ^2.0.1
 
 dev_dependencies:
   flutter_test:

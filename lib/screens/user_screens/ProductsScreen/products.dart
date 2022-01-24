@@ -1,7 +1,10 @@
 import 'package:e_commerce1/models/category.dart';
+import 'package:e_commerce1/models/args.dart';
 import 'package:e_commerce1/screens/user_screens/cart/cart_screen.dart';
 import 'package:e_commerce1/screens/user_screens/notifications/notifications_screen.dart';
+import 'package:e_commerce1/services/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
 import 'Components/product_list_widget.dart';
 
@@ -21,6 +24,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   TextEditingController searchText = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    bool isSignedin = context.read<ProfileProvider>().isLoggedin();
     if (widget.search != null) {
       searchText.text = widget.search!;
     }
@@ -36,7 +40,11 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 icon: Icon(Icons.account_circle_rounded),
                 color: Color(0xff0088ff),
                 onPressed: () {
-                  Navigator.pushNamed(context, "/profile");
+                  if (isSignedin) {
+                    Navigator.pushNamed(context, "/profile");
+                  } else {
+                    Navigator.pushNamed(context, "/login");
+                  }
                 },
               ),
               Container(
@@ -45,7 +53,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   child: TextField(
                     controller: searchText,
                     onSubmitted: (v) {
-                      Navigator.pushNamed(context, "/Products", arguments: v);
+                      Navigator.pushNamed(context, "/Products", arguments: ScreenArguments(0,v));
                     },
                       decoration: InputDecoration(
                           prefixIcon: Icon(Icons.search),
@@ -67,14 +75,22 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 icon: Icon(Icons.notifications),
                 color: Color(0xff0088ff),
                 onPressed: () {
-                  Navigator.pushNamed(context, NotificationScreen.routeName);
+                  if (isSignedin) {
+                    Navigator.pushNamed(context, NotificationScreen.routeName);
+                  } else {
+                    Navigator.pushNamed(context, "/login");
+                  }
                 },
               ),
               IconButton(
                 icon: Icon(Icons.shopping_cart),
                 color: Color(0xff0088ff),
                 onPressed: () {
-                  Navigator.pushNamed(context, CartScreen.routeName);
+                  if (isSignedin) {
+                    Navigator.pushNamed(context, CartScreen.routeName);
+                  } else {
+                    Navigator.pushNamed(context, "/login");
+                  }
                 },
               ),
 

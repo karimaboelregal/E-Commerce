@@ -1,4 +1,5 @@
 import 'package:e_commerce1/constants.dart';
+import 'package:e_commerce1/models/args.dart';
 import 'package:e_commerce1/models/category.dart';
 import 'package:e_commerce1/screens/user_screens/ProductsScreen/products.dart';
 import 'package:e_commerce1/services/auth_service.dart';
@@ -61,8 +62,10 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: press,
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, "/Products", arguments: ScreenArguments(1,text!));
+      },
       child: SizedBox(
         width: getProportionateScreenWidth(55),
         child: Column(

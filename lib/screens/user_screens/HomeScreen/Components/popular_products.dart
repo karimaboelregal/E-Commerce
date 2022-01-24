@@ -75,53 +75,61 @@ class ProductCard extends StatelessWidget {
   final Cart cart;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
-      child: SizedBox(
-        width: getProportionateScreenWidth(width),
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(
+            context,
+            "/singeProduct", arguments: product
+        );
+      },
+      child: Padding(
+        padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+        child: SizedBox(
+          width: getProportionateScreenWidth(width),
 
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AspectRatio(
-                aspectRatio: 1.02,
-                child: Container(
-                  padding: EdgeInsets.all(getProportionateScreenWidth(10)),
-                  decoration: BoxDecoration(
-                    //leave it at 0.0 for now la7ad matgeeb swar ndeefa mafhash background
-                    color: kSecondaryColor.withOpacity(0.0),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Hero(
-                    tag: product.id.toString(),
-                    child: Image.network(product.images[0]),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                product.title,
-                style: TextStyle(color: Colors.black),
-                maxLines: 2,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "\$${product.price}",
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: kPrimaryColor,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AspectRatio(
+                  aspectRatio: 1.02,
+                  child: Container(
+                    padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+                    decoration: BoxDecoration(
+                      //leave it at 0.0 for now la7ad matgeeb swar ndeefa mafhash background
+                      color: kSecondaryColor.withOpacity(0.0),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Hero(
+                      tag: product.id.toString(),
+                      child: Image.network(product.images[0]),
                     ),
                   ),
-                  CartButton(product:product,cart:cart)
-                ],
-              )
-            ],
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  product.title,
+                  style: TextStyle(color: Colors.black),
+                  maxLines: 2,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "\$${product.price}",
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: kPrimaryColor,
+                      ),
+                    ),
+                    CartButton(product:product,cart:cart)
+                  ],
+                )
+              ],
+            ),
           ),
-        ),
 
+      ),
     );
   }
 }

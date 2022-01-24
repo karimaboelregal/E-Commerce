@@ -1,3 +1,5 @@
+import 'package:e_commerce1/models/args.dart';
+import 'package:e_commerce1/services/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce1/models/category.dart';
 import 'package:provider/src/provider.dart';
@@ -42,6 +44,7 @@ class Categories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isSignedin = context.read<ProfileProvider>().isLoggedin();
 
     return Scaffold(
       appBar: AppBar(
@@ -53,7 +56,11 @@ class Categories extends StatelessWidget {
             icon: Icon(Icons.account_circle_rounded),
             color: Color(0xff0088ff),
             onPressed: () {
-              Navigator.pushNamed(context, "/profile");
+              if (isSignedin) {
+                Navigator.pushNamed(context, "/profile");
+              } else {
+                Navigator.pushNamed(context, "/login");
+              }
             },
           ),
           Container(
@@ -61,7 +68,7 @@ class Categories extends StatelessWidget {
               width: 200,
               child: TextField(
                   onSubmitted: (v) {
-                    Navigator.pushNamed(context, "/Products", arguments: v);
+                    Navigator.pushNamed(context, "/Products", arguments: ScreenArguments(0,v));
                   },
                   decoration: InputDecoration(
                       prefixIcon: Icon(Icons.search),
@@ -83,14 +90,22 @@ class Categories extends StatelessWidget {
             icon: Icon(Icons.notifications),
             color: Color(0xff0088ff),
             onPressed: () {
-              Navigator.pushNamed(context, NotificationScreen.routeName);
+              if (isSignedin) {
+                Navigator.pushNamed(context, NotificationScreen.routeName);
+              } else {
+                Navigator.pushNamed(context, "/login");
+              }
             },
           ),
           IconButton(
             icon: Icon(Icons.shopping_cart),
             color: Color(0xff0088ff),
             onPressed: () {
-              Navigator.pushNamed(context, CartScreen.routeName);
+              if (isSignedin) {
+                Navigator.pushNamed(context, CartScreen.routeName);
+              } else {
+                Navigator.pushNamed(context, "/login");
+              }
             },
           ),
         ],
@@ -132,7 +147,9 @@ class Categories extends StatelessWidget {
                       itemBuilder: (BuildContext ctx, index) {
                         return Card(
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(context, "/Products", arguments: ScreenArguments(1,categories![index].title));
+                            },
                             child: Column(
                               children: [
                                 Image.network(

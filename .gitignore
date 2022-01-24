@@ -47,3 +47,5 @@ app.*.map.json
 
 /android/key.properties
 /android/app/upload-keystore.jks
+/android/app/src/main/AndroidManifest.xml
+

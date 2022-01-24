@@ -68,13 +68,11 @@ class Orders extends StatelessWidget {
                       //print(orders[0].orderId);
                       //print(orders.first.orderId);
                       //print(orders.first.totalPrice);
-                      //print(orders.first.productsOrdered!.numOfItem);
+                      //print(orders.first.productsOrdered!.first.product.title);
                       //print(orders.first.productsOrdered!.product);
 
 
                       //return Text("${value.orders.length}");
-
-
 
                       return SizedBox(
                         height:getProportionateScreenHeight(600),
@@ -83,27 +81,18 @@ class Orders extends StatelessWidget {
                             ...orders.map((e) => Card(
                               child: ListTile(
                                 title: Text(e.orderId!),
+                                onTap: (){
+                                  showMyDialogSuccess(context,e);
+                                },
                               ),
                             ))
                           ],
                         ),
                       );
                     }catch(e){
-                      return CircularProgressIndicator();
-
+                      return const CircularProgressIndicator();
                     }
-                    if(value.orders.first.orderId != null){
-
-
-
-                    }
-                    else{
-                    }
-
-                  }
-
-
-                  )
+                  })
 
                 ],
               ),
@@ -111,6 +100,57 @@ class Orders extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> showMyDialogSuccess(BuildContext context,Order order) async {
+    //final cart = Provider.of<Cart>(context, listen: true);
+
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+
+          title: const Text('Order Details'),
+          content: SizedBox(
+            height: getProportionateScreenHeight(200),
+            child:SingleChildScrollView(
+
+              scrollDirection: Axis.vertical,
+              child: ListBody(
+                children:  <Widget>[
+                  Text("order id: ${order.orderId!}"),
+                  const Text("products: "),
+                  ...order.productsOrdered!.map((e) =>
+
+                      Card(
+                          child:ListTile(
+
+                              title:Text("${e.product.title} \$${e.product.price} quantity: ${e.numOfItem} ")
+                          )
+                      )
+                  ),
+                  const Text("--------------------------"),
+                  Text("total: ${order.totalPrice!}"),
+
+                ],
+              ),
+            ),
+
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('exit'),
+              onPressed: () {
+
+                Navigator.of(context).pop();
+                //clearText();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

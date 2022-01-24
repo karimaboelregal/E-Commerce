@@ -113,6 +113,7 @@ class AuthenticationService {
         "Type": "user",
         "about": "",
         "phone": "",
+        "notifications": [{"title": "Welcome to this app", "body": "Welcome to our e commerce app"}]
       }).then((_) {
       });
 

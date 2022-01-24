@@ -27,7 +27,6 @@ class ProfileProvider with ChangeNotifier {
           .orderByChild("uid")
           .equalTo(_firebaseAuth.currentUser!.uid)
           .once();
-      print("here");
       Map valueMap = json.decode(jsonEncode(about.snapshot.value));
       String? name = getName();
       String? email = getEmail();
@@ -47,6 +46,34 @@ class ProfileProvider with ChangeNotifier {
     }
     return US!;
   }
+
+
+  Future<List> getAllNotif() async {
+    List notifs = [];
+    var about = await _database.ref().child("users")
+        .orderByChild("uid")
+        .equalTo(_firebaseAuth.currentUser!.uid)
+        .once();
+    Map valueMap = json.decode(jsonEncode(about.snapshot.value));
+    Map asd = valueMap[valueMap.keys.first]['notifications'];
+
+    asd.forEach((k,v) {
+      notifs.add(asd[k]);
+    });
+    return notifs;
+  }
+
+  Future<bool> addNotif(title, body) async {
+    List notifs = [];
+    var about = await _database.ref().child("users")
+        .orderByChild("uid")
+        .equalTo(_firebaseAuth.currentUser!.uid)
+        .once();
+    Map valueMap = json.decode(jsonEncode(about.snapshot.value));
+    _database.ref("users/"+valueMap.keys.first+"/notifications/").push().set({"title": title, "body":body});
+    return true;
+  }
+
 
   Future<String> uploadImage(String filePath,String fileName) async{
     File file = File(filePath);

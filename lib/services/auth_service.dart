@@ -30,7 +30,7 @@ class AuthenticationService {
         imgs.add(img);
       }
       valueMap["images"] = imgs;
-      Products.add(Product.fromJson(valueMap));
+      Products.add(Product.fromJson(valueMap,1));
     }
     return Products;
   }
@@ -48,7 +48,7 @@ class AuthenticationService {
           imgs.add(img);
         }
         valueMap["images"] = imgs;
-        Products.add(Product.fromJson(valueMap));
+        Products.add(Product.fromJson(valueMap,1));
       }
     }
     return Products;
@@ -68,6 +68,23 @@ class AuthenticationService {
     }).then((_) {
     });
   }
+  Future AddCategory({required String name,required String desc,required String path}) async{
+    String imgs = path;
+    print(path);
+    if(path==null||path==''){
+      imgs="noimg.jfif";
+    }
+    database.ref().child("Categories").push().set({
+      "name": "" + name,
+      "Desc": "" + desc,
+      "image": imgs,
+
+    }).then((_) {
+    });
+  }
+
+
+
   Future<List<Category>> getAllCategories() async {
     var data = await database.ref("Categories").once();
 
@@ -78,32 +95,44 @@ class AuthenticationService {
       Map valueMap = json.decode(jsonEncode(element.value));
       String img = await storage.ref('categories/' + valueMap["image"]).getDownloadURL();
       valueMap["image"] = img;
+
       Cat.add(Category.fromJson(valueMap));
     }
 
     return Cat;
   }
   Future<String?> signUp(
-      {required String email, required String password}) async {
+      {required String email, required String password, required String name}) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
+      var result = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
+      result.user!.updateDisplayName(name);
+      database.ref().child("users").push().set({
+        "uid": ""+result.user!.uid,
+        "Address": "",
+        "Type": "user",
+        "about": "",
+        "phone": "",
+      }).then((_) {
+      });
+
       return "Signed up";
     } on FirebaseAuthException catch (e) {
       return e.message;
     }
   }
 
+
   Future<String?> signIn(
       {required String email, required String password}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
+      _firebaseAuth.setPersistence(Persistence.SESSION);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString("uid", _firebaseAuth.currentUser!.uid);
       prefs.setBool("isLoggedIn", true);
       prefs.setString("Email", email);
-
       return "Signed in";
     } on FirebaseAuthException catch (e) {
       print(e.message);

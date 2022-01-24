@@ -17,19 +17,25 @@ class Categories extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<Category>? categories = snapshot.data as List<Category>?;
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: List.generate(
-                  categories!.length,
-                      (index) => CategoryCard(
-                    icon: categories_icons[index],
-                    text: categories[index].title,
-                    press: () {},
-                  ),
+
+            return Row(
+
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: List.generate(
+                categories!.length,
+
+                    (index) => CategoryCard(
+                  icon: (categories_icons..shuffle()).first,
+                  text: categories[index].title,
+                  press: () {},
                 ),
-              );
-            }
+              ),
+            );
+          }
+
+
+
             return const Center(child: CircularProgressIndicator());
           }
       ),

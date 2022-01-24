@@ -52,12 +52,17 @@ class Categories extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.account_circle_rounded),
             color: Color(0xff0088ff),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, "/profile");
+            },
           ),
           Container(
               padding: EdgeInsets.symmetric(vertical: 12.0),
               width: 200,
               child: TextField(
+                  onSubmitted: (v) {
+                    Navigator.pushNamed(context, "/Products", arguments: v);
+                  },
                   decoration: InputDecoration(
                       prefixIcon: Icon(Icons.search),
                       border: OutlineInputBorder(

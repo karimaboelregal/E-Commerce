@@ -1,24 +1,28 @@
 import 'dart:convert';
 
 import 'package:e_commerce1/models/orders.dart';
+import 'package:e_commerce1/providers/address_provider.dart';
+import 'package:e_commerce1/providers/address_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce1/size_config.dart';
 import 'package:e_commerce1/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:e_commerce1/providers/cart_provider.dart';
 
-//final navigatorKey = GlobalKey<NavigatorState>();
+import '../../maps_screen.dart';
+
 
 class CheckoutCard extends StatelessWidget {
 
   const CheckoutCard({
     Key? key,
+    required this.cartScreenContext,
   }) : super(key: key);
-
-
+  final BuildContext cartScreenContext;
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context, listen: true);
+    final addressNotify = Provider.of<addressNotifier>(context,listen:true);
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -47,19 +51,14 @@ class CheckoutCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Container(
-                  padding: EdgeInsets.all(10),
-                  height: getProportionateScreenWidth(40),
-                  width: getProportionateScreenWidth(40),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF5F6F9),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: null//svg pic here,
-                ),
+
                 Spacer(),
-                Text("Add voucher code"),
+
+                ElevatedButton(onPressed: (){
+                  Navigator.pushNamed(context, Maps.routeName);
+                }, child: Text('pick an address')),
                 const SizedBox(width: 10),
+                Text(addressNotify.address == null ?   "...":addressNotify.address!.street),
                 Icon(
                   Icons.arrow_forward_ios,
                   size: 12,
@@ -71,29 +70,38 @@ class CheckoutCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text.rich(
+                 Text.rich(
                   TextSpan(
                     text: "Total:\n",
                     children: [
                       TextSpan(
-                        text: "\$337.15",
-                        style: TextStyle(fontSize: 16, color: Colors.black),
+                        text: "\$${cart.getTotalPrice()}",
+                        style: const TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],
                   ),
                 ),
+
                 SizedBox(
                   width: getProportionateScreenWidth(190),
                   child: ElevatedButton(onPressed: () {
 
                     //Map<String, dynamic> jsontest = {'id':1,'price':20};
-                    Order order = Order(cart.toMap());
-                    order.save();
-                    //showMyDialogSuccess();
+
+
+                    if(addressNotify.address != null)
+                    {
+                      showMyDialogSuccess(context,cartScreenContext,cart);
+                    }
+                    else{
+                      showToast(context, "please pick an address first :)");
+                    }
+
 
                   },
                       child: Text("Check Out"))
                 ),
+
               ],
             ),
           ],
@@ -103,53 +111,46 @@ class CheckoutCard extends StatelessWidget {
 
 
   }
-/*
-  Future<void> showMyDialogError() async {
-    return showDialog<void>(
-      context: navigatorKey.currentContext!,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Alert'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: const <Widget>[
-                Text('you need to login or signup to place an order'),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Close'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
+
+  Future<void> showToast(BuildContext context,String text) async{
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text(text),
+        action: SnackBarAction(label: 'Hide', onPressed: scaffold.hideCurrentSnackBar),
+      ),
     );
   }
 
-  Future<void> showMyDialogSuccess() async {
+  Future<void> showMyDialogSuccess(BuildContext context,BuildContext cartScreenContext,final cart) async {
+    //final cart = Provider.of<Cart>(context, listen: true);
+
     return showDialog<void>(
-      context: navigatorKey.currentContext!,
+      context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Alert'),
+          title: const Text('Place Order ?'),
           content: SingleChildScrollView(
             child: ListBody(
               children: const <Widget>[
-                Text('Place Order ?'),
+                Text('Are you sure you would like to place orders'),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('close'),
+              child: const Text('Yes'),
               onPressed: () {
+                Order order = Order.fromMap(cart.toMap());
+                order.save();
+
+                showToast(context,'OrderPlaced: check your orders :)');
+                cart.deleteAll();
+                print(cart.productsSelected);
                 Navigator.of(context).pop();
+                Navigator.of(cartScreenContext).pop();
+
                 //clearText();
               },
             ),
@@ -159,7 +160,7 @@ class CheckoutCard extends StatelessWidget {
     );
   }
 
- */
+
 
 }
 

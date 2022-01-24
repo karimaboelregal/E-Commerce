@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class Product{
   final int id;
-  final String title, description;
+  final String title, description, type;
   final List<String> images;
   final List<Color> colors;
   final double rating, price;
@@ -23,6 +23,7 @@ class Product{
     required this.size,
     required this.price,
     required this.description,
+    required this.type,
   });
 
   Map<String, dynamic> toMap(){
@@ -62,6 +63,7 @@ class Product{
         description: json['desc'],
         images: json['images'],
         size: s,
+        type: json['Type'],
         colors: cols,
         price: json['price'].toDouble(),
         rating: json['rating'].toDouble(),
@@ -78,6 +80,7 @@ class Product{
           images: stringImages,
           colors: cols,
           title: json['title'],
+          type: json['Type'],
           size: s,
           price: json['price'].toDouble(),
           description: json['desc']);
@@ -120,6 +123,7 @@ List<Product> dummyProducts = [
     ],
     size: ["M"],
     title: "Gibson Guitar™",
+    type: "asdf",
     price: 64.99,
     description: description,
     rating: 4.8,
@@ -138,6 +142,7 @@ List<Product> dummyProducts = [
       const Color(0xFFDECB9C),
       Colors.white,
     ],
+    type: "asdf",
     size: ["M"],
     title: "Blues guitar not a thing",
     price: 50.5,
@@ -157,6 +162,7 @@ List<Product> dummyProducts = [
       const Color(0xFFDECB9C),
       Colors.white,
     ],
+    type: "asdf",
     size: ["M"],
     title: "guitar of all guitars",
     price: 36.55,
@@ -178,6 +184,7 @@ List<Product> dummyProducts = [
         const Color(0xFFDECB9C),
         Colors.white,
       ],
+      type: "asdf",
       title: "another guitar",
       price: 20.20,
       description: description,

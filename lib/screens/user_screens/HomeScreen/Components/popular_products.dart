@@ -104,30 +104,29 @@ class ProductCard extends StatelessWidget {
                     child: Image.network(product.images[0]),
                   ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                product.title,
-                style: TextStyle(color: Colors.black),
-                maxLines: 2,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "\$${product.price}",
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: kPrimaryColor,
+                const SizedBox(height: 10),
+                Text(
+                  product.title,
+                  style: TextStyle(color: Colors.black),
+                  maxLines: 2,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "\$${product.price}",
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: kPrimaryColor,
+                      ),
                     ),
-                  ),
-                  CartButton(product:product,cart:cart)
-                ],
-              )
-            ],
+                    CartButton(product:product,cart:cart)
+                  ],
+                )
+              ],
+            ),
           ),
-        ),
 
       ),
     );

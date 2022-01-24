@@ -12,7 +12,6 @@ class ProductListWidget extends StatelessWidget {
   Category? cateogry;
   ProductListWidget({this.search,this.cateogry});
   int loadwidget = 0;
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -27,9 +26,15 @@ class ProductListWidget extends StatelessWidget {
                 products.add(element);
               }
             });
+          } else if (cat != null) {
+            sproducts!.forEach((element) {
+              if (element.type == cat) {
+                products.add(element);
+              }
+            });
           } else {
-            products = sproducts!;
-          }
+          products = sproducts!;
+        }
           return GridView.count(
             crossAxisCount: 2,
             padding: EdgeInsets.all(1.0),

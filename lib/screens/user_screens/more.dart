@@ -17,6 +17,7 @@ class _MoreScreenState extends State<MoreScreen> {
   @override
   Widget build(BuildContext context) {
     bool isSignedin = context.read<ProfileProvider>().isLoggedin();
+    bool isAdmin = context.read<ProfileProvider>().isAdmin();
     return Scaffold(
         body: Column(
       children: [
@@ -71,7 +72,7 @@ class _MoreScreenState extends State<MoreScreen> {
               globals.currentTab.value = 6;
             },
           ),
-        if (isSignedin == true)
+        if (isAdmin)
           ListTile(
             leading: const Icon(Icons.reorder, color: Color(0xff0088ff)),
             title: const Text("Add product"),
@@ -79,7 +80,7 @@ class _MoreScreenState extends State<MoreScreen> {
               Navigator.pushNamed(context, "/addproduct_screen");
             },
           ),
-        if (isSignedin == true)
+        if (isAdmin)
           ListTile(
             leading: const Icon(Icons.add_box_outlined, color: Color(0xff0088ff)),
             title: const Text("Add Category"),

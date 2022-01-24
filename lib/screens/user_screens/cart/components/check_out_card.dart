@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:e_commerce1/models/orders.dart';
 import 'package:e_commerce1/providers/address_provider.dart';
 import 'package:e_commerce1/providers/address_provider.dart';
+import 'package:e_commerce1/services/profile.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce1/size_config.dart';
 import 'package:e_commerce1/constants.dart';
@@ -121,7 +123,7 @@ class CheckoutCard extends StatelessWidget {
   }
 
   Future<void> showMyDialogSuccess(BuildContext context,BuildContext cartScreenContext,final cart,addressNotifier addressNotify) async {
-    //final cart = Provider.of<Cart>(context, listen: true);
+    final profile = Provider.of<ProfileProvider>(context,listen:false);
 
     return showDialog<void>(
       context: context,
@@ -148,6 +150,10 @@ class CheckoutCard extends StatelessWidget {
                 cartMap['latitude'] = addressNotify.address!.lat;
                 cartMap['longitude'] = addressNotify.address!.long;
                 Order order = Order.fromMap(cartMap);
+                //FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+                //Map<String,String> data = {'title':"testt"};
+                //_firebaseMessaging.sendMessage(data:data);
+                profile.addNotif("${cartMap['timeStamp']}", "total: \$${cart.totalPrice}");
                 order.save();
 
                 showToast(context,'OrderPlaced: check your orders :)');

@@ -76,7 +76,9 @@ class aNavigationBar extends State<Navigationbar> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
+      print("hi 1");
       if (notification != null && android != null) {
+        print("hi 2");
         context.read<ProfileProvider>().addNotif(notification.title, notification.body);
         flutterLocalNotificationsPlugin.show(
             notification.hashCode,

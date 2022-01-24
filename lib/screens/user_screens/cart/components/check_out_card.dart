@@ -81,7 +81,7 @@ class CheckoutCard extends StatelessWidget {
                     ],
                   ),
                 ),
-
+                cart.productsSelected.isNotEmpty ?
                 SizedBox(
                   width: getProportionateScreenWidth(190),
                   child: ElevatedButton(onPressed: () {
@@ -91,16 +91,14 @@ class CheckoutCard extends StatelessWidget {
 
                     if(addressNotify.address != null)
                     {
-                      showMyDialogSuccess(context,cartScreenContext,cart);
+                      showMyDialogSuccess(context,cartScreenContext,cart,addressNotify);
                     }
                     else{
                       showToast(context, "please pick an address first :)");
                     }
-
-
                   },
                       child: Text("Check Out"))
-                ),
+                ):Spacer(),
 
               ],
             ),
@@ -122,7 +120,7 @@ class CheckoutCard extends StatelessWidget {
     );
   }
 
-  Future<void> showMyDialogSuccess(BuildContext context,BuildContext cartScreenContext,final cart) async {
+  Future<void> showMyDialogSuccess(BuildContext context,BuildContext cartScreenContext,final cart,addressNotifier addressNotify) async {
     //final cart = Provider.of<Cart>(context, listen: true);
 
     return showDialog<void>(
@@ -142,7 +140,14 @@ class CheckoutCard extends StatelessWidget {
             TextButton(
               child: const Text('Yes'),
               onPressed: () {
-                Order order = Order.fromMap(cart.toMap());
+                var cartMap = cart.toMap();
+                DateTime currentPhoneDate = DateTime.now(); //DateTime
+                //print(currentPhoneDate);
+                cartMap['timeStamp'] = "${currentPhoneDate.year}/${currentPhoneDate.month}/${currentPhoneDate.day} at ${currentPhoneDate.hour}:${currentPhoneDate.minute}";
+                cartMap['address'] = addressNotify.address.toString();
+                cartMap['latitude'] = addressNotify.address!.lat;
+                cartMap['longitude'] = addressNotify.address!.long;
+                Order order = Order.fromMap(cartMap);
                 order.save();
 
                 showToast(context,'OrderPlaced: check your orders :)');

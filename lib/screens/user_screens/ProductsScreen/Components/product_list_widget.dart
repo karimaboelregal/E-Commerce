@@ -7,7 +7,8 @@ import 'package:provider/src/provider.dart';
 
 class ProductListWidget extends StatelessWidget {
   String? search;
-  ProductListWidget({this.search});
+  String? cat;
+  ProductListWidget({this.search, this.cat});
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -22,9 +23,15 @@ class ProductListWidget extends StatelessWidget {
                 products.add(element);
               }
             });
+          } else if (cat != null) {
+            sproducts!.forEach((element) {
+              if (element.type == cat) {
+                products.add(element);
+              }
+            });
           } else {
-            products = sproducts!;
-          }
+          products = sproducts!;
+        }
           return GridView.count(
             crossAxisCount: 2,
             padding: EdgeInsets.all(1.0),

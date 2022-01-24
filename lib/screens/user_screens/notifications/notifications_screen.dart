@@ -1,13 +1,22 @@
+import 'package:e_commerce1/services/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce1/models/notification.dart';
+import 'package:provider/src/provider.dart';
 
 import 'components/body.dart';
 
 
-class NotificationScreen extends StatelessWidget {
+class NotificationScreen extends StatefulWidget {
   static String routeName = "/notification";
+
+  @override
+  State<NotificationScreen> createState() => _NotificationScreenState();
+}
+
+class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: buildAppBar(context),
       body: Body(),
@@ -22,10 +31,6 @@ class NotificationScreen extends StatelessWidget {
           Text(
             "Notifications",
             style: TextStyle(color: Colors.black),
-          ),
-          Text(
-            "${dummyNotifications.length} items",
-            style: Theme.of(context).textTheme.caption,
           ),
         ],
       ),

@@ -22,11 +22,15 @@ class _AddProductState extends State<AddProduct> {
   final TextEditingController typeController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
+  final TextEditingController colorController = TextEditingController();
+  final TextEditingController sizesController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<State> _LoaderDialog = new GlobalKey<State>();
   late var filename = '';
   late var path = '';
   String dropdownValue = "One";
+  bool colors = true;
+  bool sizes = true;
 
   @override
   Widget build(BuildContext context) {
@@ -129,6 +133,79 @@ class _AddProductState extends State<AddProduct> {
                           ),
                         ),
                       ),
+
+
+
+                      //
+
+
+                      SizedBox(height: 20),
+                      SizedBox(height: 20),
+                      Row(
+                        children: [
+                          SizedBox(width: 20,),
+                          Checkbox(
+                            value: colors,
+                            onChanged: (v) {
+                              setState(() {
+                                colors = v!;
+                              });
+                            },
+                          ),
+                          Text("Do you want colors"),
+                        ],
+                      ),
+                      Visibility(
+                        visible: colors,
+                        child: Container(
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width - 50,
+                          child: TextFormField(
+                            controller: colorController,
+                            decoration: const InputDecoration(
+                              prefixIcon: Icon(Icons.supervised_user_circle),
+                              border: OutlineInputBorder(),
+                              hintText: 'Colors in this format (#0088ff, ff00ff)',
+                            ),
+                          ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(width: 20,),
+                          Checkbox(
+                            value: sizes,
+                            onChanged: (v) {
+                              setState(() {
+                                sizes = v!;
+                              });
+                            },
+                          ),
+                          Text("Do you want Sizes"),
+                        ],
+                      ),
+                      Visibility(
+                        visible: sizes,
+                        child: Container(
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width - 50,
+                          child: TextFormField(
+                            controller: sizesController,
+                            decoration: const InputDecoration(
+                              prefixIcon: Icon(Icons.supervised_user_circle),
+                              border: OutlineInputBorder(),
+                              hintText: 'Sizes in this format (Large, Small)',
+                            ),
+                          ),
+                        ),
+                      ),
+
+
+                      //
                       SizedBox(height: 20),
                       SizedBox(height: 20),
                       Container(
@@ -183,16 +260,75 @@ class _AddProductState extends State<AddProduct> {
                               },
                               child: Text("Add images")),
                           ElevatedButton(onPressed: () async {
+
                             if (_formKey.currentState!.validate()) {
                               storage.uploadFile(path, filename).then((value) =>
                                   print("done"));
-                              String? value = await context.read<
-                                  AuthenticationService>().AddProduct(
-                                  name: nameController.text.trim(),
-                                  desc: descriptionController.text.trim(),
-                                  type: selected,
-                                  path: filename,
-                                  price: priceController.text.trim());
+                              String? value;
+                              if (sizes && colors) {
+
+                                final split = colorController.text.split(',');
+                                final Map<int, String> colorsList = {
+                                  for (int i = 0; i < split.length; i++)
+                                    i: split[i]
+                                };
+
+                                final split2 = sizesController.text.split(',');
+                                final Map<int, String> sizesList = {
+                                  for (int i = 0; i < split2.length; i++)
+                                    i: split2[i]
+                                };
+
+                                value = await context.read<
+                                    AuthenticationService>().AddProduct(
+                                    name: nameController.text.trim(),
+                                    desc: descriptionController.text.trim(),
+                                    type: selected,
+                                    path: filename,
+                                    price: priceController.text.trim(),
+                                    colors: colorsList,
+                                    sizes: sizesList);
+                              } else if (colors) {
+                                final split = colorController.text.split(',');
+                                final Map<int, String> colorsList = {
+                                  for (int i = 0; i < split.length; i++)
+                                    i: split[i]
+                                };
+
+                                value = await context.read<
+                                    AuthenticationService>().AddProduct(
+                                    name: nameController.text.trim(),
+                                    desc: descriptionController.text.trim(),
+                                    type: selected,
+                                    path: filename,
+                                    price: priceController.text.trim(),
+                                    colors: colorsList);
+
+                              } else if (sizes) {
+                                final split2 = sizesController.text.split(',');
+                                final Map<int, String> sizesList = {
+                                  for (int i = 0; i < split2.length; i++)
+                                    i: split2[i]
+                                };
+
+                                value = await context.read<
+                                    AuthenticationService>().AddProduct(
+                                    name: nameController.text.trim(),
+                                    desc: descriptionController.text.trim(),
+                                    type: selected,
+                                    path: filename,
+                                    price: priceController.text.trim(),
+                                    sizes: sizesList);
+
+                              } else {
+                                value = await context.read<
+                                    AuthenticationService>().AddProduct(
+                                    name: nameController.text.trim(),
+                                    desc: descriptionController.text.trim(),
+                                    type: selected,
+                                    path: filename,
+                                    price: priceController.text.trim());
+                              }
                               if (value != null) {
                                 showMyDialogError();
                               } else {

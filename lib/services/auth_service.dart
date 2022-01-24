@@ -54,19 +54,55 @@ class AuthenticationService {
     return Products;
   }
 
-  Future AddProduct({required String name,required String type,required String desc,required String price,required String path}) async{
+  Future AddProduct({required String name,required String type,required String desc,required String price,required String path, Map? colors, Map? sizes}) async{
     List<String> imgs = [path];
     int price_int =int.parse(price);
-    database.ref().child("Products").push().set({
-      "Name": "" + name,
-      "Type": "" + type,
-      "desc": "" + desc,
-      "price": price_int,
-      "images": [path],
-      "id": 1,
-      "rating": 5,
-    }).then((_) {
-    });
+    if ((sizes!=null) && (colors!=null)) {
+      database.ref().child("Products").push().set({
+        "Name": "" + name,
+        "Type": "" + type,
+        "desc": "" + desc,
+        "price": price_int,
+        "images": [path],
+        "id": 1,
+        "rating": 5,
+        "sizes": sizes,
+        "colors": colors
+      }).then((_) {});
+    } else if (sizes != null) {
+      database.ref().child("Products").push().set({
+        "Name": "" + name,
+        "Type": "" + type,
+        "desc": "" + desc,
+        "price": price_int,
+        "images": [path],
+        "id": 1,
+        "rating": 5,
+        "sizes": sizes,
+      }).then((_) {});
+    } else if (colors != null) {
+      database.ref().child("Products").push().set({
+        "Name": "" + name,
+        "Type": "" + type,
+        "desc": "" + desc,
+        "price": price_int,
+        "images": [path],
+        "id": 1,
+        "rating": 5,
+        "colors": colors
+      }).then((_) {});
+    } else {
+      database.ref().child("Products").push().set({
+        "Name": "" + name,
+        "Type": "" + type,
+        "desc": "" + desc,
+        "price": price_int,
+        "images": [path],
+        "id": 1,
+        "rating": 5,
+      }).then((_) {});
+
+    }
   }
   Future AddCategory({required String name,required String desc,required String path}) async{
     String imgs = path;

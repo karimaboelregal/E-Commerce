@@ -1,4 +1,3 @@
-import 'package:e_commerce1/models/category.dart';
 import 'package:e_commerce1/services/auth_service.dart';
 import 'package:e_commerce1/services/fire_store_services.dart';
 import 'package:flutter/material.dart';
@@ -7,15 +6,13 @@ import 'package:e_commerce1/screens/user_screens/ProductsScreen/products_detail.
 import 'package:provider/src/provider.dart';
 
 class ProductListWidget extends StatelessWidget {
-
   String? search;
-  Category? cateogry;
-  ProductListWidget({this.search,this.cateogry});
-  int loadwidget = 0;
+  String? cat;
+  ProductListWidget({this.search, this.cat});
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: context.read<AuthenticationService>().getAllProductsByid(cateogry?.title),
+      future: context.read<AuthenticationService>().getAllProducts(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Product>? sproducts = snapshot.data as List<Product>?;

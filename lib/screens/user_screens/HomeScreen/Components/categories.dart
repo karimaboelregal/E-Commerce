@@ -1,7 +1,6 @@
 import 'package:e_commerce1/constants.dart';
 import 'package:e_commerce1/models/args.dart';
 import 'package:e_commerce1/models/category.dart';
-import 'package:e_commerce1/screens/user_screens/ProductsScreen/products.dart';
 import 'package:e_commerce1/services/auth_service.dart';
 import 'package:e_commerce1/size_config.dart';
 import 'package:flutter/material.dart';
@@ -30,10 +29,7 @@ class Categories extends StatelessWidget {
                     (index) => CategoryCard(
                   icon: (categories_icons..shuffle()).first,
                   text: categories[index].title,
-                  press: () {
-                    Navigator.pushAndRemoveUntil(context,
-                        MaterialPageRoute(builder: (context) => ProductsScreen.cat(cateogry: categories[index],)), (r) => false);
-                  },
+                  press: () {},
                 ),
               ),
             );

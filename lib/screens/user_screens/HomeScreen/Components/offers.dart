@@ -1,10 +1,8 @@
+import 'package:e_commerce1/models/category.dart';
 import 'package:e_commerce1/services/auth_service.dart';
-import 'package:e_commerce1/services/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce1/size_config.dart';
 import 'package:provider/src/provider.dart';
-
-
 
 
 class SpecialOffers extends StatelessWidget {
@@ -15,54 +13,47 @@ class SpecialOffers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: context.read<AuthenticationService>().getAllCategories(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return Column(
-            children: [
-              Row(
+        future: context.read<AuthenticationService>().getAllCategories(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<Category> allCats = snapshot.data as List<Category>;
+            return Column(
                 children: [
-                  Padding(
-                    padding:
-                    EdgeInsets.symmetric(
-                        horizontal: getProportionateScreenWidth(20)),
-                    child:
-                    Text('Best Offers',
-                        style: TextStyle(
-                          fontSize: getProportionateScreenWidth(18),
-                          color: Colors.black,
-                        )
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: getProportionateScreenWidth(20)),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    SpecialOfferCard(
-                      image: "assets/images/Image Banner 2.png",
-                      category: "Smartphone",
-                      numOfBrands: 18,
-                      press: () {},
-                    ),
-                    SpecialOfferCard(
-                      image: "assets/images/Image Banner 3.png",
-                      category: "Fashion",
-                      numOfBrands: 24,
-                      press: () {},
-                    ),
-                    SizedBox(width: getProportionateScreenWidth(20)),
-                  ],
-                ),
-              ),
-            ],
-          );
-        } else {
+            Row(
+            children: [
+            Padding(
+            padding:
+                EdgeInsets.symmetric(
+                horizontal: getProportionateScreenWidth(20)),
+          child:
+          Text('Best Offers',
+          style: TextStyle(
+          fontSize: getProportionateScreenWidth(18),
+          color: Colors.black,
+          )
+          ),
+          ),
+          ],
+          ),
+          SizedBox(height: getProportionateScreenWidth(20)),
+          SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+
+          children: List.generate(
+          allCats.length,
+
+          (index) => SpecialOfferCard(
+          image: allCats[index].images,
+          category: allCats[index].title,
+          numOfBrands: 18,
+          press: () {},
+          ),
+          )))]);
+          } else {
           return Center(child: CircularProgressIndicator(),);
+          }
         }
-      }
     );
   }
 }
@@ -93,7 +84,7 @@ class SpecialOfferCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: [
-                Image.asset(
+                Image.network(
                   image,
                   fit: BoxFit.cover,
                 ),

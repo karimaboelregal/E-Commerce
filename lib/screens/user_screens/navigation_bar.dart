@@ -129,7 +129,6 @@ class aNavigationBar extends State<Navigationbar> {
             switch (settings.name) {
               case '/':
                 if (currentTab != 0) {
-                  print("hi");
                   setState(() {
                     currentTab = 0;
                   });
@@ -161,7 +160,13 @@ class aNavigationBar extends State<Navigationbar> {
                 setState(() {
                   currentTab = 1;
                 });
-                builder = (BuildContext context) => ProductsScreen();
+                if (settings.arguments != null) {
+                  builder = (BuildContext context) =>
+                      ProductsScreen(search: settings.arguments as String);
+                } else {
+                  builder = (BuildContext context) =>
+                      ProductsScreen();
+                }
                 break;
               case '/Categories':
                 setState(() {

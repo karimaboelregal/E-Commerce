@@ -49,6 +49,9 @@ dependencies:
   badges: ^2.0.2
   string_validator: ^0.3.0
   image_picker: ^0.8.4+4
+  firebase_messaging: ^11.2.5
+  flutter_local_notifications: ^9.2.0
+  overlay_support: ^1.2.1
 
 dev_dependencies:
   flutter_test:

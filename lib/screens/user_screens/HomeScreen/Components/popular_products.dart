@@ -1,4 +1,5 @@
 import 'package:e_commerce1/services/auth_service.dart';
+import 'package:e_commerce1/services/products_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce1/models/product.dart';
@@ -34,7 +35,7 @@ class PopularProducts extends StatelessWidget {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: FutureBuilder(
-              future: context.read<AuthenticationService>().PopularProducts(),
+              future: context.read<Products>().PopularProducts(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   List<Product>? products = snapshot.data as List<Product>?;
@@ -43,8 +44,8 @@ class PopularProducts extends StatelessWidget {
                       ...List.generate(
                         products!.length,
                             (index) {
-                            return ProductCard(product: products[index],cart:cart);
-                            // here by default width and height is 0
+                          return ProductCard(product: products[index],cart:cart);
+                          // here by default width and height is 0
                         },
                       ),
                       SizedBox(width: getProportionateScreenWidth(20)),
@@ -105,29 +106,30 @@ class ProductCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
-                Text(
-                  product.title,
-                  style: TextStyle(color: Colors.black),
-                  maxLines: 2,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "\$${product.price}",
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: kPrimaryColor,
-                      ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                product.title,
+                style: TextStyle(color: Colors.black),
+                maxLines: 2,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "\$${product.price}",
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: kPrimaryColor,
                     ),
-                    CartButton(product:product,cart:cart)
-                  ],
-                )
-              ],
-            ),
+                  ),
+                  CartButton(product:product,cart:cart)
+                ],
+              )
+            ],
           ),
+        ),
 
       ),
     );
@@ -202,6 +204,5 @@ class _CartButtonState extends State<CartButton> {
     );
   }
 }
-
 
 

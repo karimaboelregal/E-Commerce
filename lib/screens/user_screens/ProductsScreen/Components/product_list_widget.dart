@@ -1,5 +1,6 @@
 import 'package:e_commerce1/services/auth_service.dart';
 import 'package:e_commerce1/services/fire_store_services.dart';
+import 'package:e_commerce1/services/products_services.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce1/models/product.dart';
 import 'package:e_commerce1/screens/user_screens/ProductsScreen/products_detail.dart';
@@ -13,46 +14,46 @@ class ProductListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: context.read<AuthenticationService>().getAllProducts(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          List<Product>? sproducts = snapshot.data as List<Product>?;
-          List<Product> products = [];
-          if (search != null) {
-            sproducts!.forEach((element) {
-              if (element.title.contains(search!)) {
-                products.add(element);
-              }
-            });
-          } else if (cat != null) {
-            sproducts!.forEach((element) {
-              if (element.type == cat) {
-                products.add(element);
-              }
-            });
-          } else {
-          products = sproducts!;
-        }
-          return GridView.count(
-            crossAxisCount: 2,
-            padding: EdgeInsets.all(1.0),
-            childAspectRatio: 8.0 / 12.0,
-            children: [
-              ...List.generate(
-                products.length, (index) {
-                if (products[index].isPopular)
-                  return GridTile(
-                      child: GridTilesProducts(product: products[index],));
+        future: context.read<Products>().getAllProducts(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<Product>? sproducts = snapshot.data as List<Product>?;
+            List<Product> products = [];
+            if (search != null) {
+              sproducts!.forEach((element) {
+                if (element.title.contains(search!)) {
+                  products.add(element);
+                }
+              });
+            } else if (cat != null) {
+              sproducts!.forEach((element) {
+                if (element.type == cat) {
+                  products.add(element);
+                }
+              });
+            } else {
+              products = sproducts!;
+            }
+            return GridView.count(
+              crossAxisCount: 2,
+              padding: EdgeInsets.all(1.0),
+              childAspectRatio: 8.0 / 12.0,
+              children: [
+                ...List.generate(
+                  products.length, (index) {
+                  if (products[index].isPopular)
+                    return GridTile(
+                        child: GridTilesProducts(product: products[index],));
 
-                return SizedBox
-                    .shrink(); // here by default width and height is 0
-              },
-              ),
-            ],
-          );
+                  return SizedBox
+                      .shrink(); // here by default width and height is 0
+                },
+                ),
+              ],
+            );
+          }
+          return const Center(child: CircularProgressIndicator());
         }
-        return const Center(child: CircularProgressIndicator());
-      }
     );
   }
 }
@@ -76,8 +77,8 @@ class GridTilesProducts extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.pushNamed(
-          context,
-          "/singeProduct", arguments: product
+            context,
+            "/singeProduct", arguments: product
         );
       },
       child: Container(

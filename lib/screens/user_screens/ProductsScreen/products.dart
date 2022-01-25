@@ -46,10 +46,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   padding: EdgeInsets.symmetric(vertical: 12.0),
                   width: 200,
                   child: TextField(
-                    controller: searchText,
-                    onSubmitted: (v) {
-                      Navigator.pushNamed(context, "/Products", arguments: ScreenArguments(0,v));
-                    },
+                      controller: searchText,
+                      onSubmitted: (v) {
+                        Navigator.pushNamed(context, "/Products", arguments: ScreenArguments(0,v));
+                      },
                       decoration: InputDecoration(
                           prefixIcon: Icon(Icons.search),
                           border: OutlineInputBorder(

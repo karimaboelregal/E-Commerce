@@ -19,21 +19,21 @@ class Categories extends StatelessWidget {
             if (snapshot.hasData) {
               List<Category>? categories = snapshot.data as List<Category>?;
 
-            return Row(
+              return Row(
 
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: List.generate(
-                categories!.length,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: List.generate(
+                  categories!.length,
 
-                    (index) => CategoryCard(
-                  icon: (categories_icons..shuffle()).first,
-                  text: categories[index].title,
-                  press: () {},
+                      (index) => CategoryCard(
+                    icon: (categories_icons..shuffle()).first,
+                    text: categories[index].title,
+                    press: () {},
+                  ),
                 ),
-              ),
-            );
-          }
+              );
+            }
 
 
 

@@ -1,6 +1,7 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:e_commerce1/models/category.dart';
 import 'package:e_commerce1/services/auth_service.dart';
+import 'package:e_commerce1/services/products_services.dart';
 import 'package:e_commerce1/services/storage_services.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -102,6 +103,13 @@ class _AddProductState extends State<AddProduct> {
                             ),
                           ),
                         ),
+                        SizedBox(height: 20),
+                        SizedBox(height: 20),
+                        Container(
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width - 50,
                         translatedName == null
                             ? Text('place holder')
                             : Text(

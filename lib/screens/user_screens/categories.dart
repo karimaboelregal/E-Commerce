@@ -154,7 +154,7 @@ class Categories extends StatelessWidget {
                               children: [
                                 Image.network(
                                   categories![index].images,
-                                  height: 150,
+                                  height: 120,
                                   width: 250,
                                 ),
                                 SizedBox(

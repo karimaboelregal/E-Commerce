@@ -37,8 +37,8 @@ class Order{
     //List<ProductSelected> productsOrdered = [];
     productsOrderedJson.forEach((element) {
       var productOrderedJson = List.from(element.values);
-      int quantity = productOrderedJson[0];
-      Map<dynamic,dynamic> productJson = Map.from(productOrderedJson[1]);
+      int quantity = productOrderedJson[1];
+      Map<dynamic,dynamic> productJson = Map.from(productOrderedJson[0]);
       productsOrdered.add(ProductSelected(product: Product.fromJson(productJson,2),numOfItem: quantity));
     });
     Order o = Order(

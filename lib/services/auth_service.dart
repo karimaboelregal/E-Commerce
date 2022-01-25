@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:e_commerce1/models/product.dart';
 import 'package:e_commerce1/models/category.dart';
@@ -60,6 +61,8 @@ class AuthenticationService {
         "uid": ""+result.user!.uid,
         "Address": "",
         "Type": "user",
+        "email": email,
+        "name": name,
         "about": "",
         "phone": "",
         "notifications": [{"title": "Welcome to this app", "body": "Welcome to our e commerce app"}]

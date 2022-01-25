@@ -8,7 +8,6 @@ class Address {
   //String SubadministrativeArea;
   double lat;
   double long;
-
   Address(this.street, this.country, this.administrativeArea,
       this.lat, this.long);
 

@@ -8,7 +8,7 @@ import 'product.dart';
 
 class ProductSelected{
   final Product product;
-  final int numOfItem;
+  int numOfItem;
   ProductSelected({required this.product, required this.numOfItem});
 
   Map<String, dynamic> toMap(){

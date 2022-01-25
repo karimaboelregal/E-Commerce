@@ -2,6 +2,7 @@
 import 'package:e_commerce1/models/product.dart';
 import 'package:e_commerce1/services/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 import '../../../constants.dart';
 import 'Components/details_widget.dart';
 import 'Components/extensions.dart';
@@ -26,7 +27,7 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage>{
 
   bool isLiked = true;
-
+  String translated = "";
   @override
   void initState() {
     super.initState();
@@ -37,6 +38,16 @@ class _ProductDetailPageState extends State<ProductDetailPage>{
     super.dispose();
   }
 
+  Future<void> initTranslate() async {
+  final onDeviceTranslator = GoogleMlKit.nlp
+      .onDeviceTranslator(sourceLanguage: "en", targetLanguage: "ar");
+  final translateLanguageModelManager =
+  GoogleMlKit.nlp.translateLanguageModelManager();
+  translated = await onDeviceTranslator
+      .translateText(widget.product.title);
+
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,34 +56,39 @@ class _ProductDetailPageState extends State<ProductDetailPage>{
     return Scaffold(
       floatingActionButton: floatingButton(widget.product,cart,isSignedin, context),
       body: SafeArea(
-        child: Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xfffbfbfb),
-                  Color(0xfff7f7f7),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              )),
-          child: Stack(
-            children: <Widget>[
-              Column(
+        child: FutureBuilder(
+          future: initTranslate(),
+          builder: (context, snapshot) {
+            return Container(
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xfffbfbfb),
+                      Color(0xfff7f7f7),
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  )),
+              child: Stack(
                 children: <Widget>[
-                  _appBar(),
-                  productImage(widget.product.images),
+                  Column(
+                    children: <Widget>[
+                      _appBar(widget.product.id),
+                      productImage(widget.product.images),
+                    ],
+                  ),
+                  detailWidget(widget.product, translated)
                 ],
               ),
-              detailWidget(widget.product)
-            ],
-          ),
+            );
+          }
         ),
       ),
     );
   }
 
 
-  Widget _appBar() {
+  Widget _appBar(int id) {
     final cart = Provider.of<Cart>(context, listen: true);
     bool isSignedin = context.read<ProfileProvider>().isLoggedin();
     return Container(
@@ -90,32 +106,37 @@ class _ProductDetailPageState extends State<ProductDetailPage>{
               Navigator.of(context).pop();
             },
           ),
-
-          Badge(
-            toAnimate: false,
-            child: IconButton(
-              icon: Icon(Icons.shopping_cart),
-              color: Color(0xff0088ff),
-              onPressed: () {
-                if (isSignedin) {
-                  Navigator.pushNamed(context, CartScreen.routeName);
-                } else {
-                  Navigator.pushNamed(context, "/login");
-                }
-              },
-            ),
-            badgeColor: kPrimaryColor,
-            badgeContent: Text('${cart.getAmount()}', style: TextStyle(color: Colors.white)),
+          Row(
+            children: [
+              Badge(
+                toAnimate: false,
+                child: IconButton(
+                  icon: Icon(Icons.shopping_cart),
+                  color: Color(0xff0088ff),
+                  onPressed: () {
+                    if (isSignedin) {
+                      Navigator.pushNamed(context, CartScreen.routeName);
+                    } else {
+                      Navigator.pushNamed(context, "/login");
+                    }
+                  },
+                ),
+                badgeColor: kPrimaryColor,
+                badgeContent: Text('${cart.getAmount()}', style: TextStyle(color: Colors.white)),
+              ),
+              SizedBox(width: 20,),
+              _icon(isLiked ? Icons.favorite : Icons.favorite_border,
+                  color: isLiked ? Color(0xffF72804) : Color(0xffE1E2E4),
+                  size: 15,
+                  padding: 12,
+                  isOutLine: false, onPressed: () {
+                    setState(() {
+                      isLiked = !isLiked;
+                    });
+                  }),
+              IconButton(icon: Icon(Icons.delete),onPressed: () {}),
+            ],
           ),
-          _icon(isLiked ? Icons.favorite : Icons.favorite_border,
-              color: isLiked ? Color(0xffF72804) : Color(0xffE1E2E4),
-              size: 15,
-              padding: 12,
-              isOutLine: false, onPressed: () {
-                setState(() {
-                  isLiked = !isLiked;
-                });
-              }),
         ],
       ),
     );

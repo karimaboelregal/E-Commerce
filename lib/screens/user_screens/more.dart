@@ -82,10 +82,20 @@ class _MoreScreenState extends State<MoreScreen> {
           ),
         if (isAdmin)
           ListTile(
-            leading: const Icon(Icons.add_box_outlined, color: Color(0xff0088ff)),
+            leading:
+                const Icon(Icons.add_box_outlined, color: Color(0xff0088ff)),
             title: const Text("Add Category"),
             onTap: () {
               Navigator.pushNamed(context, "/addcategory_screen");
+            },
+          ),
+        if (isAdmin)
+          ListTile(
+            leading:
+                const Icon(Icons.admin_panel_settings, color: Color(0xff0088ff)),
+            title: const Text("Add admins"),
+            onTap: () {
+              Navigator.pushNamed(context, "/addadmins_screen");
             },
           ),
         if (isSignedin == true)

@@ -18,7 +18,7 @@ class NotificationCard extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: 88,
+          width: getProportionateScreenWidth(60),
           child: AspectRatio(
             aspectRatio: 0.88,
             child: Container(
@@ -31,7 +31,6 @@ class NotificationCard extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: 20),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -53,7 +52,7 @@ class NotificationCard extends StatelessWidget {
 
           ],
         ),
-        SizedBox(width:getProportionateScreenWidth(10))
+        SizedBox(width:getProportionateScreenWidth(5))
         ,
         Padding(
           padding: EdgeInsets.only(bottom:getProportionateScreenWidth(10)),

@@ -23,6 +23,7 @@ import 'more_screens/addproduct_screen.dart';
 import 'more_screens/addcategory_screen.dart';
 import 'more_screens/contact_us.dart';
 import 'more_screens/login.dart';
+import 'more_screens/makeadmins_screen.dart';
 import 'notifications/notifications_screen.dart';
 
 class Navigationbar extends StatefulWidget {
@@ -76,7 +77,9 @@ class aNavigationBar extends State<Navigationbar> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
+      print("hi 1");
       if (notification != null && android != null) {
+        print("hi 2");
         context.read<ProfileProvider>().addNotif(notification.title, notification.body);
         flutterLocalNotificationsPlugin.show(
             notification.hashCode,
@@ -255,6 +258,9 @@ class aNavigationBar extends State<Navigationbar> {
                     break;
                   case '/addproduct_screen':
                     builder = (BuildContext context) => AddProduct();
+                    break;
+                  case '/addadmins_screen':
+                    builder = (BuildContext context) => MakeAdmins();
                     break;
                   case '/addcategory_screen':
                     builder = (BuildContext context) => AddCategory();

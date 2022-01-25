@@ -1,18 +1,22 @@
+import 'package:e_commerce1/providers/cart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce1/models/product_selected.dart';
 import 'package:e_commerce1/size_config.dart';
 import 'package:e_commerce1/constants.dart';
+import 'package:provider/provider.dart';
 
 class CartCard extends StatelessWidget {
-  const CartCard({
+  CartCard({
     Key? key,
     required this.cart,
+    required this.index
   }) : super(key: key);
 
-  final ProductSelected cart;
-
+  ProductSelected cart;
+  int index;
   @override
   Widget build(BuildContext context) {
+    final cartProv = Provider.of<Cart>(context,listen: true);
     return Row(
       children: [
         SizedBox(
@@ -25,7 +29,7 @@ class CartCard extends StatelessWidget {
                 color: Color(0xFFF5F6F9),
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Image.asset(cart.product.images[0]),
+              child: Image.network(cart.product.images[0]),
             ),
           ),
         ),
@@ -57,7 +61,20 @@ class CartCard extends StatelessWidget {
         ,
         Padding(
           padding: EdgeInsets.only(bottom:getProportionateScreenWidth(10)),
-          child:IconButton(icon: Icon(Icons.delete_forever), color: Color(0xff0088ff), onPressed: () {},),
+          child:Row(children: [
+            IconButton(icon: Icon(Icons.remove), color: Color(0xff0088ff), onPressed: () {
+              //cartProv.productsSelected[index]!.numOfItem -= 1;
+              cart.numOfItem -= 1;
+              cartProv.decrease_quantity(index);
+            },),
+            Text("${cart.numOfItem}"),
+            IconButton(icon: Icon(Icons.add), color: Color(0xff0088ff), onPressed: () {
+              //cartProv.productsSelected[index]!.numOfItem += 1;
+              cart.numOfItem += 1;
+              cartProv.increase_quantity(index);
+            },),
+          ],),
+
         )
 
       ],

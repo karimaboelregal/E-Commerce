@@ -2,7 +2,7 @@ import 'package:e_commerce1/models/product.dart';
 import 'package:flutter/material.dart';
 import './product_details_components.dart';
 
-Widget detailWidget(Product ProductDetails) {
+Widget detailWidget(Product ProductDetails, String translated) {
   return DraggableScrollableSheet(
     maxChildSize: .8,
     initialChildSize: .53,
@@ -39,7 +39,12 @@ Widget detailWidget(Product ProductDetails) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(ProductDetails.title,style: TextStyle(fontSize: 25),),
+                    Column(
+                      children: [
+                        Text(ProductDetails.title,style: TextStyle(fontSize: 25),),
+                        Text("("+translated+")",style: TextStyle(fontSize: 15),),
+                      ],
+                    ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[

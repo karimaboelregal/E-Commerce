@@ -40,11 +40,7 @@ class _BodyState extends State<Body> {
                           color: Color(0xFFFFE6E6),
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        child: Row(
-                          children: [
-                            Spacer(),
-                          ],
-                        ),
+
                       ),
                       child: NotificationCard(
                           title: data[index]['title'], body: data[index]['body']),

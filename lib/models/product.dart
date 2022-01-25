@@ -32,6 +32,7 @@ class Product{
       'title':title,
       'desc':description,
       //'size':size,
+      'Type':type,
       'price':price,
       'images':images,
       //'colors':colors,
@@ -50,8 +51,8 @@ class Product{
         cols.add(Color(hexToInt(color)));
       }
     }
-    if (json["size"] != null) {
-      for (String size in json["size"]) {
+    if (json["sizes"] != null) {
+      for (String size in json["sizes"]) {
         s.add(size);
       }
     }

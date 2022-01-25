@@ -113,7 +113,7 @@ class GridTilesProducts extends StatelessWidget {
                   Container(
                     alignment: Alignment.bottomLeft,
                     padding: EdgeInsets.only(left: 10, right: 10, top: 10),
-                    child: Text("${(product.price != null) ? display(product.price) : 'Unavailable'} EGP",
+                    child: Text("${(product.price != null) ? product.price : 'Unavailable'} EGP",
                         style: TextStyle(
                             color: (product.price != null)
                                 ? Color(0xff2890c8)

@@ -73,7 +73,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>{
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      _appBar(),
+                      _appBar(widget.product.id),
                       productImage(widget.product.images),
                     ],
                   ),
@@ -88,7 +88,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>{
   }
 
 
-  Widget _appBar() {
+  Widget _appBar(int id) {
     final cart = Provider.of<Cart>(context, listen: true);
     bool isSignedin = context.read<ProfileProvider>().isLoggedin();
     return Container(
@@ -106,32 +106,37 @@ class _ProductDetailPageState extends State<ProductDetailPage>{
               Navigator.of(context).pop();
             },
           ),
-
-          Badge(
-            toAnimate: false,
-            child: IconButton(
-              icon: Icon(Icons.shopping_cart),
-              color: Color(0xff0088ff),
-              onPressed: () {
-                if (isSignedin) {
-                  Navigator.pushNamed(context, CartScreen.routeName);
-                } else {
-                  Navigator.pushNamed(context, "/login");
-                }
-              },
-            ),
-            badgeColor: kPrimaryColor,
-            badgeContent: Text('${cart.getAmount()}', style: TextStyle(color: Colors.white)),
+          Row(
+            children: [
+              Badge(
+                toAnimate: false,
+                child: IconButton(
+                  icon: Icon(Icons.shopping_cart),
+                  color: Color(0xff0088ff),
+                  onPressed: () {
+                    if (isSignedin) {
+                      Navigator.pushNamed(context, CartScreen.routeName);
+                    } else {
+                      Navigator.pushNamed(context, "/login");
+                    }
+                  },
+                ),
+                badgeColor: kPrimaryColor,
+                badgeContent: Text('${cart.getAmount()}', style: TextStyle(color: Colors.white)),
+              ),
+              SizedBox(width: 20,),
+              _icon(isLiked ? Icons.favorite : Icons.favorite_border,
+                  color: isLiked ? Color(0xffF72804) : Color(0xffE1E2E4),
+                  size: 15,
+                  padding: 12,
+                  isOutLine: false, onPressed: () {
+                    setState(() {
+                      isLiked = !isLiked;
+                    });
+                  }),
+              IconButton(icon: Icon(Icons.delete),onPressed: () {}),
+            ],
           ),
-          _icon(isLiked ? Icons.favorite : Icons.favorite_border,
-              color: isLiked ? Color(0xffF72804) : Color(0xffE1E2E4),
-              size: 15,
-              padding: 12,
-              isOutLine: false, onPressed: () {
-                setState(() {
-                  isLiked = !isLiked;
-                });
-              }),
         ],
       ),
     );

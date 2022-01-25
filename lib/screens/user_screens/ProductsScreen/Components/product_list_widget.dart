@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:e_commerce1/models/product.dart';
 import 'package:e_commerce1/screens/user_screens/ProductsScreen/products_detail.dart';
 import 'package:provider/src/provider.dart';
+import 'package:number_display/number_display.dart';
 
 class ProductListWidget extends StatelessWidget {
   String? search;
@@ -66,6 +67,11 @@ class GridTilesProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final display = createDisplay(
+      length: 8,
+      decimal: 0,
+    );
+
     //ProductDetailPage(product: product,)
     return InkWell(
       onTap: () {
@@ -107,7 +113,7 @@ class GridTilesProducts extends StatelessWidget {
                   Container(
                     alignment: Alignment.bottomLeft,
                     padding: EdgeInsets.only(left: 10, right: 10, top: 10),
-                    child: Text("৳  ${(product.price != null) ? product.price : 'Unavailable'}",
+                    child: Text("${(product.price != null) ? display(product.price) : 'Unavailable'} EGP",
                         style: TextStyle(
                             color: (product.price != null)
                                 ? Color(0xff2890c8)

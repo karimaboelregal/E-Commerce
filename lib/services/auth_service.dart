@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:e_commerce1/models/product.dart';
 import 'package:e_commerce1/models/category.dart';
@@ -64,7 +65,7 @@ class AuthenticationService {
         "desc": "" + desc,
         "price": price_int,
         "images": [path],
-        "id": 1,
+        "id": new Random().nextInt(1000000),
         "rating": 5,
         "sizes": sizes,
         "colors": colors
@@ -76,7 +77,7 @@ class AuthenticationService {
         "desc": "" + desc,
         "price": price_int,
         "images": [path],
-        "id": 1,
+        "id": new Random().nextInt(1000000),
         "rating": 5,
         "sizes": sizes,
       }).then((_) {});
@@ -87,7 +88,7 @@ class AuthenticationService {
         "desc": "" + desc,
         "price": price_int,
         "images": [path],
-        "id": 1,
+        "id": new Random().nextInt(1000000),
         "rating": 5,
         "colors": colors
       }).then((_) {});
@@ -98,7 +99,7 @@ class AuthenticationService {
         "desc": "" + desc,
         "price": price_int,
         "images": [path],
-        "id": 1,
+        "id": new Random().nextInt(1000000),
         "rating": 5,
       }).then((_) {});
 
